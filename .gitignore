@@ -1,0 +1,7 @@
+.terraform/
+*.tfstate*
+*.tfvars
+.env
+measurements/results/*.raw
+*.mp4
+!docs/**/*.mp4
