@@ -1,6 +1,8 @@
 # atlas-resilience
 
 > Phase 5 of the Atlas Path. Proving systems fail well, not just run well.
+>
+> **Status: in progress.** Environment spike under way (see ADR-0003). Scenario results are added as each one is measured.
 
 ## Problem Statement
 <!-- Why resilience is a design property, not an ops afterthought -->
