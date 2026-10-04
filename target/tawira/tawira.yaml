@@ -1,0 +1,67 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: tawira
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tawira
+  namespace: tawira
+  labels:
+    app: tawira
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: tawira
+  template:
+    metadata:
+      labels:
+        app: tawira
+    spec:
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: topology.kubernetes.io/zone
+          whenUnsatisfiable: DoNotSchedule
+          labelSelector:
+            matchLabels:
+              app: tawira
+          matchLabelKeys:
+            - pod-template-hash
+      containers:
+        - name: tawira
+          image: tawira:chaos-local
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 3000
+          envFrom:
+            - secretRef:
+                name: tawira-env
+          # Placeholder: Tawira has no health route yet. TCP only proves the
+          # port is open, not that the app works. Replaced once the /healthz
+          # decision is made (its own ADR).
+          readinessProbe:
+            tcpSocket:
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          # Starting values only. Replace with measured numbers from the spike.
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              memory: 512Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tawira
+  namespace: tawira
+spec:
+  selector:
+    app: tawira
+  ports:
+    - port: 3000
+      targetPort: 3000

@@ -1,0 +1,6 @@
+# S5 before fix: no matchLabelKeys. Transcribed from terminal during the spike run.
+# worker=zone-a, worker2=zone-b, worker3=zone-c. Result: 2 / 1 / 0 (maxSkew 1 violated).
+NAME                      READY   STATUS    RESTARTS   AGE   IP           NODE
+tawira-7b86499f9c-82x2h   1/1     Running   0          74s   10.244.2.4   atlas-resilience-worker
+tawira-7b86499f9c-cjj6x   1/1     Running   0          80s   10.244.2.3   atlas-resilience-worker
+tawira-7b86499f9c-tnsmz   1/1     Running   0          87s   10.244.1.2   atlas-resilience-worker2

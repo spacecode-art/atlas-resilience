@@ -1,0 +1,6 @@
+kind v0.33.0 go1.26.7 linux/amd64
+NAME                             STATUS   ROLES           AGE   VERSION   ZONE
+atlas-resilience-control-plane   Ready    control-plane   63m   v1.37.0   
+atlas-resilience-worker          Ready    <none>          63m   v1.37.0   zone-a
+atlas-resilience-worker2         Ready    <none>          63m   v1.37.0   zone-b
+atlas-resilience-worker3         Ready    <none>          63m   v1.37.0   zone-c
