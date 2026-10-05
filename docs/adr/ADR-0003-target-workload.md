@@ -1,9 +1,8 @@
 # ADR-0003: Target Workload — Tawira on kind, Supabase CLI Stack on the Host
 
 ## Status
-Proposed. Becomes Accepted if the spike below passes, or is Superseded by
-the fallback if it fails. Either outcome gets recorded here, not silently
-swapped.
+Accepted (2026-10-05). All five spike criteria were evidenced; results and
+the findings the spike produced are recorded under Spike Results below.
 
 ## Date
 2026-10-03
@@ -95,6 +94,37 @@ format as `atlas-network` ADR-0006 to 0011); it is evidence, not an embarrassmen
 - The stateless tier (Tawira) gets genuine zone-failure experiments (SC-01);
   the stateful tier does not. This asymmetry is a limit of the local
   environment and is recorded in `docs/architecture/failure-domains.md`.
-- A seventh scenario, SC-07 (third-party dependency failure: Brevo,
-  Paystack, M-Pesa), is added because those calls already carry explicit
-  timeouts worth testing.
+- A seventh scenario, SC-07 (third-party dependency failure), is added
+  because Tawira's outbound calls to external services (an email relay on
+  the signup path, a payments provider) carry explicit timeouts worth
+  testing. The exact dependency list is re-verified against the code
+  before SC-07 is designed.
+
+## Spike Results (2026-10-05)
+
+| Criterion | Result | Evidence |
+|---|---|---|
+| S1 image boots on kind | Passed | `docs/evidence/spike/s1-cluster.txt` |
+| S2 login end to end | Passed (login, onboarding, dashboard) | `docs/evidence/spike/s2-pod-logs.txt` |
+| S3 traces reach the Collector | Passed: 415 spans accepted and 415 sent to Tempo, 0 send failures | `docs/evidence/spike/s3-collector-counters.txt` |
+| S4 headroom with all stacks running | Passed: peak host memory used 14,338 MiB of 23,841 MiB (60%), minimum available 9,502 MiB, swap flat at 42 MiB across six samples | `docs/evidence/spike/s4-resources.txt` |
+| S5 replicas spread across zones | Passed after a fix | `docs/evidence/spike/s5-before.txt`, `s5-after.txt` |
+
+Findings the spike produced:
+
+- **Rolling updates broke the zone spread** (2/1/0 despite `maxSkew: 1`).
+  `matchLabelKeys: [pod-template-hash]` gave 1/1/1 on the next rollout.
+  The cause is a hypothesis; the fix was verified once.
+- **A restored local database lagged the code** by several weeks of
+  migrations, so onboarding failed on a missing function. Bring-up now
+  applies migrations explicitly (`supabase migration up --local`).
+- **Signup cannot complete in this environment.** It sends its code
+  through an external email relay on the server, and third-party
+  production secrets are deliberately not placed in the cluster. S2 used a
+  confirmed user created directly in the local Supabase instead.
+- **The server accepted the new secret-key format.** Onboarding writes go
+  through the pod's service credentials and succeeded.
+
+Limits: S4 is six samples over about a minute with a single user, a
+snapshot rather than a load test, and host memory includes processes
+outside the stack (the container total was about 3.9 GiB at the peak).

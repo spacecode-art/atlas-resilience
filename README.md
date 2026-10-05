@@ -181,6 +181,7 @@ proven by the spike.
 ```bash
 # 1. Supabase (in the Tawira checkout). Note the publishable and secret keys.
 npx supabase start
+npx supabase migration up --local   # a restored local DB can lag the code
 npx supabase status
 
 # 2. Cluster (in this repo)
@@ -213,19 +214,18 @@ until the `rollout restart` picks it up. Expected, not a fault.
 ## Current Status
 
 **Built:**
-- ADR-0001 to ADR-0003. ADR-0003 is **Proposed** and stays so until
-  every spike criterion is evidenced
+- ADR-0001 to ADR-0003, all Accepted. ADR-0003's environment spike passed
+  all five criteria (results in the ADR)
 - Three-zone kind cluster (Kubernetes v1.37.0 node image): one control
   plane and three workers carrying `zone-a`/`zone-b`/`zone-c` labels,
   confirmed with `kubectl get nodes -L topology.kubernetes.io/zone`
-- Tawira built locally from its Dockerfile, loaded into the cluster,
-  and running as three replicas, one per zone (spike S1, S5; evidence in
-  [`docs/evidence/spike/`](docs/evidence/spike/))
+- Tawira built locally from its Dockerfile, loaded into the cluster, and
+  running as three replicas, one per zone. Login, onboarding, and the
+  dashboard work end to end; traces, metrics, and logs reach the Phase 3
+  stack; all stacks fit on the development machine without swapping
+  (evidence in [`docs/evidence/spike/`](docs/evidence/spike/))
 
 **Not yet built, tracked honestly:**
-- Spike S2 (login end to end against host Supabase), S3 (traces from
-  the pod reach the Collector), S4 (resource headroom with every stack
-  running at once)
 - Chaos Mesh installation, every experiment, runbook, and measured
   RTO/RPO result
 - A Tawira health endpoint (readiness is currently a TCP probe on the
@@ -266,7 +266,7 @@ created by this repo.
 |---|---|---|
 | 0001 | Local kind cluster as the failure domain | Accepted |
 | 0002 | Chaos Mesh for in-cluster faults, scripted host faults for the rest | Accepted |
-| 0003 | Tawira on kind, Supabase CLI stack on the host | Proposed (pending spike S2-S4) |
+| 0003 | Tawira on kind, Supabase CLI stack on the host | Accepted |
 
 ---
 
@@ -320,7 +320,7 @@ already known from this repo's own setup:
 | Chaos Mesh holds powerful cluster permissions and ships a dashboard | Elevation of Privilege | Mitigation specified in ADR-0002: pinned version, dashboard not exposed beyond localhost |
 | The Supabase CLI stack binds all services to `0.0.0.0`, and Studio and pgMeta have no authentication (stated in the CLI's own output) | Information Disclosure | Accepted risk for local-only use; run on a trusted network or firewall ports 54321-54324 |
 | The local image is built outside the Phase 2 signing chain | Tampering | Stated in ADR-0003; image is never pushed |
-| Supabase and Brevo/Paystack credentials needed to run the target | Information Disclosure | `.env` is gitignored; secrets enter the cluster via a Kubernetes Secret created from the local file |
+| Credentials needed to run the target (local Supabase keys only; no third-party production secrets are used) | Information Disclosure | `.env` is gitignored; secrets enter the cluster via a Kubernetes Secret created from the local file |
 
 ---
 
@@ -380,8 +380,9 @@ zone-spread skew documented under Findings So Far.
 
 ## Future Roadmap
 
-- Complete spike S2 to S4, then move ADR-0003 to Accepted, or to a
-  fallback if the environment cannot hold the workload
+- Confirm the Golden Signals dashboard populates under traffic from the
+  containerized workload before relying on it as the steady-state
+  instrument
 - ADR for a Tawira health endpoint (liveness should not depend on the
   database, or a database outage restarts every pod)
 - Install Chaos Mesh with a pinned version and record the install
