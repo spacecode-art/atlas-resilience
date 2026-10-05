@@ -20,3 +20,7 @@ follows [Keep a Changelog](https://keepachangelog.com/).
 - `docs(readme)`: README rewritten to the Atlas standard
 - `chore`: removed empty scaffold placeholder files; each returns when
   it has content
+- `docs(evidence)`: spike S2, S3, and S4 results; ADR-0003 accepted with
+  results and findings recorded
+- `docs`: README synced with the accepted spike; deployment guide gains
+  the migration step
