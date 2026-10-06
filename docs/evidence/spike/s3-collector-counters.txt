@@ -1,0 +1,19 @@
+# S3: telemetry from the in-cluster Tawira pods reaches the Phase 3 stack
+2026-10-05T14:39:35+03:00
+# Collector restarted after a planned host reboot; counters are since then
+## pod OTEL env
+OTEL_EXPORTER_OTLP_ENDPOINT=http://172.21.0.1:4318
+OTEL_SERVICE_NAME=atlas-demo-api
+## collector accepted (OTLP receiver)
+otelcol_receiver_accepted_log_records{receiver="otlp",service_name="otelcol-contrib",service_version="0.106.0",transport="http"} 5
+otelcol_receiver_accepted_metric_points{receiver="otlp",service_name="otelcol-contrib",service_version="0.106.0",transport="http"} 226676
+otelcol_receiver_accepted_spans{receiver="otlp",service_name="otelcol-contrib",service_version="0.106.0",transport="http"} 415
+## collector exporter sent / failed
+otelcol_exporter_send_failed_log_records{exporter="loki",service_name="otelcol-contrib",service_version="0.106.0"} 0
+otelcol_exporter_send_failed_metric_points{exporter="prometheus",service_name="otelcol-contrib",service_version="0.106.0"} 0
+otelcol_exporter_send_failed_spans{exporter="otlp/tempo",service_name="otelcol-contrib",service_version="0.106.0"} 0
+otelcol_exporter_sent_log_records{exporter="loki",service_name="otelcol-contrib",service_version="0.106.0"} 5
+otelcol_exporter_sent_metric_points{exporter="prometheus",service_name="otelcol-contrib",service_version="0.106.0"} 226676
+otelcol_exporter_sent_spans{exporter="otlp/tempo",service_name="otelcol-contrib",service_version="0.106.0"} 415
+## tempo service names
+{"tagValues":["atlas-demo-api"]}

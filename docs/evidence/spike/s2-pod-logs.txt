@@ -1,0 +1,52 @@
+[pod/tawira-5b896f48fc-bk57g/tawira] ➜ Listening on: http://localhost:3000/ (all interfaces)
+[pod/tawira-5b896f48fc-q456p/tawira]     at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+[pod/tawira-5b896f48fc-q456p/tawira]     at async sendOtpEmail (file:///app/.output/server/_ssr/email-otp.functions-BqnT12lI.mjs:20:9)
+[pod/tawira-5b896f48fc-q456p/tawira]     at async Object.serverFn (file:///app/.output/server/_ssr/email-otp.functions-BqnT12lI.mjs:91:2)
+[pod/tawira-5b896f48fc-q456p/tawira]     at async server (file:///app/.output/server/_ssr/esm-B50dUWcE.mjs:251:20)
+[pod/tawira-5b896f48fc-q456p/tawira]     at async callNextMiddleware (file:///app/.output/server/_ssr/esm-B50dUWcE.mjs:179:20)
+[pod/tawira-5b896f48fc-q456p/tawira]     at async AsyncFunction.__executeServer (file:///app/.output/server/_ssr/esm-B50dUWcE.mjs:123:13)
+[pod/tawira-5b896f48fc-q456p/tawira]     at async file:///app/.output/server/_ssr/server-B6O44zT8.mjs:261:12
+[pod/tawira-5b896f48fc-q456p/tawira]     at async file:///app/.output/server/_ssr/server-B6O44zT8.mjs:231:14
+[pod/tawira-5b896f48fc-q456p/tawira]     at async handleServerAction (file:///app/.output/server/_ssr/server-B6O44zT8.mjs:229:9) {
+[pod/tawira-5b896f48fc-q456p/tawira]   [cause]: TypeError: Invalid URL
+[pod/tawira-5b896f48fc-q456p/tawira]       at new URL (node:internal/url:818:25)
+[pod/tawira-5b896f48fc-q456p/tawira]       at new Request (node:internal/deps/undici/undici:9926:25)
+[pod/tawira-5b896f48fc-q456p/tawira]       at fetch (node:internal/deps/undici/undici:10655:25)
+[pod/tawira-5b896f48fc-q456p/tawira]       at fetch (node:internal/deps/undici/undici:15268:10)
+[pod/tawira-5b896f48fc-q456p/tawira]       at fetch (node:internal/bootstrap/web/exposed-window-or-worker:75:12)
+[pod/tawira-5b896f48fc-q456p/tawira]       at sendOtpEmail (file:///app/.output/server/_ssr/email-otp.functions-BqnT12lI.mjs:20:15)
+[pod/tawira-5b896f48fc-q456p/tawira]       at Object.serverFn (file:///app/.output/server/_ssr/email-otp.functions-BqnT12lI.mjs:91:8)
+[pod/tawira-5b896f48fc-q456p/tawira]       at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+[pod/tawira-5b896f48fc-q456p/tawira]       at async server (file:///app/.output/server/_ssr/esm-B50dUWcE.mjs:251:20)
+[pod/tawira-5b896f48fc-q456p/tawira]       at async callNextMiddleware (file:///app/.output/server/_ssr/esm-B50dUWcE.mjs:179:20) {
+[pod/tawira-5b896f48fc-q456p/tawira]     code: 'ERR_INVALID_URL',
+[pod/tawira-5b896f48fc-q456p/tawira]     input: 'undefined'
+[pod/tawira-5b896f48fc-q456p/tawira]   }
+[pod/tawira-5b896f48fc-q456p/tawira] }
+[pod/tawira-5b896f48fc-q456p/tawira] Apps Script fetch failed: TypeError: Failed to parse URL from undefined
+[pod/tawira-5b896f48fc-q456p/tawira]     at node:internal/deps/undici/undici:15270:13
+[pod/tawira-5b896f48fc-q456p/tawira]     at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+[pod/tawira-5b896f48fc-q456p/tawira]     at async sendOtpEmail (file:///app/.output/server/_ssr/email-otp.functions-BqnT12lI.mjs:20:9)
+[pod/tawira-5b896f48fc-q456p/tawira]     at async Object.serverFn (file:///app/.output/server/_ssr/email-otp.functions-BqnT12lI.mjs:91:2)
+[pod/tawira-5b896f48fc-q456p/tawira]     at async server (file:///app/.output/server/_ssr/esm-B50dUWcE.mjs:251:20)
+[pod/tawira-5b896f48fc-q456p/tawira]     at async callNextMiddleware (file:///app/.output/server/_ssr/esm-B50dUWcE.mjs:179:20)
+[pod/tawira-5b896f48fc-q456p/tawira]     at async AsyncFunction.__executeServer (file:///app/.output/server/_ssr/esm-B50dUWcE.mjs:123:13)
+[pod/tawira-5b896f48fc-q456p/tawira]     at async file:///app/.output/server/_ssr/server-B6O44zT8.mjs:261:12
+[pod/tawira-5b896f48fc-q456p/tawira]     at async file:///app/.output/server/_ssr/server-B6O44zT8.mjs:231:14
+[pod/tawira-5b896f48fc-q456p/tawira]     at async handleServerAction (file:///app/.output/server/_ssr/server-B6O44zT8.mjs:229:9) {
+[pod/tawira-5b896f48fc-q456p/tawira]   [cause]: TypeError: Invalid URL
+[pod/tawira-5b896f48fc-q456p/tawira]       at new URL (node:internal/url:818:25)
+[pod/tawira-5b896f48fc-q456p/tawira]       at new Request (node:internal/deps/undici/undici:9926:25)
+[pod/tawira-5b896f48fc-q456p/tawira]       at fetch (node:internal/deps/undici/undici:10655:25)
+[pod/tawira-5b896f48fc-q456p/tawira]       at fetch (node:internal/deps/undici/undici:15268:10)
+[pod/tawira-5b896f48fc-q456p/tawira]       at fetch (node:internal/bootstrap/web/exposed-window-or-worker:75:12)
+[pod/tawira-5b896f48fc-q456p/tawira]       at sendOtpEmail (file:///app/.output/server/_ssr/email-otp.functions-BqnT12lI.mjs:20:15)
+[pod/tawira-5b896f48fc-q456p/tawira]       at Object.serverFn (file:///app/.output/server/_ssr/email-otp.functions-BqnT12lI.mjs:91:8)
+[pod/tawira-5b896f48fc-q456p/tawira]       at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+[pod/tawira-5b896f48fc-q456p/tawira]       at async server (file:///app/.output/server/_ssr/esm-B50dUWcE.mjs:251:20)
+[pod/tawira-5b896f48fc-q456p/tawira]       at async callNextMiddleware (file:///app/.output/server/_ssr/esm-B50dUWcE.mjs:179:20) {
+[pod/tawira-5b896f48fc-q456p/tawira]     code: 'ERR_INVALID_URL',
+[pod/tawira-5b896f48fc-q456p/tawira]     input: 'undefined'
+[pod/tawira-5b896f48fc-q456p/tawira]   }
+[pod/tawira-5b896f48fc-q456p/tawira] }
+[pod/tawira-5b896f48fc-b4l4t/tawira] ➜ Listening on: http://localhost:3000/ (all interfaces)
