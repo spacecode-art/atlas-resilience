@@ -38,6 +38,16 @@ spec:
           envFrom:
             - secretRef:
                 name: tawira-env
+          env:
+            # Distinct identity per replica so metric series do not collapse
+            # into one in Prometheus. POD_NAME must be defined before it is
+            # referenced below.
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: OTEL_RESOURCE_ATTRIBUTES
+              value: service.instance.id=$(POD_NAME)
           # Placeholder: Tawira has no health route yet. TCP only proves the
           # port is open, not that the app works. Replaced once the /healthz
           # decision is made (its own ADR).

@@ -1,0 +1,10 @@
+# BEFORE: 3 replicas, no per-pod telemetry identity
+2026-10-07T15:08:38+03:00
+NAME                      READY   STATUS    RESTARTS        AGE    IP           NODE                       NOMINATED NODE   READINESS GATES
+tawira-5b896f48fc-b4l4t   1/1     Running   5 (3h26m ago)   3d1h   10.244.3.2   atlas-resilience-worker3   <none>           <none>
+tawira-5b896f48fc-bk57g   1/1     Running   5 (3h26m ago)   3d1h   10.244.1.2   atlas-resilience-worker2   <none>           <none>
+tawira-5b896f48fc-q456p   1/1     Running   5 (3h26m ago)   3d1h   10.244.2.2   atlas-resilience-worker    <none>           <none>
+## count of a per-process gauge (expect 3 if pods were distinguishable)
+{"status":"success","data":{"resultType":"vector","result":[{"metric":{},"value":[1791374918.611,"1"]}]}}
+## series labels
+{"status":"success","data":[{"__name__":"nodejs_eventloop_utilization_ratio","exported_job":"atlas-demo-api","instance":"otel-collector:8889","job":"otel-collector"}]}

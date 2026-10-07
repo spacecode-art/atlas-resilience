@@ -139,7 +139,8 @@ atlas-resilience/
 ├── docs/
 │   ├── adr/                       # Architecture Decision Records
 │   ├── evidence/
-│   │   └── spike/                 # S1 and S5 spike evidence
+│   │   ├── spike/                 # environment spike evidence (S1 to S5)
+│   │   └── replica-identity/      # before/after for per-replica metric series
 │   ├── scenarios/                 # (not yet written) one doc per SC-ID
 │   ├── runbooks/                  # (not yet written) one runbook per SC-ID
 │   ├── gameday/                   # (not yet built) plan, timeline, roles
@@ -245,10 +246,27 @@ counted pods that were about to terminate. Adding
 `matchLabelKeys: [pod-template-hash]` produced a 1/1/1 spread on the
 next rollout ([evidence](docs/evidence/spike/s5-after.txt)).
 
-Caveats: the cause is a hypothesis that was not isolated further, and
-the fix was verified in a single run. It matters for SC-01 because a
-routine deploy could otherwise silently undo the zone spread the
-experiment relies on.
+Caveats: the cause is a hypothesis that was not isolated further. The
+fix gave 1/1/1 on two separate rollouts (the second during the
+replica-identity change,
+[evidence](docs/evidence/replica-identity/after.txt)). It matters for
+SC-01 because a routine deploy could otherwise silently undo the zone
+spread the experiment relies on.
+
+**Three replicas produced one metric series.** All pods reported the
+same resource attributes, so `nodejs_eventloop_utilization_ratio` was a
+single series with three pods running
+([before](docs/evidence/replica-identity/before.txt)). Setting
+`service.instance.id` from the pod name through the downward API gave
+three series distinguished by `exported_instance`
+([after](docs/evidence/replica-identity/after.txt)). The label is
+`exported_instance` rather than `instance` because Prometheus already
+sets `instance` to the scrape target. Without this, per-replica rates
+and any "which pod is saturated" question were unanswerable, which would
+have undermined SC-01 detection.
+
+Caveats: one run. The cause was inferred from the symptom; the fix is
+consistent with it, but the SDK path was not isolated further.
 
 ---
 
