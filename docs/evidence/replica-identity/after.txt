@@ -1,0 +1,12 @@
+# AFTER: POD_NAME and OTEL_RESOURCE_ATTRIBUTES set via the downward API
+2026-10-07T15:25:10+03:00
+NAME                      READY   STATUS    RESTARTS        AGE   IP           NODE                       NOMINATED NODE   READINESS GATES
+tawira-585cd56cb6-5sh8w   1/1     Running   1 (4m49s ago)   15m   10.244.3.2   atlas-resilience-worker3   <none>           <none>
+tawira-585cd56cb6-rk97s   1/1     Running   1 (4m49s ago)   15m   10.244.2.2   atlas-resilience-worker    <none>           <none>
+tawira-585cd56cb6-w6jbt   1/1     Running   1 (4m49s ago)   15m   10.244.1.2   atlas-resilience-worker2   <none>           <none>
+{"status":"success","data":{"resultType":"vector","result":[{"metric":{},"value":[1791375913.124,"3"]}]}}
+{"status":"success","data":[{"__name__":"nodejs_eventloop_utilization_ratio","exported_instance":"tawira-585cd56cb6-5sh8w","exported_job":"atlas-demo-api","instance":"otel-collector:8889","job":"otel-collector"},{"__name__":"nodejs_eventloop_utilization_ratio","exported_instance":"tawira-585cd56cb6-rk97s","exported_job":"atlas-demo-api","instance":"otel-collector:8889","job":"otel-collector"},{"__name__":"nodejs_eventloop_utilization_ratio","exported_instance":"tawira-585cd56cb6-w6jbt","exported_job":"atlas-demo-api","instance":"otel-collector:8889","job":"otel-collector"},{"__name__":"nodejs_eventloop_utilization_ratio","exported_job":"atlas-demo-api","instance":"otel-collector:8889","job":"otel-collector"}]}
+
+## follow-up: series with a sample in the last 2 minutes
+2026-10-07T15:33:58+03:00
+{"status":"success","data":[{"__name__":"nodejs_eventloop_utilization_ratio","exported_instance":"tawira-585cd56cb6-rk97s","exported_job":"atlas-demo-api","instance":"otel-collector:8889","job":"otel-collector"},{"__name__":"nodejs_eventloop_utilization_ratio","exported_instance":"tawira-585cd56cb6-w6jbt","exported_job":"atlas-demo-api","instance":"otel-collector:8889","job":"otel-collector"},{"__name__":"nodejs_eventloop_utilization_ratio","exported_instance":"tawira-585cd56cb6-5sh8w","exported_job":"atlas-demo-api","instance":"otel-collector:8889","job":"otel-collector"}]}
