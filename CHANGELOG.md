@@ -24,3 +24,7 @@ follows [Keep a Changelog](https://keepachangelog.com/).
   results and findings recorded
 - `docs`: README synced with the accepted spike; deployment guide gains
   the migration step
+- `fix(target)`: per-replica telemetry identity via the downward API
+  (`OTEL_RESOURCE_ATTRIBUTES=service.instance.id=$(POD_NAME)`). Before:
+  three pods produced one metric series. After: three series, labeled
+  `exported_instance`. Evidence in `docs/evidence/replica-identity/`
