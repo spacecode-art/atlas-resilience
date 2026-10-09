@@ -270,6 +270,17 @@ consistent with it, but the SDK path was not isolated further.
 
 ---
 
+**Three replicas collapsed into one metric series (ADR-0004).** Telemetry
+pushed through the Collector carried no per-pod identity, so
+`count(nodejs_eventloop_utilization_ratio)` returned 1 with three pods
+running. Setting `service.instance.id` from the pod name gave 3, with
+the pod name in the `exported_instance` label
+([evidence](docs/evidence/replica-identity/)). Caveats: one metric used as
+the probe, and dashboard panels that group by `exported_job` still need
+updating in `atlas-observability`.
+
+---
+
 ## Cost Model
 
 **$0 spent.** kind, Chaos Mesh, Supabase CLI, and the Phase 3 stack are
@@ -285,6 +296,7 @@ created by this repo.
 | 0001 | Local kind cluster as the failure domain | Accepted |
 | 0002 | Chaos Mesh for in-cluster faults, scripted host faults for the rest | Accepted |
 | 0003 | Tawira on kind, Supabase CLI stack on the host | Accepted |
+| 0004 | Per-replica telemetry identity (`service.instance.id`) | Accepted |
 
 ---
 
