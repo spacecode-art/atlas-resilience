@@ -10,3 +10,7 @@ tawira-585cd56cb6-w6jbt   1/1     Running   1 (4m49s ago)   15m   10.244.1.2   a
 ## follow-up: series with a sample in the last 2 minutes
 2026-10-07T15:33:58+03:00
 {"status":"success","data":[{"__name__":"nodejs_eventloop_utilization_ratio","exported_instance":"tawira-585cd56cb6-rk97s","exported_job":"atlas-demo-api","instance":"otel-collector:8889","job":"otel-collector"},{"__name__":"nodejs_eventloop_utilization_ratio","exported_instance":"tawira-585cd56cb6-w6jbt","exported_job":"atlas-demo-api","instance":"otel-collector:8889","job":"otel-collector"},{"__name__":"nodejs_eventloop_utilization_ratio","exported_instance":"tawira-585cd56cb6-5sh8w","exported_job":"atlas-demo-api","instance":"otel-collector:8889","job":"otel-collector"}]}
+
+## follow-up: series with a sample in the last 2 minutes
+2026-10-07T15:45:53+03:00
+{"status":"success","data":[{"__name__":"nodejs_eventloop_utilization_ratio","exported_instance":"tawira-585cd56cb6-rk97s","exported_job":"atlas-demo-api","instance":"otel-collector:8889","job":"otel-collector"},{"__name__":"nodejs_eventloop_utilization_ratio","exported_instance":"tawira-585cd56cb6-w6jbt","exported_job":"atlas-demo-api","instance":"otel-collector:8889","job":"otel-collector"},{"__name__":"nodejs_eventloop_utilization_ratio","exported_instance":"tawira-585cd56cb6-5sh8w","exported_job":"atlas-demo-api","instance":"otel-collector:8889","job":"otel-collector"}]}
