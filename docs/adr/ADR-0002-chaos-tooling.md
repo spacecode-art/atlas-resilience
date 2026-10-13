@@ -55,3 +55,19 @@ time and appended to this ADR as an amendment, rather than guessed here.
 - SC-02 (database failure) is only partly expressible as a CRD, since the
   database is on the host. This split is documented in the scenario doc, not
   hidden.
+
+---
+
+## Amendment 1 — Install verified (2026-10-13)
+
+- **Pin:** Helm chart `chaos-mesh` 2.8.3 (release 2026-06-10). 2.8.3 patches critical and high CVEs in the container images.
+- **Advisories:** JFrog "Chaotic Deputy" (CVE-2025-59358, -59359, -59360, -59361: an unauthenticated controller-manager debug server plus three OS command injections) is fixed in 2.7.3 per JFrog and the Go vulnerability database. 2.8.3 is later. Reviewed 2026-10-13.
+- **Runtime:** containerd, socket `/run/containerd/containerd.sock` (kind default). Confirmed in `docs/evidence/chaos-install/c1-install.txt`.
+- **Scope:** `controllerManager.enableFilterNamespace=true`. Only namespaces annotated `chaos-mesh.org/inject=enabled` are targetable (currently `tawira` only). Experiment CRDs therefore live in `tawira`.
+- **Dashboard:** ClusterIP, `securityMode=true`, reached only through `kubectl port-forward --address 127.0.0.1`. Unauthenticated access shows an RBAC token prompt and nothing else (`c1-dashboard-auth.png`).
+- **DNS chaos:** `dnsServer.create=true`, needed for SC-03.
+- **Residual risk:** `chaos-daemon` runs privileged on every worker by design. Threat model entry required.
+- **Config:** `chaos/install/values.yaml`.
+- **Install note:** images from ghcr.io took 2 to 3 minutes each to pull on this host. Use `--timeout 10m`; a 5-minute `--atomic` install rolls back silently.
+- **Verified:** smoke pod-kill inside `tawira` replaced one pod within 20s (`c2-smoke-pod-kill.txt`). An identical experiment aimed at `kube-system` was accepted but selected no targets and left CoreDNS untouched (`c3-filter-negative.txt`).
+- **Operational rule:** the namespace filter fails silently (the object is created, the event log says `no pod is selected`). Every experiment run must confirm `Selected` and `AllInjected` are `True` before its result is trusted.

@@ -1,0 +1,40 @@
+## before
+NAME                      READY   STATUS      RESTARTS       AGE     IP           NODE                       NOMINATED NODE   READINESS GATES
+tawira-7cc57dd969-4pphn   1/1     Running     6 (106m ago)   3d6h    10.244.1.2   atlas-resilience-worker    <none>           <none>
+tawira-7cc57dd969-dcdfg   1/1     Running     6 (106m ago)   3d6h    10.244.3.2   atlas-resilience-worker3   <none>           <none>
+tawira-7cc57dd969-jz6jj   1/1     Running     6 (106m ago)   3d6h    10.244.2.3   atlas-resilience-worker2   <none>           <none>
+tawira-curl               0/1     Completed   0              6h33m   <none>       atlas-resilience-worker3   <none>           <none>
+podchaos.chaos-mesh.org/smoke-pod-kill created
+## after
+NAME                      READY   STATUS      RESTARTS       AGE     IP           NODE                       NOMINATED NODE   READINESS GATES
+tawira-7cc57dd969-4pphn   1/1     Running     6 (107m ago)   3d6h    10.244.1.2   atlas-resilience-worker    <none>           <none>
+tawira-7cc57dd969-jz6jj   1/1     Running     6 (107m ago)   3d6h    10.244.2.3   atlas-resilience-worker2   <none>           <none>
+tawira-7cc57dd969-xxp7z   1/1     Running     0              20s     10.244.3.5   atlas-resilience-worker3   <none>           <none>
+tawira-curl               0/1     Completed   0              6h33m   <none>       atlas-resilience-worker3   <none>           <none>
+## experiment
+    Type:    AllInjected
+    Status:  False
+    Type:    AllRecovered
+    Status:  False
+    Type:    Paused
+  Experiment:
+    Container Records:
+      Events:
+        Operation:      Apply
+        Timestamp:      2026-10-13T17:18:36Z
+        Type:           Succeeded
+      Id:               tawira/tawira-7cc57dd969-dcdfg
+      Injected Count:   1
+      Phase:            Injected
+      Recovered Count:  0
+      Selector Key:     .
+    Desired Phase:      Run
+Events:
+  Type    Reason           Age   From            Message
+  ----    ------           ----  ----            -------
+  Normal  FinalizerInited  21s   initFinalizers  Finalizer has been inited
+  Normal  Updated          21s   initFinalizers  Successfully update finalizer of resource
+  Normal  Updated          21s   desiredphase    Successfully update desiredPhase of resource
+  Normal  Applied          20s   records         Successfully apply chaos for tawira/tawira-7cc57dd969-dcdfg
+  Normal  Updated          20s   records         Successfully update records of resource
+podchaos.chaos-mesh.org "smoke-pod-kill" deleted
