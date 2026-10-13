@@ -1,0 +1,27 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: loadgen
+  namespace: tawira
+spec:
+  backoffLimit: 0
+  ttlSecondsAfterFinished: 3600
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: loadgen
+          # Reuses the Tawira image only because it ships Node 22.
+          image: tawira:chaos-local
+          imagePullPolicy: Never
+          command: ["node", "/scripts/loadgen.mjs"]
+          envFrom:
+            - secretRef:
+                name: loadgen-env
+          volumeMounts:
+            - name: script
+              mountPath: /scripts
+      volumes:
+        - name: script
+          configMap:
+            name: loadgen-script

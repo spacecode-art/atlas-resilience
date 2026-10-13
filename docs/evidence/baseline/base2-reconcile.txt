@@ -1,0 +1,20 @@
+# Baseline base2: 5 RPS x 600 s, open-loop, 3 Tawira replicas
+recorded: 2026-10-13T11:51:24Z
+
+## client summary
+{"summary":true,"run":"base2","sent":3000,"http200":3000,"non200":0,"p50_ms":97,"p95_ms":410,"p99_ms":761}
+
+## ledger (client 200s vs database)
+ db_rows | distinct_tags 
+---------+---------------
+    3000 |          3000
+(1 row)
+
+client 200s: 3000
+
+## stock
+ count |    sum     
+-------+------------
+    20 | 196988.000
+(1 row)
+
