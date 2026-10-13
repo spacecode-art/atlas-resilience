@@ -1,0 +1,17 @@
+# Chaos Mesh 2.8.3 on kind. Hardening rationale: ADR-0002 amendment.
+controllerManager:
+  replicaCount: 1                 # single-host test bed
+  enableFilterNamespace: true     # only namespaces annotated chaos-mesh.org/inject=enabled are targetable
+
+chaosDaemon:
+  runtime: containerd             # kind nodes run containerd
+  socketPath: /run/containerd/containerd.sock
+
+dashboard:
+  create: true
+  securityMode: true
+  service:
+    type: ClusterIP               # never NodePort/LoadBalancer; access via port-forward on 127.0.0.1 only
+
+dnsServer:
+  create: true                    # required for DNSChaos (SC-03)
