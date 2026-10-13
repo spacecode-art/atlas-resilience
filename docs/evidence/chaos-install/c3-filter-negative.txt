@@ -1,0 +1,36 @@
+podchaos.chaos-mesh.org/smoke-pod-kill created
+## coredns after
+NAME                       READY   STATUS    RESTARTS       AGE
+coredns-54fd955fd8-gmsc8   1/1     Running   6 (109m ago)   3d6h
+coredns-54fd955fd8-kg9f9   1/1     Running   6 (109m ago)   3d6h
+## experiment
+Status:
+  Conditions:
+    Status:  False
+    Type:    AllRecovered
+    Status:  False
+    Type:    Paused
+    Status:  False
+    Type:    Selected
+    Status:  False
+    Type:    AllInjected
+  Experiment:
+    Desired Phase:  Run
+Events:
+  Type     Reason           Age   From            Message
+  ----     ------           ----  ----            -------
+  Normal   FinalizerInited  52s   initFinalizers  Finalizer has been inited
+  Normal   Updated          52s   initFinalizers  Successfully update finalizer of resource
+  Normal   Updated          52s   desiredphase    Successfully update desiredPhase of resource
+  Warning  Failed           52s   records         Failed to select targets: no pod is selected
+  Warning  Failed           52s   records         Failed to select targets: no pod is selected
+## filter flag
+          value: app.kubernetes.io/component:webhook
+        - name: ENABLE_FILTER_NAMESPACE
+          value: "true"
+## ns annotations
+NAME          INJECT
+tawira        enabled
+default       <none>
+kube-system   <none>
+podchaos.chaos-mesh.org "smoke-pod-kill" deleted

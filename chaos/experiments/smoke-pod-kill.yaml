@@ -1,0 +1,15 @@
+# Smoke test only. Proves Chaos Mesh can act inside the opted-in `tawira` namespace.
+# Not a scenario: no load, no hypothesis. Real experiments start at SC-01.
+apiVersion: chaos-mesh.org/v1alpha1
+kind: PodChaos
+metadata:
+  name: smoke-pod-kill
+  namespace: tawira
+spec:
+  action: pod-kill
+  mode: one
+  gracePeriod: 0
+  selector:
+    namespaces: [tawira]
+    labelSelectors:
+      app: tawira

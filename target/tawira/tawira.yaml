@@ -2,6 +2,8 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: tawira
+  annotations:
+    chaos-mesh.org/inject: "enabled"   # opt-in: Chaos Mesh can only act inside this namespace
 ---
 apiVersion: apps/v1
 kind: Deployment
