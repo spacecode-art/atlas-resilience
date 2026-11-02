@@ -9,11 +9,11 @@
 Systems are usually shown running and rarely shown failing. "Highly
 available" is an assertion until someone kills a zone, partitions the
 database, or expires a certificate and measures what happens. Atlas
-Resilience does that deliberately. Each failure scenario is designed on
-paper, injected into a real application on a local zone-labeled
-Kubernetes cluster, observed through the Phase 3 observability stack, and
-written up with measured detection and recovery times, whether or not the
-system behaved the way the design said it would.
+Resilience does that deliberately. Scenarios declare hypotheses and targets
+before injection. Completed runs
+preserve client outcomes, database reconciliation and Phase 3 telemetry,
+including failed hypotheses. The status table distinguishes measured runs
+from designs that have not been exercised.
 
 ## A note on anonymization
 
@@ -55,6 +55,13 @@ evidence.
   other Atlas repositories
 
 ---
+
+## Phase 5 progress
+
+The [roadmap checklist](docs/phase-5-status.md) maps each required deliverable
+to its evidence and remaining work. SC-01 has one measured local run. SC-02 is
+fixture-tested with an explicit runner; its live fault, DNS/certificate
+designs and the recorded Game Day remain open. Designs, fixture tests and live observations have separate status.
 
 ## Failure Scenarios
 
@@ -135,7 +142,7 @@ atlas-resilience/
 ├── chaos/                         # Chaos Mesh 2.8.3 install values + smoke experiment
 ├── load/                          # open-loop sale generator + result validator
 ├── measurements/                  # windows.mjs analyzer + per-run results
-├── scripts/                       # sc01-zone-loss.sh, check-pod-cidrs.sh
+├── scripts/                       # SC-01/SC-02 runners and pod-CIDR check
 ├── terraform/                     # (not yet built) AWS reference design, plan-only
 ├── docs/
 │   ├── adr/                       # Architecture Decision Records
@@ -252,7 +259,9 @@ kubectl -n tawira create configmap loadgen-script \
   ([evidence](docs/evidence/chaos-install/), ADR-0002 amendment)
 - SC-01: one valid local run, 60 s sale RTO, no acknowledged sales missing;
   earlier invalid attempts retained with the result validator and gated harness
-- SC-01 verdicts, postmortem and runbook; SC-02 scenario and runbook prepared;
+- SC-01 verdicts, postmortem and runbook; SC-02 runner, scenario and runbook
+  fixture-tested; the live check currently rejects stale generator code, and
+  smoke/fault remain unrun;
   SC-05/SC-06 tabletop designs and Game Day plan written, not executed
 
 **Not yet built, tracked honestly:**
@@ -326,9 +335,11 @@ Nothing here is marked done because a manifest applied cleanly. The S5
 finding is the proof of why: the manifest looked correct and the
 placement was wrong, and only observing the running cluster showed it.
 
-- **Harness regression checks.** `node --test tests/sc01-harness.test.mjs`
-  tests real/error response classification, failed node recovery, changed node
-  IP and invalid measurement rejection without injecting faults.
+- **Harness regression checks.** `node --test tests/*.test.mjs` tests real/error
+  response classification, the absolute request deadline, control rejection,
+  incomplete measurement data, both recovery anchors, ledger UUID matching,
+  local DB selection and restoration failures. Tests use local HTTP fixtures
+  and command stubs; they do not start a cluster or stop a database.
 - **Experiment template.** Every scenario states hypothesis, steady
   state (measured from the Phase 3 Golden Signals), blast radius,
   abort condition, result, and follow-up before it runs.
@@ -392,7 +403,7 @@ fault; it has not been executed. Each runbook states what its alerts cover.
 [`.github/workflows/ci.yml`](.github/workflows/ci.yml) runs on every PR
 and push to `main`. Secrets scanning consumes `atlas-security`'s reusable
 `reusable-secrets-scan.yml` (pinned to `v1.0.4`). A separate Node 22 job runs
-`node --test tests/sc01-harness.test.mjs` using fixtures and command stubs;
+`node --test tests/*.test.mjs` using fixtures and command stubs;
 it does not start a cluster or inject faults. Dependabot tracks GitHub Actions.
 
 **Deliberately not yet in CI:** manifest validation, YAML linting, and
@@ -411,7 +422,8 @@ run by hand and are not CI-gated by design.
   browser bundle, and the Dockerfile states that server-only secrets
   must never be passed as build arguments.
 - **No SAST/dependency scanning of Tawira here.** It is scanned in
-  `atlas-security`; this repo deploys it and adds only manifests.
+  `atlas-security`; this repo contains the deployment, load generator, fault
+  runners and measurement tools, rather than the application source.
 
 ---
 

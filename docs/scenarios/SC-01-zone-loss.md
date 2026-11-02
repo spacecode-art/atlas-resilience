@@ -139,19 +139,24 @@ fixed-window `dashboard-run.png` (17:45:56–18:05:11 Africa/Nairobi). Image pro
 were Running, and the load Job was Completed at the end.
 
 ## Hypothesis verdicts (`sc01c3`, one local run)
-
-| ID | Verdict | Evidence and limits |
+| ID | Verdict | Evidence |
 |---|---|---|
-| H1 | Supported | 70 failures versus predicted 67–100; first two windows failed 44/150 and 26/150, both below one third. Last failure sent at +44 s; two endpoints first sampled at +53 s. No failure beyond 120 s. |
-| H2 | Recorded (no directional prediction) | 45 ~30 s timeouts, 24 EHOSTUNREACH, 1 ECONNREFUSED. Both slow and fast failures occurred. |
-| H3 | Supported as an observation | Replacement Pending at 14:54:17Z, while worker was absent; capacity returned only after restore. Scheduling mechanism remains an inference without a scheduler trace; ADR-0005 prepares a comparison. |
-| H4 | Supported | RTO 60 s at 30 s resolution, below the 120 s target. Full replica restoration was first sampled at +500 s and is a separate metric. |
-| H5 | No-firing prediction supported; broad invisibility claim narrowed | No firing series; pre-existing HighLatencyP99 pending state cleared. This does not prove every short zone outage is invisible. F-01 records the client/5xx coverage gap and an unvalidated remediation. |
-| H6 | Supported for this run | Zero duplicate tags, lost responses and missing/mismatched acknowledged sales. The newer image supports request IDs; the generator did not retry, so retry safety is not established. |
+| H1 | Not refuted | 70 failures, inside the predicted 67 to 100. Failure send times 0 to 44 s. Worst 30 s window 44/150 (29.3%), under one third. |
+| H2 | Recorded | 45 timeouts at about 30,000 ms (the generator's 30 s timeout), 24 fast `EHOSTUNREACH`, 1 `ECONNREFUSED`. Both failure modes occur. |
+| H3 | Not refuted | Original pod sampled Terminating and replacement Pending at +5 m 51 s. The scheduling mechanism is an inference; no scheduler trace was captured. Ready endpoints stayed at 2 until the +500 s sample, after restore. Node NotReady was first sampled at +53 s, so the 300 s toleration is confirmed only to sampling resolution. |
+| H4 | Met | RTO 60 s against the 120 s target. Full 3/3 restore is separate: first sampled at +500 s, after the node returned. |
+| H5 | No-firing prediction not refuted | No firing series. `HighLatencyP99` was already pending before the fault. This supports a coverage finding for this run, not a claim that all brief outages are invisible. |
+| H6 | Not refuted | 0 duplicates, 0 lost responses, 0 acknowledged sales missing. |
 
-[Postmortem](../postmortems/SC-01-zone-loss.md),
-[detection finding F-01](../findings/F-01-sale-detection-gap.md), and
-[placement ADR-0005](../adr/ADR-0005-zone-loss-placement-and-eviction.md).
+Findings:
+- **F1: degraded capacity was invisible.** Client failures ended by +44 s; two ready endpoints were sampled from +53 s until three were sampled at +500 s. No firing series covered this roughly 7.5-minute sampled capacity loss. The existing error-rate and latency rules do not directly measure replica redundancy. This is a rule-reading inference; review capacity coverage in `atlas-observability` before relying on it.
+- **F2: capacity stayed at 2/3.** The replacement stayed Pending until the node returned. Strict `DoNotSchedule` spread with `maxSkew: 1` is the inferred cause; no scheduler trace isolated it. See ADR-0005 for the proposed comparison.
+- **F3: pre-fault `HighLatencyP99` was pending.** Control p99 was 1,755 ms. The rule uses a 5-minute server histogram, while 1,755 ms is a client control percentile. Compare their time ranges and populations before attributing the pending state to the fault.
+
+One run, local environment. These are observations, not availability-zone timings.
+See the [postmortem](../postmortems/SC-01-zone-loss.md),
+[detection finding](../findings/F-01-sale-detection-gap.md), and
+[ADR-0005](../adr/ADR-0005-zone-loss-placement-and-eviction.md).
 
 ## Limits of this environment
 Zones are node labels on one host (`slo-rto-rpo.md` section 6). The control plane is a single node

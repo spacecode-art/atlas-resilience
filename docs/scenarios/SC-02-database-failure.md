@@ -1,7 +1,7 @@
 # SC-02: Local database unavailable, then restored
 
 ## Status
-Prepared 2026-11-02. **Not run.** No detection or recovery result is claimed.
+Runner and measurement tools fixture-tested 2026-11-02. **Not run against the live stack.** No detection or recovery result is claimed.
 Run only in a dedicated local session after the [runbook](../runbooks/SC-02-database-failure.md)
 preflight. Keep these predictions and the original targets visible after execution.
 
@@ -39,12 +39,14 @@ claiming the unused margin is observation. Hold time is measured after stop.
 | H6 | For a continuously qualifying current rule, proposed MTTD is <=420 s from fault. | No firing alert by +420 s despite sustained sale failure; identify whether the expression qualified before blaming hold time. |
 
 Do not change these targets after viewing the result. Record both fault-relative
-and DB-ready-relative offsets; `windows.mjs` currently reports fault-relative
-RTO only. Keep the exact database-readiness event and calculate the second
-anchor explicitly. `sc01c3` is a control reference, not evidence for SC-02.
+and DB-ready-relative offsets. `windows.mjs` uses the logged `DB_READY` event
+to calculate a second, independent 30 s grid; do not subtract rounded RTOs.
+Only complete observed windows establish recovery; incomplete logs are rejected. `sc01c3` is a control reference, not evidence for SC-02.
 
 ## Abort and recovery
-Manual operator required; no SC-02 watchdog is claimed. Abort on duplicates or
+An attended operator is required. `scripts/sc02-db-loss.mjs` automates the gate,
+stop/restore and sampled checks; SIGINT/SIGTERM and command failures after a stop
+attempt trigger restoration. Process/host loss can defeat cleanup. Abort on duplicates or
 acknowledged missing sales, host pressure, unexpected non-test data, loss of
 observability, the wrong fault target, or an unexpected application/cluster
 failure independent of the intended DB outage. Client failures during the
@@ -54,7 +56,11 @@ verify authenticated reads and validated writes, then confirm all replicas.
 
 ## Evidence and results
 Use a fresh ID such as `sc02a`. Save current image/migration identifiers,
-control and complete client logs, events (`FAULT`, `DB_READY`, restore), node
-and DB timelines, ledger and UUID reconciliation, full alert-state history,
+control and complete client logs, events (`FAULT`, `DB_READY`, restore), sampled
+pod/DB/alert timelines, ledger and UUID reconciliation, Prometheus query ranges,
 fixed-window dashboard, restarts before/after, and application errors.
-No fault, alert, MTTD, RTO, RPO or hypothesis verdict has been measured yet.
+The [runbook](../runbooks/SC-02-database-failure.md) documents explicit read-only
+check, 150-sale smoke and fault modes, captured files and manual recovery.
+Fixture checks cover preflight refusal, restoration failures, incomplete
+measurement rejection and UUID reconciliation. They are not live fault evidence.
+No SC-02 alert, MTTD, RTO, RPO or hypothesis verdict has been measured yet.

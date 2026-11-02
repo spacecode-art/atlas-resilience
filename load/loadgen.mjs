@@ -17,6 +17,10 @@ const RPS = Number(e.RPS ?? 1);
 const DURATION_S = Number(e.DURATION_S ?? 5);
 const RUN_ID = e.RUN_ID ?? Date.now().toString(36);
 
+if (!Number.isInteger(RPS) || RPS < 1 || !Number.isInteger(DURATION_S) || DURATION_S < 1 ||
+    !/^[a-z0-9]{1,16}$/.test(RUN_ID)) throw new Error("invalid RPS, DURATION_S or RUN_ID");
+if (new URL(TARGET).protocol !== "http:") throw new Error("local load generator requires an http TARGET_URL");
+
 async function getJson(url, init) {
   const r = await fetch(url, init);
   const text = await r.text();
@@ -69,6 +73,12 @@ const body = (tag, productId) =>
 function post(payload) {
   return new Promise((resolve) => {
     const t0 = performance.now();
+    const sentAt = new Date().toISOString();
+    let deadline;
+    const finish = result => {
+      clearTimeout(deadline);
+      resolve({ ...result, sent_ts: sentAt, ms: Math.round(performance.now() - t0) });
+    };
     const u = new URL(`${TARGET}/_serverFn/${FN_ID}`);
     const req = http.request(
       {
@@ -91,16 +101,18 @@ function post(payload) {
       (res) => {
         let b = "";
         res.on("data", (c) => { if (b.length < 1_000_000) b += c; });
-        res.on("end", () => resolve({
+        res.on("end", () => finish({
           status: res.statusCode, ms: Math.round(performance.now() - t0),
           ...saleResult(b), body: b.slice(0, 3000),
         }));
-        res.on("aborted", () => resolve({ status: 0, ok: false, ms: Math.round(performance.now() - t0), err: "response aborted" }));
-        res.on("error", (err) => resolve({ status: 0, ok: false, ms: Math.round(performance.now() - t0), err: err.message }));
+        res.on("aborted", () => finish({ status: 0, ok: false, ms: Math.round(performance.now() - t0), err: "response aborted" }));
+        res.on("error", (err) => finish({ status: 0, ok: false, ms: Math.round(performance.now() - t0), err: err.message }));
       },
     );
     req.on("timeout", () => req.destroy(new Error("timeout")));
-    req.on("error", (err) => resolve({ status: 0, ok: false, ms: Math.round(performance.now() - t0), err: err.message }));
+    req.on("error", (err) => finish({ status: 0, ok: false, ms: Math.round(performance.now() - t0), err: err.message }));
+    // An absolute deadline also bounds DNS/connect time; socket idle timeout alone does not.
+    deadline = setTimeout(() => req.destroy(new Error("timeout")), 30_000);
     req.end(payload);
   });
 }
@@ -120,7 +132,7 @@ await new Promise((done) => {
       results.push(r);
       r.ok = r.status === 200 && r.ok === true;
       const keepBody = idx === 0 || !r.ok;
-      console.log(JSON.stringify({ tag, ts: new Date().toISOString(), status: r.status, ok: r.ok, saleId: r.saleId, ms: r.ms, err: r.err, body: keepBody ? r.body : undefined }));
+      console.log(JSON.stringify({ tag, ts: new Date().toISOString(), sent_ts: r.sent_ts, status: r.status, ok: r.ok, saleId: r.saleId, ms: r.ms, err: r.err, body: keepBody ? r.body : undefined }));
     });
     inflight.add(p);
     p.finally(() => inflight.delete(p));
@@ -131,7 +143,7 @@ await Promise.all(inflight);
 const ok = results.filter((r) => r.ok).map((r) => r.ms).sort((a, b) => a - b);
 const pct = (q) => (ok.length ? ok[Math.min(ok.length - 1, Math.floor(q * ok.length))] : null);
 console.log(JSON.stringify({
-  summary: true, run: RUN_ID, sent: results.length,
+  summary: true, run: RUN_ID, rps: RPS, duration_s: DURATION_S, sent: results.length,
   http200: results.filter((r) => r.status === 200).length,
   non200: results.filter((r) => r.status !== 200).length,
   sales_ok: ok.length, failed: results.length - ok.length,

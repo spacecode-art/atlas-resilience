@@ -47,3 +47,19 @@ follows [Keep a Changelog](https://keepachangelog.com/).
   prepared only; no new fault, rehearsal or Game Day recording claimed.
 - `docs(security)`: optional disposable Cloudflare credentials, archive guidance
   and exclusion of workspace zip files.
+- `feat(sc02)`: explicit read-only check, ledger-verified smoke and attended DB
+  outage modes; local project/API/image/migration checks, control gate,
+  bounded stop/restore and cleanup on command failure or cancellation.
+  Fixture-tested only; no SC-02 live fault or result claimed.
+- `fix(measurements)`: reject incomplete/inconsistent logs and sparse windows;
+  exclude partial tails from establishing recovery, calculate DB-ready RTO on
+  its own grid, and compare acknowledged UUIDs with an exported read-only ledger.
+  Original SLO targets and SC-01's 60 s result are unchanged.
+- `fix(load)`: absolute 30 s request deadline bounds connect and trickling
+  responses; record send timestamps and planned load in the final summary.
+- `docs(review)`: correct ADR-0001's duplicated target-workload content,
+  consolidate SC-01 verdicts without strengthening the conclusions, and map
+  remaining Phase 5 deliverables to the Atlas roadmap.
+- `test(resilience)`: expand CI to 50 local fixture/stub regression checks;
+  fail pod-CIDR preflight on Kubernetes API errors rather than reporting OK.
+  Read-only live preflight correctly refuses the stale generator ConfigMap.

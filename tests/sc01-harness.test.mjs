@@ -60,13 +60,16 @@ function analyze(rows, extraEvent = '') {
   const dir = mkdtempSync(join(tmpdir(), 'atlas-windows-'));
   try {
     writeFileSync(join(dir, 'events.log'), `2026-11-02T00:00:00Z FAULT docker kill worker\n${extraEvent}`);
-    writeFileSync(join(dir, 'client.jsonl'), rows.map(JSON.stringify).join('\n'));
+    const ok = rows.filter(r => r.ok === true && r.status === 200).length;
+    const http200 = rows.filter(r => r.status === 200).length;
+    const summary = { summary: true, run: 'test', sent: rows.length, sales_ok: ok, failed: rows.length - ok, http200, non200: rows.length - http200 };
+    writeFileSync(join(dir, 'client.jsonl'), [...rows, summary].map(JSON.stringify).join('\n'));
     const env = { ...process.env };
     delete env.NODE_TEST_CONTEXT; // Run the analyzer as a CLI, outside the parent's test protocol.
     return spawnSync(process.execPath, [new URL('measurements/scripts/windows.mjs', root).pathname, dir], { encoding: 'utf8', env });
   } finally { rmSync(dir, { recursive: true }); }
 }
-const rows = Array.from({ length: 60 }, (_, i) => ({
+const rows = Array.from({ length: 90 }, (_, i) => ({
   tag: `lg-test-${i}`, ts: new Date(Date.UTC(2026, 10, 2) + i * 1000 + 100).toISOString(),
   ms: 100, status: 200, ok: i >= 30,
   ...(i >= 30 ? { saleId: '355d9ab9-541d-40da-a764-28dff1d8c525' } : {}),

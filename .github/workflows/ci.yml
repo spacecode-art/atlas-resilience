@@ -24,4 +24,4 @@ jobs:
         with:
           node-version: '22'
       - name: Check harness regressions (fixtures and command stubs only)
-        run: node --test tests/sc01-harness.test.mjs
+        run: node --test tests/*.test.mjs

@@ -114,21 +114,8 @@ phase control-observation "$((PRE_S - 15))"
 kubectl -n "$NS" logs job/loadgen > "$OUT/control.jsonl"
 [[ "$(kubectl -n "$NS" get pod -l job-name=loadgen -o jsonpath='{.items[0].status.phase}')" == "Running" ]] || die "loadgen exited during control; fault NOT injected"
 # Require baseline traffic volume, success SLO and latency SLO before touching the worker.
-node --input-type=module - "$OUT/control.jsonl" "$RPS" "$PRE_S" <<'JS' || die "steady-state control failed; fault NOT injected"
-import { readFileSync } from 'node:fs';
-const [file, rps, seconds] = process.argv.slice(2);
-const rows = readFileSync(file, 'utf8').split('\n').flatMap(line => {
-  try { const r = JSON.parse(line); return r.tag ? [r] : []; } catch { return []; }
-});
-const ok = rows.filter(r => r.status === 200 && r.ok === true && r.saleId);
-const latencies = ok.map(r => r.ms).sort((a, b) => a - b);
-const pct = q => latencies[Math.min(latencies.length - 1, Math.floor(q * latencies.length))];
-const minimum = Math.floor(Number(rps) * Number(seconds) * 0.9);
-const ratio = rows.length ? ok.length / rows.length : 0;
-const p95 = pct(0.95), p99 = pct(0.99);
-console.log(`control: sent=${rows.length} minimum=${minimum} ratio=${ratio} p95=${p95}ms p99=${p99}ms`);
-if (rows.length < minimum || ratio < 0.995 || !(p95 <= 1000) || !(p99 <= 2000)) process.exit(1);
-JS
+node measurements/scripts/control.mjs "$OUT/control.jsonl" "$RPS" "$PRE_S" \
+  > "$OUT/control-result.json" || die "steady-state control failed; fault NOT injected"
 log "CONTROL OK: traffic >=90% expected, success >=99.5%, p95 <=1s, p99 <=2s"
 
 # ---- experiment ----
