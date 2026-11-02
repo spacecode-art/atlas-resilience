@@ -22,6 +22,13 @@ spec:
       labels:
         app: tawira
     spec:
+      # tawira:chaos-local image USER verified: uid=100, gid=101.
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 100
+        runAsGroup: 101
+        seccompProfile:
+          type: RuntimeDefault
       topologySpreadConstraints:
         - maxSkew: 1
           topologyKey: topology.kubernetes.io/zone
@@ -33,6 +40,10 @@ spec:
             - pod-template-hash
       containers:
         - name: tawira
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
           image: tawira:chaos-local
           imagePullPolicy: Never
           ports:

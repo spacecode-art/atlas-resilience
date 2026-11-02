@@ -1,0 +1,1 @@
+Invalid smoke test: 150 HTTP 200 responses were application errors, not recorded sales. Found by sc01c2 ledger reconciliation. Sale-result validation has since been added.

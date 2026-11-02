@@ -1,0 +1,4 @@
+offset_s    sent    ok   ratio
+
+RTO: not recovered
+sent 0, non-200 0 {}

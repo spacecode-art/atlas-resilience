@@ -1,0 +1,11 @@
+2026-11-02T13:35:21Z LOAD started run=sc01c2 rps=5 duration=1110s node=atlas-resilience-worker2 ip=10.244.2.10
+2026-11-02T13:35:21Z PHASE steady-state (120s)
+2026-11-02T13:35:37Z PHASE control-observation (105s)
+2026-11-02T13:37:25Z CONTROL OK: traffic >=90% expected, success >=99.5%, p95 <=1s, p99 <=2s
+2026-11-02T13:37:25Z FAULT docker kill atlas-resilience-worker3 (zone zone-c)
+2026-11-02T13:37:26Z PHASE zone-down (480s)
+2026-11-02T13:45:28Z RESTORE docker start atlas-resilience-worker3
+2026-11-02T13:45:30Z NODE Ready
+2026-11-02T13:45:30Z NODE IP unchanged (172.21.0.3)
+2026-11-02T13:45:30Z PHASE recovery (480s)
+2026-11-02T13:53:56Z DONE. Next: ledger reconcile, then node measurements/scripts/windows.mjs measurements/results/sc01c2

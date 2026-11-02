@@ -1,0 +1,5 @@
+Tawira source commit: 605e59d (no tracked source changes)
+Local image: tawira:chaos-local
+Image ID: sha256:4ac9bec44e6ffd2ba4cbccb189890324456ba48cff36b48c39c00cf28a3f4205
+Reason: previous image called the six-argument process_sale RPC; current local database requires _discount. New image sends _discount, _amount_paid and _request_id.
+Database was not reset or downgraded.

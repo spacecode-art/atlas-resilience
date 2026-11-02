@@ -1,0 +1,2 @@
+[886313:886313:1102/180502.635964:ERROR:gpu/command_buffer/service/gles2_cmd_decoder_passthrough.cc:1210] []Automatic fallback to software WebGL has been deprecated. Please use the --enable-unsafe-swiftshader flag to opt in to lower security guarantees for trusted content.
+160893 bytes written to file /home/prime/Desktop/workspace/atlas-resilience/measurements/results/sc01c3/dashboard-run.png

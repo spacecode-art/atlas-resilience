@@ -1,4 +1,4 @@
--- Seed: 20 load-test products for the local "test-pharmacy shop".
+-- Seed: 20 load-test products for the local "test-pharmacy shop", and keep its trial open.
 -- Local environment only. Idempotent: skips SKUs that already exist.
 -- Run: docker exec -i "$DB" psql -U postgres < target/tawira/seed.sql
 INSERT INTO public.products
@@ -18,3 +18,11 @@ WHERE NOT EXISTS (
   WHERE p.shop_id = 'd841607b-9f0e-447b-998b-efec2e6d89e0'::uuid
     AND p.sku = 'LG-' || lpad(n::text, 3, '0')
 );
+
+-- Test shop only. is_account_usable() blocks every read for non-super-admin users once
+-- trial_ends_at + 5 days has passed, which silently starves the load generator.
+-- Keep the local trial open. Only moves the date forward; never shortens it.
+UPDATE public.shops
+SET trial_ends_at = now() + interval '365 days'
+WHERE id = 'd841607b-9f0e-447b-998b-efec2e6d89e0'::uuid
+  AND (trial_ends_at IS NULL OR trial_ends_at < now() + interval '180 days');

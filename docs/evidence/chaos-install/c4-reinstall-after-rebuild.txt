@@ -1,0 +1,17 @@
+NAME      	NAMESPACE 	REVISION	UPDATED                               	STATUS  	CHART           	APP VERSION
+chaos-mesh	chaos-mesh	1       	2026-11-02 15:22:56.25667134 +0300 EAT	deployed	chaos-mesh-2.8.3	2.8.3      
+NAME                             STATUS   ROLES           AGE     VERSION   INTERNAL-IP   EXTERNAL-IP   OS-IMAGE                       KERNEL-VERSION             CONTAINER-RUNTIME
+atlas-resilience-control-plane   Ready    control-plane   3h12m   v1.37.0   172.21.0.5    <none>        Debian GNU/Linux 13 (trixie)   7.1.5+kali-amd64 (amd64)   containerd://2.3.4
+atlas-resilience-worker          Ready    <none>          3h12m   v1.37.0   172.21.0.4    <none>        Debian GNU/Linux 13 (trixie)   7.1.5+kali-amd64 (amd64)   containerd://2.3.4
+atlas-resilience-worker2         Ready    <none>          3h12m   v1.37.0   172.21.0.2    <none>        Debian GNU/Linux 13 (trixie)   7.1.5+kali-amd64 (amd64)   containerd://2.3.4
+atlas-resilience-worker3         Ready    <none>          3h12m   v1.37.0   172.21.0.3    <none>        Debian GNU/Linux 13 (trixie)   7.1.5+kali-amd64 (amd64)   containerd://2.3.4
+NAME                                        READY   STATUS    RESTARTS   AGE   IP           NODE                       NOMINATED NODE   READINESS GATES
+chaos-controller-manager-5b947d9d74-jpllk   1/1     Running   0          24s   10.244.3.8   atlas-resilience-worker    <none>           <none>
+chaos-daemon-5tpk7                          1/1     Running   0          24s   10.244.1.5   atlas-resilience-worker3   <none>           <none>
+chaos-daemon-bbflp                          1/1     Running   0          24s   10.244.3.5   atlas-resilience-worker    <none>           <none>
+chaos-daemon-bw2x9                          1/1     Running   0          24s   10.244.2.5   atlas-resilience-worker2   <none>           <none>
+chaos-dashboard-558dc7bf6-fg2ms             1/1     Running   0          24s   10.244.3.6   atlas-resilience-worker    <none>           <none>
+chaos-dns-server-748b9477d7-8lftj           1/1     Running   0          24s   10.244.3.7   atlas-resilience-worker    <none>           <none>
+        - name: ENABLE_FILTER_NAMESPACE
+          value: "true"
+enabled

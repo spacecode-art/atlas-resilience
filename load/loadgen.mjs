@@ -4,6 +4,8 @@
 // Every request carries a unique tag in mpesaRef (method is cash) so that
 // sales can be counted in the database afterward: lost, duplicate, ambiguous.
 import http from "node:http";
+import { randomUUID } from "node:crypto";
+import { saleResult } from "./sale-result.mjs";
 
 const e = process.env;
 const SUPABASE_URL = e.SUPABASE_URL;
@@ -53,8 +55,8 @@ const body = (tag, productId) =>
         v: [{
           t: 10, i: 1, o: 0,
           p: {
-            k: ["branchId", "method", "mpesaRef", "customerName", "customerPhone", "items"],
-            v: [str(BRANCH_ID), str("cash"), str(tag), undef, undef,
+            k: ["requestId", "branchId", "method", "mpesaRef", "customerName", "customerPhone", "items"],
+            v: [str(randomUUID()), str(BRANCH_ID), str("cash"), str(tag), undef, undef,
                 { t: 9, i: 2, a: [item(productId, 3)], o: 0 }],
           },
         }],
@@ -88,12 +90,17 @@ function post(payload) {
       },
       (res) => {
         let b = "";
-        res.on("data", (c) => { if (b.length < 300) b += c; });
-        res.on("end", () => resolve({ status: res.statusCode, ms: Math.round(performance.now() - t0), body: b }));
+        res.on("data", (c) => { if (b.length < 1_000_000) b += c; });
+        res.on("end", () => resolve({
+          status: res.statusCode, ms: Math.round(performance.now() - t0),
+          ...saleResult(b), body: b.slice(0, 3000),
+        }));
+        res.on("aborted", () => resolve({ status: 0, ok: false, ms: Math.round(performance.now() - t0), err: "response aborted" }));
+        res.on("error", (err) => resolve({ status: 0, ok: false, ms: Math.round(performance.now() - t0), err: err.message }));
       },
     );
     req.on("timeout", () => req.destroy(new Error("timeout")));
-    req.on("error", (err) => resolve({ status: 0, ms: Math.round(performance.now() - t0), err: err.message }));
+    req.on("error", (err) => resolve({ status: 0, ok: false, ms: Math.round(performance.now() - t0), err: err.message }));
     req.end(payload);
   });
 }
@@ -111,8 +118,9 @@ await new Promise((done) => {
     const pid = products[Math.floor(Math.random() * products.length)].id;
     const p = post(body(tag, pid)).then((r) => {
       results.push(r);
-      const keepBody = idx === 0 || r.status !== 200;
-      console.log(JSON.stringify({ tag, ts: new Date().toISOString(), status: r.status, ms: r.ms, err: r.err, body: keepBody ? r.body : undefined }));
+      r.ok = r.status === 200 && r.ok === true;
+      const keepBody = idx === 0 || !r.ok;
+      console.log(JSON.stringify({ tag, ts: new Date().toISOString(), status: r.status, ok: r.ok, saleId: r.saleId, ms: r.ms, err: r.err, body: keepBody ? r.body : undefined }));
     });
     inflight.add(p);
     p.finally(() => inflight.delete(p));
@@ -120,9 +128,13 @@ await new Promise((done) => {
 });
 await Promise.all(inflight);
 
-const ok = results.filter((r) => r.status === 200).map((r) => r.ms).sort((a, b) => a - b);
+const ok = results.filter((r) => r.ok).map((r) => r.ms).sort((a, b) => a - b);
 const pct = (q) => (ok.length ? ok[Math.min(ok.length - 1, Math.floor(q * ok.length))] : null);
 console.log(JSON.stringify({
-  summary: true, run: RUN_ID, sent: results.length, http200: ok.length,
-  non200: results.length - ok.length, p50_ms: pct(0.5), p95_ms: pct(0.95), p99_ms: pct(0.99),
+  summary: true, run: RUN_ID, sent: results.length,
+  http200: results.filter((r) => r.status === 200).length,
+  non200: results.filter((r) => r.status !== 200).length,
+  sales_ok: ok.length, failed: results.length - ok.length,
+  p50_ms: pct(0.5), p95_ms: pct(0.95), p99_ms: pct(0.99),
 }));
+process.exit(0); // pending DNS lookups must not keep the Job alive

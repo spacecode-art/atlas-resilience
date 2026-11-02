@@ -1,0 +1,44 @@
+offset_s    sent    ok   ratio
+    -120     149     4  2.68%  < SLO
+     -90     150     0  0.00%  < SLO
+     -60     150     0  0.00%  < SLO
+     -30     150     0  0.00%  < SLO
+       0     150     0  0.00%  < SLO
+      30     150     0  0.00%  < SLO
+      60     150     0  0.00%  < SLO
+      90     150     0  0.00%  < SLO
+     120     149     0  0.00%  < SLO
+     150     150     0  0.00%  < SLO
+     180     150     0  0.00%  < SLO
+     210     150     0  0.00%  < SLO
+     240     150     0  0.00%  < SLO
+     270     150     0  0.00%  < SLO
+     300     150     0  0.00%  < SLO
+     330     149     0  0.00%  < SLO
+     360     150     0  0.00%  < SLO
+     390     150     0  0.00%  < SLO
+     420     150     0  0.00%  < SLO
+     450     150     0  0.00%  < SLO
+     480     150     0  0.00%  < SLO
+     510     150     0  0.00%  < SLO
+     540     149     0  0.00%  < SLO
+     570     150     0  0.00%  < SLO
+     600     150     0  0.00%  < SLO
+     630     150     0  0.00%  < SLO
+     660     150     0  0.00%  < SLO
+     690     150     0  0.00%  < SLO
+     720     150     0  0.00%  < SLO
+     750     149     0  0.00%  < SLO
+     780     150     0  0.00%  < SLO
+     810     150     0  0.00%  < SLO
+     840     150     0  0.00%  < SLO
+     870     150     0  0.00%  < SLO
+     900     150     0  0.00%  < SLO
+     930     150     0  0.00%  < SLO
+     960     139     0  0.00%  < SLO
+
+RTO: not recovered
+sent 5550, non-200 5544 { '0 getaddrinfo EAI_AGAIN tawira': 13, '0 timeout': 5531 }
+failed latency ms: min 5006, median 30001, max 59244
+first failure at -123 s, last at 988 s (relative to fault)
+failures sent after restore: 2502

@@ -1,0 +1,1 @@
+windows exit=0; ledger reconciliation saved; screenshot exit=0

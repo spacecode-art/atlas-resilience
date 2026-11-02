@@ -1,0 +1,1 @@
+Interrupted during steady-state control (runner exit 130). No CONTROL OK or FAULT event. Not a fault experiment; evidence preserved. Retry uses sc01c2.

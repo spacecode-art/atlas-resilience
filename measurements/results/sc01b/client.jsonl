@@ -1,0 +1,9 @@
+file:///scripts/..2026_11_02_12_23_47.3590567427/loadgen.mjs:36
+if (products.length === 0) throw new Error("no LG-* products found; run the seed");
+                                 ^
+
+Error: no LG-* products found; run the seed
+    at file:///scripts/..2026_11_02_12_23_47.3590567427/loadgen.mjs:36:34
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+
+Node.js v22.23.3

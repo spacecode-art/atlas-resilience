@@ -5,3 +5,9 @@
 measurements/results/*.raw
 *.mp4
 !docs/**/*.mp4
+
+# Archives can bypass .env ignore rules; distribute tracked files via git archive.
+*.zip
+
+# Live monitor snapshots are incomplete; client.jsonl is the canonical result.
+measurements/results/*/live-client.jsonl
