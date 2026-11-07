@@ -1,9 +1,10 @@
 # SC-05: Compromised IAM identity tabletop
 
 ## Status and scope
-Designed 2026-11-02, **not rehearsed**. No account changes, credential revocation
-or live AWS calls were made. Use a fictional Atlas dev identity and isolated
-MiniStack only. MiniStack API behavior does not prove AWS IAM enforcement.
+Designed 2026-11-02. A synthetic local rehearsal (`tabletop-20261107`) passed
+on 2026-11-07. No account changes, credential revocation or live AWS calls were
+made. The rehearsal uses a fictional Atlas dev identity and an in-memory state
+machine; it does not prove AWS IAM or STS enforcement.
 
 ## Hypothesis and objective
 A responder can identify an exposed test principal, contain its usable test
@@ -36,5 +37,15 @@ timing target. Roll back the emulator fixture and remove disposable test keys.
 
 Use a facilitator, responder and recorder (one person can simulate roles).
 Mark each hypothesis supported/refuted/unresolved only after rehearsal, attach
-sanitized command output, record gaps and assign follow-up ownership. No elapsed
-time, successful containment or audit result is claimed in this design.
+sanitized command output, record gaps and assign follow-up ownership.
+
+## Rehearsal result: `tabletop-20261107`
+
+The disposable state machine identified the fictional principal, preserved the
+fixture audit event, denied the old-key probe, and accepted the replacement key
+for its expected permission while denying the forbidden action. The simulated
+fixture milestones were 1 s to identify, 3 s to contain and 4 s to restore. They are scenario timings for the local rehearsal, not AWS MTTD/RTO
+measurements.
+Evidence is in `measurements/results/tabletop-20261107/sc05-inventory.json`,
+`sc05-result.json` and `events.json`. No real identity, credential, AWS API or
+STS session was involved.

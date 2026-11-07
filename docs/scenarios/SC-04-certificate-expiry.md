@@ -1,8 +1,9 @@
 # SC-04: certificate expiry at a local TLS boundary
 ## Status
 
-Boundary implemented 2026-11-07 and fixture-tested. One live expiry run is
-recorded below; repeat runs are still needed before making a general TLS
+Boundary implemented 2026-11-07 and fixture-tested. Two live expiry runs
+(`sc04b`, `sc04c`) are recorded below; both recovered in 90 seconds and neither
+recorded a lost response. These are still local observations, not a general TLS
 availability claim. The existing Tawira HTTP Service remains unchanged; SC-04
 uses a disposable HTTPS proxy and a separate load profile.
 
@@ -145,6 +146,32 @@ Evidence is preserved in `measurements/results/sc04a/` (invalid setup attempt)
 and `measurements/results/sc04b/` (measured run), including the client log,
 certificate dates and serials, HTTPS probes, proxy pod identity and log,
 reconciliation, recovery windows and Prometheus query ranges.
+
+### sc04c: measured repeat (2026-11-07)
+
+The 120-second HTTPS control passed, the proxy stayed in the same pod with zero
+restarts, and the expired serial was loaded and observed before the fault event.
+The valid leaf was reloaded with `SIGHUP`; a new handshake succeeded without an
+application, database or proxy restart. The client recorded only the expected
+certificate error during the expired interval.
+
+| Measure | Observed |
+|---|---|
+| Requests sent / planned | 1,350 / 1,350 |
+| Validated sale successes / database rows | 1,007 / 1,007 |
+| Clean certificate failures | 343 (`CERT_HAS_EXPIRED`) |
+| Lost responses / acknowledged missing or mismatched / duplicate tags | 0 / 0 / 0 |
+| Failure send times relative to fault | -4 to +65 s |
+| Success-ratio RTO | **90 s**, 30 s resolution |
+| Failures after valid reload | 0 |
+| Proxy/backend state | Same pod, zero restarts; Tawira backend remained outside the fault |
+
+The repeat matches `sc04b`'s 90-second recovery and zero-loss reconciliation.
+H1, H2 and H3 are supported for both local observations; H4 remains unrefuted
+by the alert query, which is corroboration only and not notification-delivery
+proof. Evidence is preserved in `measurements/results/sc04c/`, including the
+client log, certificate metadata, HTTPS probes, proxy identity/log, ledger
+reconciliation, events and recovery windows.
 
 ### Fixture result (2026-11-07)
 

@@ -2,12 +2,12 @@
 
 ## Status
 Runner and measurement tools fixture-tested 2026-11-02. The live read-only
-preflight and 150-sale smoke passed on 2026-11-07 (`sc02smk9`). One complete
-database outage run (`sc02b`) is now measured; an earlier interrupted attempt
-(`sc02a`) is retained as invalid evidence. The result is one local observation,
-not a general availability claim. Repeat it after reviewing the lost-response
-finding and the alert gap. Run only in a dedicated local session after the
-[runbook](../runbooks/SC-02-database-failure.md) preflight.
+preflight and 150-sale smokes passed on 2026-11-07 (`sc02smk9`, `sc02smk10`).
+Two complete database outage runs (`sc02b`, `sc02c`) are measured; the earlier
+interrupted attempt (`sc02a`) is retained as invalid evidence. The first valid
+run had one lost response and the repeat had none. These remain local samples,
+not a general availability claim. Run only in a dedicated local session after
+the [runbook](../runbooks/SC-02-database-failure.md) preflight.
 
 ## Fault and blast radius
 Cleanly stop only the explicitly selected local Supabase Postgres container for
@@ -128,8 +128,45 @@ observed as an alert gap in this run: no firing
 series was exported while the business operation failed, and `HighLatencyP99`
 was only pending. H6 is unresolved because no firing alert was recorded; this
 run cannot establish whether the rule qualified continuously or whether alert
-delivery was the limiting step. A repeat run is required before generalizing
-these findings.
+delivery was the limiting step. The repeat below confirms the recovery anchors
+but does not turn local evidence into a general availability claim.
+
+### sc02c: valid local database outage (2026-11-07)
+
+A fresh 30-second smoke (`sc02smk10`) passed before the fault. The same selected
+Postgres container was stopped for the declared 480 seconds and started again
+without restarting Tawira. The load ran at 5 RPS for 1,350 seconds: 6,750
+requests, 4,306 validated sales and 2,444 HTTP 200 application-level failures.
+All failures were the access-verification error observed while the database was
+unavailable or becoming ready. The complete client log, ledger export, event
+and timeline logs, Prometheus ranges and reconciliation are in
+`measurements/results/sc02c/`.
+
+| Measure | Observation |
+|---|---:|
+| Control gate | Passed: fresh `sc02smk10` smoke; load control also passed |
+| DB stop / ready | 2026-11-07 16:18:58Z / 16:27:02Z |
+| Fault-relative recovery | 510 s, 30 s window resolution |
+| DB-ready-relative recovery | 30 s, 30 s window resolution; within the 300 s target |
+| Database reconciliation | 4,306 rows, 4,306 distinct tags, 0 duplicate or unmatched tags |
+| Lost response | 0 |
+| App restart | None during `sc02c`; replicas remained Ready |
+| Alert range | No `ALERTS{alertstate="firing"}` or `HighLatencyP99` series in the exported ranges |
+
+The repeat reproduces the first run's recovery anchors while improving the
+acknowledgement result: every database row has exactly one validated client
+acknowledgement in `sc02c`. The run still produced 29 failed requests after the
+restore command and before the later `DB_READY` event; those are transition
+errors, not acknowledged sales.
+
+H1 is supported: confirmed database unavailability produced application-level
+sale failures. H2 is supported for this run: validated sales resumed without an
+application restart. H3 is supported against the DB-ready target. H4 is
+supported for this repeat, but the combined SC-02 evidence remains bounded by
+the one lost response in `sc02b`. H5 is observed as the same alert gap: neither
+exported range contained a firing series while the business operation failed.
+H6 remains unresolved because a missing firing series does not distinguish rule
+qualification from notification or query coverage.
 
 ### sc02idem1: request-ID replay (2026-11-07)
 

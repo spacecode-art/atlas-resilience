@@ -2,11 +2,12 @@
 
 ## Status
 
-Design prepared 2026-11-07. One valid local run (`sc03b`) completed on
-2026-11-07; `sc03a` is preserved as an invalid selector run. This is one local
-observation, not a general DNS-availability claim.
-The Chaos Mesh DNS server is enabled in `chaos/install/values.yaml`, but the
-selection and status conditions must be verified during a dedicated session.
+Design prepared 2026-11-07. Two valid local runs (`sc03b`, `sc03c`) completed
+on 2026-11-07; `sc03a` is preserved as an invalid selector run. Both valid runs
+recovered in 90 seconds, but recorded 17 and 25 lost responses respectively.
+These are local observations, not a general DNS-availability claim. The Chaos
+Mesh DNS server is enabled in `chaos/install/values.yaml`, but selection and
+status conditions must be verified during each dedicated session.
 
 ## Fault and blast radius
 
@@ -133,6 +134,38 @@ log, ledger, reconciliation, windows, resolver probes, generated object,
 Prometheus range queries and timeline. The status-condition snapshot was added
 after this run; the runner nevertheless reached the DNS phase only after its
 `Selected`/`AllInjected` gate passed.
+
+### sc03c: measured repeat (2026-11-07)
+
+The read-only preflight and 105-second control passed. DNSChaos selected only
+the run-labelled load pod (`Selected=True`, `AllInjected=True`), returned DNS
+errors for the 60-second fault phase, and was explicitly deleted before the
+recovery observation. The load pod stayed Running with zero restarts and the
+resolver returned `10.96.109.75` before and after the fault.
+
+| Measure | Observed |
+|---|---|
+| Requests sent / planned | 1,350 / 1,350 |
+| Validated sale successes / database rows | 1,114 / 1,139 |
+| Clean failures | 211 |
+| Lost responses | 25 database rows without a validated client acknowledgement |
+| Acknowledged missing/mismatched / duplicate tags / unmatched DB tags | 0 / 0 / 0 |
+| Failure shape | 189 30-second timeouts, 12 `EAI_AGAIN` resolver errors, 35 HTTP 200 application errors |
+| Failure send times relative to fault | +2 to +69 s |
+| Success-ratio RTO | **90 s**, 30 s resolution |
+| Alerts | No firing series was recorded in the preserved run artifacts |
+
+The repeat confirms the same recovery time as `sc03b`, while showing that the
+lost-acknowledgement risk is not a one-run anomaly: the two runs recorded 17 and
+25 lost responses. H1 and H2 are supported for the two runs; H3 remains only
+partly supported because no duplicate or acknowledged mismatch occurred but
+lost responses did. The generator does not retry, so retry safety remains
+unresolved. H4 is not refuted by the local alert query; this is not proof of
+notification delivery behavior.
+
+Evidence is preserved in `measurements/results/sc03c/`, including the client
+log, ledger, reconciliation, windows, DNSChaos status/object, resolver probes,
+events and timeline.
 Chaos Mesh documents DNSChaos `error` behavior, pattern matching and the
 required DNS server; this repository's 2.8.3 install enables that component,
 but those facts are prerequisites, not a local observation.

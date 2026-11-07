@@ -1,0 +1,24 @@
+{
+  "apiVersion": "chaos-mesh.org/v1alpha1",
+  "kind": "DNSChaos",
+  "metadata": {
+    "name": "sc03-sc03c",
+    "namespace": "tawira"
+  },
+  "spec": {
+    "action": "error",
+    "duration": "180s",
+    "mode": "all",
+    "patterns": [
+      "tawira.tawira.svc.cluster.local"
+    ],
+    "selector": {
+      "labelSelectors": {
+        "sc03-run": "sc03c"
+      },
+      "namespaces": [
+        "tawira"
+      ]
+    }
+  }
+}

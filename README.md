@@ -60,22 +60,22 @@ evidence.
 
 The [roadmap checklist](docs/phase-5-status.md) maps each required deliverable
 to its evidence and remaining work. SC-01 has one measured local run. SC-02 has
-one measured database outage run and a preserved invalid attempt; its one lost
-response has a targeted request-ID replay result and still needs repeat
-confidence. SC-03 and SC-04 each have one measured local run and need
-repeat observations before broader availability claims. Designs, fixture tests
-and live observations have separate status.
+two valid database outage runs, one preserved invalid attempt and a separate
+request-ID replay probe; the first run had one lost response and the repeat had
+none. SC-03 and SC-04 each have two measured local runs. These are still local
+samples, so the scenario documents state exactly what the repeats support.
+Designs, fixture tests and live observations have separate status.
 
 ## Failure Scenarios
 
 | ID | Scenario | Method | Status |
 |---|---|---|---|
 | SC-01 | AZ failure | Stop or partition a zone-labeled kind worker; Tawira spread across zones | Measured once: 60 s RTO, `sc01c3` ([results](docs/scenarios/SC-01-zone-loss.md)) |
-| SC-02 | Database failure | Local host database stop/restore first; egress fault as a separate comparison | Measured once: 510 s fault-relative / 30 s DB-ready-relative RTO; one lost response; replay safety probe passed ([results](docs/scenarios/SC-02-database-failure.md)) |
-| SC-03 | DNS failure | Chaos Mesh DNSChaos against the load pod's Tawira Service lookup | Measured once: 90 s RTO; 17 lost responses |
-| SC-04 | Certificate expiration | Disposable local TLS boundary with an expired X.509 certificate | Measured once: 90 s HTTPS recovery RTO; `sc04b` |
-| SC-05 | IAM compromise | Tabletop and isolated MiniStack rehearsal | [Designed, not rehearsed](docs/scenarios/SC-05-iam-compromise.md) |
-| SC-06 | Secrets leak | Tabletop, synthetic-secret detection and rotation drill | [Designed, not rehearsed](docs/scenarios/SC-06-secrets-leak.md) |
+| SC-02 | Database failure | Local host database stop/restore first; egress fault as a separate comparison | Measured twice: 510 s fault-relative / 30 s DB-ready-relative RTO; `sc02b` had one lost response and `sc02c` had zero; replay safety probe passed ([results](docs/scenarios/SC-02-database-failure.md)) |
+| SC-03 | DNS failure | Chaos Mesh DNSChaos against the load pod's Tawira Service lookup | Measured twice: 90 s RTO in both runs; 17 then 25 lost responses |
+| SC-04 | Certificate expiration | Disposable local TLS boundary with an expired X.509 certificate | Measured twice: 90 s HTTPS recovery RTO in both runs; zero lost responses |
+| SC-05 | IAM compromise | Tabletop and isolated MiniStack rehearsal | [Synthetic rehearsal passed; no live revocation claimed](docs/scenarios/SC-05-iam-compromise.md) |
+| SC-06 | Secrets leak | Tabletop, synthetic-secret detection and rotation drill | [Synthetic rehearsal passed; no real rotation claimed](docs/scenarios/SC-06-secrets-leak.md) |
 | SC-07 | Third-party dependency failure (email, payments) | NetworkChaos on egress to each provider | Planned |
 
 Not every scenario maps to a chaos tool, and this repo says so rather
@@ -263,15 +263,15 @@ kubectl -n tawira create configmap loadgen-script \
 - SC-01: one valid local run, 60 s sale RTO, no acknowledged sales missing;
   earlier invalid attempts retained with the result validator and gated harness
 - SC-01 verdicts, postmortem and runbook; SC-02 runner, scenario and runbook
-  fixture-tested; the database fault has one measured run (`sc02b`) and one
-  preserved interrupted attempt (`sc02a`); SC-04's disposable TLS boundary,
-  certificate-reload fixture and one measured expiry run (`sc04b`, 90 s HTTPS
-  recovery RTO) are committed;
-  SC-05/SC-06 tabletop designs and Game Day plan written, not executed
+  fixture-tested; two valid database outage runs (`sc02b`, `sc02c`) and one
+  preserved interrupted attempt (`sc02a`) are committed. SC-03 and SC-04 each
+  have two valid local observations with their repeat-specific loss counts.
+  SC-05/SC-06 synthetic tabletop rehearsal is recorded; the Game Day plan remains
+  separate and no live IAM or secrets rotation is claimed
 
 **Not yet built, tracked honestly:**
-- Repeat observations for SC-02 to SC-04, SC-05/SC-06 tabletop execution and
-  SC-07's planned provider tests
+- Game Day execution, SC-07's planned provider tests and the follow-up provider
+  validation for the synthetic SC-05/SC-06 rehearsal
 - Validated deployment of the detection remediation and ADR-0005 comparison
 - A Tawira health endpoint (readiness is currently a TCP probe on the
   port, which proves the process started, not that the app works)
@@ -375,11 +375,12 @@ The [Phase 3 stack](https://github.com/spacecode-art/atlas-observability) has
 15 s scrape/evaluation intervals, 5-minute holds on application alerts and 30 s
 Alertmanager grouping. About 5.5–6 minutes is a configuration-derived estimate
 for a continuously qualifying application alert, not a universal outage-detection
-floor; `TargetDown` has a different hold. SC-02's `sc02b` database run measured
-510 s fault-relative recovery and 30 s from confirmed DB readiness, with HTTP 200
-application errors during the outage and no firing alert series in the exported
-range. The separate `sc02idem1` replay passed sequential, concurrent and
-conflicting request-ID safety checks; both remain single local observations.
+floor; `TargetDown` has a different hold. SC-02's `sc02b` and `sc02c` database runs each measured 510 s
+fault-relative recovery and 30 s from confirmed DB readiness, with HTTP 200 application errors
+during the outage and no firing alert series in either exported range. `sc02b`
+had one lost response; `sc02c` had none. The separate `sc02idem1` replay passed
+sequential, concurrent and conflicting request-ID safety checks. These remain
+local observations, not a universal availability or idempotency claim.
 
 ---
 
@@ -456,14 +457,17 @@ and recording template are ready; no Game Day has been executed or recorded.
 
 ## Future Roadmap
 
-- Execute the prepared SC-02 experiment; compare application errors, client
-  outcomes and alert state before changing detection rules
+- Repeat SC-02/SC-03/SC-04 with fresh run IDs when confidence or a code change
+  warrants it; compare application errors, client outcomes and alert state before
+  changing detection rules. The 2026-11-07 repeats are recorded in the scenario
+  documents.
 - Implement and validate F-01 in `atlas-observability`; verify routing with a
   test receiver as part of a separate notification drill
 - Compare ADR-0005's placement overlay against the preserved SC-01 baseline
-- Implement and fixture-test the SC-03 DNS control/cleanup path; decide and
-  build the disposable TLS boundary before designing SC-04's inject
-- Design SC-07; rehearse the SC-05/SC-06 tabletop documents
+- Keep the SC-03 DNS control/cleanup and SC-04 TLS boundary fixture-tested;
+  repeat either experiment after runner or application changes
+- Keep the SC-05/SC-06 synthetic rehearsal evidence separate from live IAM or
+  secret-rotation evidence; provision a real emulator only if that scope is approved
 - Execute and record the planned Game Day, then write its postmortem
 - Add a Tawira health endpoint with process liveness independent of database health
 - Plan-only Terraform reference design, sourced AWS cost model and optional burst demo

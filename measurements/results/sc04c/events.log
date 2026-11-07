@@ -1,0 +1,7 @@
+2026-11-07T16:10:23Z LOAD started run=sc04c rps=5 duration=270s target=https://sc04-tls-proxy
+2026-11-07T16:12:28Z CONTROL OK: HTTPS handshakes, validated sales, volume and latency targets met
+2026-11-07T16:12:28Z CERTIFICATE install expired leaf; proxy remains running
+2026-11-07T16:12:52Z FAULT certificate expired reload sc04-tls-proxy
+2026-11-07T16:13:52Z CERTIFICATE install valid leaf and reload proxy
+2026-11-07T16:14:01Z RESTORE certificate reload sc04-tls-proxy
+2026-11-07T16:15:02Z DONE certificate expiry, reload and recovery evidence captured

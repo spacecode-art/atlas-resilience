@@ -1,0 +1,19 @@
+
+fault-relative windows
+offset_s    sent    ok   ratio
+    -150     146   146  100.00%
+    -120     150   150  100.00%
+     -90     150   150  100.00%
+     -60     149   149  100.00%
+     -30     150   132  88.00%  < SLO
+       0     150     0  0.00%  < SLO
+      30     150     0  0.00%  < SLO
+      60     149   124  83.22%  < SLO
+      90     150   150  100.00%
+     120       6     6  100.00% (partial; cannot establish RTO)
+
+RTO: 90 s (window start, resolution 30 s)
+sent 1350, failed sales 343 { '0 certificate has expired': 343 }
+failed latency ms: min 7, median 21, max 68
+first failure at -4 s, last at 65 s (relative to fault)
+failures sent after restore: 0
