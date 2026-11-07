@@ -66,3 +66,5 @@ follows [Keep a Changelog](https://keepachangelog.com/).
 - `docs(scenarios)`: add a scoped SC-03 DNSChaos design and reviewed fixture;
   record SC-04's missing TLS boundary explicitly instead of presenting HTTP as
   certificate-expiry evidence.
+- `test(sc03)`: record read-only Chaos DNS Server, CRD, namespace-scope and
+  load-selector readiness; no DNS fault was injected.
