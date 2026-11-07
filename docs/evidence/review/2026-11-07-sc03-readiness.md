@@ -11,9 +11,14 @@ errors and is not a DNS outage or recovery result.
 | Active experiments | No `DNSChaos` object in `tawira` |
 | Load selector | Completed smoke pod `loadgen-sc02smk7-9rg9h` has `app=loadgen` and reached `Succeeded` |
 | Other Jobs | `loadgen-sc02smk7` completed; no active load Job was present |
+| SC-03 runner `--check` | Passed after ShellCheck and Bash syntax validation. It creates no Job and applies no DNSChaos. |
 
 The readiness commands were read-only Kubernetes queries. They establish that
 the injector and selector are available, not that DNS error injection works.
+The runner's hash comparison preserves the ConfigMap's trailing newline; an
+earlier implementation used shell command substitution and falsely reported a
+mismatch because command substitution strips trailing newlines. The corrected
+streaming hash is part of the checked-in preflight.
 The next SC-03 session must still prove the resolver query, `Selected` and
 `AllInjected` conditions, client failure shape, deletion cleanup and complete
 recovery windows before reporting a hypothesis result.

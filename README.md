@@ -142,7 +142,7 @@ atlas-resilience/
 ├── chaos/                         # Chaos Mesh 2.8.3 install values + smoke experiment
 ├── load/                          # open-loop sale generator + result validator
 ├── measurements/                  # windows.mjs analyzer + per-run results
-├── scripts/                       # SC-01/SC-02 runners and pod-CIDR check
+├── scripts/                       # SC-01/SC-02/SC-03 runners and pod-CIDR check
 ├── terraform/                     # (not yet built) AWS reference design, plan-only
 ├── docs/
 │   ├── adr/                       # Architecture Decision Records

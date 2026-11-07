@@ -44,6 +44,10 @@ lookups makes the run invalid rather than producing an RTO.
 ## Experiment and observation
 
 The reviewed fixture is [`chaos/experiments/sc03-dns-error.yaml`](../../chaos/experiments/sc03-dns-error.yaml).
+The attended runner is [`scripts/sc03-dns-loss.sh`](../../scripts/sc03-dns-loss.sh);
+`--check` is read-only and `--run` is the only mode that creates a load Job or
+applies DNSChaos. It refuses a stale ConfigMap, active Job, existing experiment,
+unready injector, unhealthy replicas or an invalid pod CIDR before injection.
 Before applying it:
 
 1. Confirm the current context, namespace annotation, Chaos DNS Server pod and

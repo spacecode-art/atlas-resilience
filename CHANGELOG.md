@@ -68,3 +68,6 @@ follows [Keep a Changelog](https://keepachangelog.com/).
   certificate-expiry evidence.
 - `test(sc03)`: record read-only Chaos DNS Server, CRD, namespace-scope and
   load-selector readiness; no DNS fault was injected.
+- `feat(sc03)`: add an attended DNS runner with a read-only preflight, validated
+  control gate, `Selected`/`AllInjected` checks, explicit deletion cleanup and
+  client/ledger/window evidence capture.
