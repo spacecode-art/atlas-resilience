@@ -1,0 +1,1 @@
+{"valid_sale_run": false, "http200": 5472, "database_rows": 0, "reason": "HTTP 200 application errors; these are not acknowledged sales and cannot establish sale RTO or RPO."}

@@ -1,0 +1,24 @@
+# Candidate for ADR-0005/sc01d only. Not applied in sc01c3.
+# Strategic merge patch; apply to the Deployment document, not the Namespace/Service.
+spec:
+  template:
+    spec:
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: topology.kubernetes.io/zone
+          whenUnsatisfiable: DoNotSchedule
+          nodeTaintsPolicy: Honor
+          labelSelector:
+            matchLabels:
+              app: tawira
+          matchLabelKeys:
+            - pod-template-hash
+      tolerations:
+        - key: node.kubernetes.io/not-ready
+          operator: Exists
+          effect: NoExecute
+          tolerationSeconds: 60
+        - key: node.kubernetes.io/unreachable
+          operator: Exists
+          effect: NoExecute
+          tolerationSeconds: 60

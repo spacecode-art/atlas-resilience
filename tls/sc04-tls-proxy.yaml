@@ -1,0 +1,80 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sc04-tls-proxy
+  namespace: tawira
+  labels:
+    app: sc04-tls-proxy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sc04-tls-proxy
+  template:
+    metadata:
+      labels:
+        app: sc04-tls-proxy
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 100
+        runAsGroup: 101
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: proxy
+          image: tawira:chaos-local
+          imagePullPolicy: Never
+          command: ["node", "/proxy/sc04-proxy.mjs"]
+          env:
+            - name: UPSTREAM_URL
+              value: http://tawira:3000
+            - name: PORT
+              value: "8443"
+          ports:
+            - name: https
+              containerPort: 8443
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+          readinessProbe:
+            tcpSocket:
+              port: https
+            initialDelaySeconds: 2
+            periodSeconds: 2
+          resources:
+            requests:
+              cpu: 25m
+              memory: 64Mi
+            limits:
+              memory: 128Mi
+          volumeMounts:
+            - name: proxy-script
+              mountPath: /proxy
+              readOnly: true
+            - name: tls
+              mountPath: /tls
+              readOnly: true
+      volumes:
+        - name: proxy-script
+          configMap:
+            name: sc04-tls-proxy-script
+        - name: tls
+          secret:
+            secretName: sc04-tls-cert
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sc04-tls-proxy
+  namespace: tawira
+  labels:
+    app: sc04-tls-proxy
+spec:
+  selector:
+    app: sc04-tls-proxy
+  ports:
+    - name: https
+      port: 443
+      targetPort: https

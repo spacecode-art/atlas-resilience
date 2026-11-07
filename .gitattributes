@@ -1,0 +1,14 @@
+# Preserve captured output verbatim, including whitespace emitted by Helm/psql.
+docs/evidence/chaos-install/c4-reinstall-after-rebuild.txt -whitespace
+measurements/results/smoke20261102b/ledger.json -whitespace
+measurements/results/sc02smk7/ledger.json -whitespace
+measurements/results/sc02smk8/ledger.json -whitespace
+measurements/results/sc02smk9/ledger.json -whitespace
+measurements/results/sc02b/ledger.json -whitespace
+measurements/results/sc02idem1/ledger.json -whitespace
+measurements/results/sc03b/ledger.json -whitespace
+measurements/results/sc04b/ledger.json -whitespace
+measurements/results/sc02c/ledger.json -whitespace
+measurements/results/sc03c/ledger.json -whitespace
+measurements/results/sc04c/ledger.json -whitespace
+measurements/results/sc02smk10/ledger.json -whitespace

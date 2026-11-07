@@ -1,0 +1,1 @@
+INVALID: HTTP 200 responses contained application errors. No sale RTO can be measured; http-only-windows.txt preserves the misleading original calculation.

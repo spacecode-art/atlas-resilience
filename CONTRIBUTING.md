@@ -50,3 +50,16 @@ fix(target): correct readiness probe port
 - Prefer small, focused commits.
 - Avoid committing secrets, `.env` files, or Terraform state files.
 - No `apply` against real AWS from CI; the `terraform/` reference design is plan-only.
+
+## Sharing an archive
+
+Do not redistribute an existing workspace zip: it may contain ignored `.env`
+files. After reviewing and committing the intended files, export tracked content:
+
+```bash
+git archive --format=zip --output=/tmp/atlas-resilience-source.zip HEAD
+```
+
+Check the archive listing before sharing. `.env` files, credentials and
+unredacted hosted-project identifiers must remain excluded. Local recordings
+also need a visual check for tokens, URLs and private project names.

@@ -1,0 +1,3 @@
+2026-11-07T15:33:16.049Z REPLAY started run=sc02idem1 target=tawira-service-port-forward
+2026-11-07T15:33:17.561Z REPLAY complete cases=A-sequential,B-concurrent,C-conflicting
+2026-11-07T15:33:17.900Z VERIFY safety_failures=0 contract_gaps=0

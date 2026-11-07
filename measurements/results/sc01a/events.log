@@ -1,0 +1,9 @@
+2026-10-16T09:41:03Z LOAD started run=sc01a rps=5 duration=1110s node=atlas-resilience-worker2
+2026-10-16T09:41:03Z PHASE steady-state (120s)
+2026-10-16T09:43:07Z FAULT docker kill atlas-resilience-worker3 (zone zone-c)
+2026-10-16T09:43:08Z PHASE zone-down (480s)
+2026-10-16T09:51:14Z RESTORE docker start atlas-resilience-worker3
+2026-10-16T09:51:18Z NODE Ready
+2026-10-16T09:51:18Z PHASE recovery (480s)
+2026-10-16T10:04:25Z WARN loadgen job not complete
+2026-10-16T10:04:25Z DONE. Next: ledger reconcile, then node measurements/scripts/windows.mjs measurements/results/sc01a

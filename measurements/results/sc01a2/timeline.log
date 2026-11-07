@@ -1,0 +1,540 @@
+--- 2026-10-28T21:12:50Z ready_endpoints=3
+atlas-resilience-worker3   Ready   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d   10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d   10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-pczn8   1/1   Running   0              23m   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:13:01Z ready_endpoints=3
+atlas-resilience-worker3   Ready   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d   10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d   10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-pczn8   1/1   Running   0              23m   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:13:11Z ready_endpoints=3
+atlas-resilience-worker3   Ready   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d   10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d   10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-pczn8   1/1   Running   0              23m   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:13:22Z ready_endpoints=3
+atlas-resilience-worker3   Ready   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d   10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d   10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-pczn8   1/1   Running   0              23m   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:13:33Z ready_endpoints=3
+atlas-resilience-worker3   Ready   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d   10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d   10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-pczn8   1/1   Running   0              24m   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:13:43Z ready_endpoints=3
+atlas-resilience-worker3   Ready   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d   10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d   10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-pczn8   1/1   Running   0              24m   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:13:54Z ready_endpoints=3
+atlas-resilience-worker3   Ready   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d   10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d   10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-pczn8   1/1   Running   0              24m   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:14:04Z ready_endpoints=3
+atlas-resilience-worker3   Ready   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d   10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d   10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-pczn8   1/1   Running   0              24m   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:14:15Z ready_endpoints=3
+atlas-resilience-worker3   Ready   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d   10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d   10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-pczn8   1/1   Running   0              24m   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:14:25Z ready_endpoints=3
+atlas-resilience-worker3   Ready   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d   10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d   10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-pczn8   1/1   Running   0              25m   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:14:36Z ready_endpoints=3
+atlas-resilience-worker3   Ready   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d   10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d   10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-pczn8   1/1   Running   0              25m   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:14:47Z ready_endpoints=3
+atlas-resilience-worker3   Ready   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d   10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d   10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-pczn8   1/1   Running   0              25m   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:15:01Z ready_endpoints=3
+atlas-resilience-worker3   Ready   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d   10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d   10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-pczn8   1/1   Running   0              25m   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:15:12Z ready_endpoints=3
+atlas-resilience-worker3   Ready   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d   10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d   10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-pczn8   1/1   Running   0              25m   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:15:22Z ready_endpoints=3
+atlas-resilience-worker3   Ready   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d   10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d   10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-pczn8   1/1   Running   0              25m   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:15:33Z ready_endpoints=3
+atlas-resilience-worker3   Ready   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d   10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d   10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-pczn8   1/1   Running   0              26m   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:15:43Z ready_endpoints=2
+atlas-resilience-worker3   NotReady   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d   10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d   10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-pczn8   1/1   Running   0              26m   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:15:53Z ready_endpoints=2
+atlas-resilience-worker3   NotReady   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d   10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d   10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-pczn8   1/1   Running   0              26m   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:16:04Z ready_endpoints=2
+atlas-resilience-worker3   NotReady   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d   10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d   10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-pczn8   1/1   Running   0              26m   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:16:15Z ready_endpoints=2
+atlas-resilience-worker3   NotReady   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d   10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d   10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-pczn8   1/1   Running   0              26m   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:16:25Z ready_endpoints=2
+atlas-resilience-worker3   NotReady   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d   10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d   10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-pczn8   1/1   Running   0              27m   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:16:36Z ready_endpoints=2
+atlas-resilience-worker3   NotReady   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d   10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d   10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-pczn8   1/1   Running   0              27m   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:16:47Z ready_endpoints=2
+atlas-resilience-worker3   NotReady   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d   10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d   10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-pczn8   1/1   Running   0              27m   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:16:57Z ready_endpoints=2
+atlas-resilience-worker3   NotReady   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d   10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d   10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-pczn8   1/1   Running   0              27m   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:17:08Z ready_endpoints=2
+atlas-resilience-worker3   NotReady   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d   10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d   10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-pczn8   1/1   Running   0              27m   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:17:19Z ready_endpoints=2
+atlas-resilience-worker3   NotReady   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d   10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d   10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-pczn8   1/1   Running   0              27m   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:17:30Z ready_endpoints=2
+atlas-resilience-worker3   NotReady   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d   10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d   10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-pczn8   1/1   Running   0              28m   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:17:40Z ready_endpoints=2
+atlas-resilience-worker3   NotReady   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d   10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d   10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-pczn8   1/1   Running   0              28m   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:17:51Z ready_endpoints=2
+atlas-resilience-worker3   NotReady   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d   10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d   10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-pczn8   1/1   Running   0              28m   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:18:01Z ready_endpoints=2
+atlas-resilience-worker3   NotReady   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d   10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d   10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-pczn8   1/1   Running   0              28m   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:18:12Z ready_endpoints=2
+atlas-resilience-worker3   NotReady   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d   10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d   10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-pczn8   1/1   Running   0              28m   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:18:23Z ready_endpoints=2
+atlas-resilience-worker3   NotReady   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d   10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d   10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-pczn8   1/1   Running   0              28m   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:18:33Z ready_endpoints=2
+atlas-resilience-worker3   NotReady   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d   10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d   10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-pczn8   1/1   Running   0              29m   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:18:44Z ready_endpoints=2
+atlas-resilience-worker3   NotReady   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d   10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d   10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-pczn8   1/1   Running   0              29m   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:18:55Z ready_endpoints=2
+atlas-resilience-worker3   NotReady   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d   10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d   10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-pczn8   1/1   Running   0              29m   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:19:05Z ready_endpoints=2
+atlas-resilience-worker3   NotReady   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d   10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d   10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-pczn8   1/1   Running   0              29m   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:19:16Z ready_endpoints=2
+atlas-resilience-worker3   NotReady   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d   10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d   10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-pczn8   1/1   Running   0              29m   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:19:27Z ready_endpoints=2
+atlas-resilience-worker3   NotReady   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d   10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d   10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-pczn8   1/1   Running   0              30m   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:19:37Z ready_endpoints=2
+atlas-resilience-worker3   NotReady   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d   10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d   10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-pczn8   1/1   Running   0              30m   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:19:48Z ready_endpoints=2
+atlas-resilience-worker3   NotReady   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d   10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d   10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-pczn8   1/1   Running   0              30m   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:19:59Z ready_endpoints=2
+atlas-resilience-worker3   NotReady   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d   10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d   10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-pczn8   1/1   Running   0              30m   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:20:09Z ready_endpoints=2
+atlas-resilience-worker3   NotReady   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d   10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d   10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-pczn8   1/1   Running   0              30m   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:20:20Z ready_endpoints=2
+atlas-resilience-worker3   NotReady   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d   10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d   10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-pczn8   1/1   Running   0              30m   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:20:31Z ready_endpoints=2
+atlas-resilience-worker3   NotReady   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d   10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d   10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-pczn8   1/1   Running   0              31m   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:20:42Z ready_endpoints=2
+atlas-resilience-worker3   NotReady   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running       38 (13h ago)   18d   10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running       38 (13h ago)   18d   10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-mt2tc   0/1   Pending       0              2s    <none>       <none>                     <none>   <none>
+tawira-7cc57dd969-pczn8   1/1   Terminating   0              31m   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:20:52Z ready_endpoints=2
+atlas-resilience-worker3   NotReady   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running       38 (13h ago)   18d   10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running       38 (13h ago)   18d   10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-mt2tc   0/1   Pending       0              13s   <none>       <none>                     <none>   <none>
+tawira-7cc57dd969-pczn8   1/1   Terminating   0              31m   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:21:03Z ready_endpoints=2
+atlas-resilience-worker3   NotReady   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running       38 (13h ago)   18d   10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running       38 (13h ago)   18d   10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-mt2tc   0/1   Pending       0              23s   <none>       <none>                     <none>   <none>
+tawira-7cc57dd969-pczn8   1/1   Terminating   0              31m   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:21:14Z ready_endpoints=2
+atlas-resilience-worker3   NotReady   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running       38 (13h ago)   18d   10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running       38 (13h ago)   18d   10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-mt2tc   0/1   Pending       0              34s   <none>       <none>                     <none>   <none>
+tawira-7cc57dd969-pczn8   1/1   Terminating   0              31m   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:21:24Z ready_endpoints=2
+atlas-resilience-worker3   NotReady   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running       38 (13h ago)   18d   10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running       38 (13h ago)   18d   10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-mt2tc   0/1   Pending       0              44s   <none>       <none>                     <none>   <none>
+tawira-7cc57dd969-pczn8   1/1   Terminating   0              31m   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:21:34Z ready_endpoints=2
+atlas-resilience-worker3   NotReady   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running       38 (13h ago)   18d   10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running       38 (13h ago)   18d   10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-mt2tc   0/1   Pending       0              55s   <none>       <none>                     <none>   <none>
+tawira-7cc57dd969-pczn8   1/1   Terminating   0              32m   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:21:45Z ready_endpoints=2
+atlas-resilience-worker3   NotReady   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running       38 (13h ago)   18d   10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running       38 (13h ago)   18d   10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-mt2tc   0/1   Pending       0              65s   <none>       <none>                     <none>   <none>
+tawira-7cc57dd969-pczn8   1/1   Terminating   0              32m   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:21:56Z ready_endpoints=2
+atlas-resilience-worker3   NotReady   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running       38 (13h ago)   18d   10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running       38 (13h ago)   18d   10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-mt2tc   0/1   Pending       0              76s   <none>       <none>                     <none>   <none>
+tawira-7cc57dd969-pczn8   1/1   Terminating   0              32m   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:22:06Z ready_endpoints=2
+atlas-resilience-worker3   NotReady   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running       38 (13h ago)   18d   10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running       38 (13h ago)   18d   10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-mt2tc   0/1   Pending       0              86s   <none>       <none>                     <none>   <none>
+tawira-7cc57dd969-pczn8   1/1   Terminating   0              32m   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:22:16Z ready_endpoints=2
+atlas-resilience-worker3   NotReady   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running       38 (13h ago)   18d   10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running       38 (13h ago)   18d   10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-mt2tc   0/1   Pending       0              97s   <none>       <none>                     <none>   <none>
+tawira-7cc57dd969-pczn8   1/1   Terminating   0              32m   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:22:27Z ready_endpoints=2
+atlas-resilience-worker3   NotReady   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running       38 (13h ago)   18d    10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running       38 (13h ago)   18d    10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-mt2tc   0/1   Pending       0              108s   <none>       <none>                     <none>   <none>
+tawira-7cc57dd969-pczn8   1/1   Terminating   0              33m    10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:22:38Z ready_endpoints=2
+atlas-resilience-worker3   NotReady   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running       38 (13h ago)   18d    10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running       38 (13h ago)   18d    10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-mt2tc   0/1   Pending       0              118s   <none>       <none>                     <none>   <none>
+tawira-7cc57dd969-pczn8   1/1   Terminating   0              33m    10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:22:49Z ready_endpoints=2
+atlas-resilience-worker3   NotReady   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running       38 (13h ago)   18d    10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running       38 (13h ago)   18d    10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-mt2tc   0/1   Pending       0              2m9s   <none>       <none>                     <none>   <none>
+tawira-7cc57dd969-pczn8   1/1   Terminating   0              33m    10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:22:59Z ready_endpoints=2
+atlas-resilience-worker3   NotReady   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running       38 (13h ago)   18d     10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running       38 (13h ago)   18d     10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-mt2tc   0/1   Pending       0              2m19s   <none>       <none>                     <none>   <none>
+tawira-7cc57dd969-pczn8   1/1   Terminating   0              33m     10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:23:15Z ready_endpoints=2
+atlas-resilience-worker3   Ready   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running             38 (13h ago)   18d     10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running             38 (13h ago)   18d     10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-mt2tc   0/1   ContainerCreating   0              2m35s   <none>       atlas-resilience-worker3   <none>   <none>
+tawira-7cc57dd969-pczn8   0/1   Terminating         0              33m     <none>       atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:23:26Z ready_endpoints=2
+atlas-resilience-worker3   Ready   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d     10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d     10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-mt2tc   0/1   Running   0              2m46s   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:23:37Z ready_endpoints=3
+atlas-resilience-worker3   Ready   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d     10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d     10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-mt2tc   1/1   Running   0              2m57s   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:23:47Z ready_endpoints=3
+atlas-resilience-worker3   Ready   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d    10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d    10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-mt2tc   1/1   Running   0              3m8s   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:23:58Z ready_endpoints=3
+atlas-resilience-worker3   Ready   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d     10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d     10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-mt2tc   1/1   Running   0              3m19s   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:24:09Z ready_endpoints=3
+atlas-resilience-worker3   Ready   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d     10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d     10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-mt2tc   1/1   Running   0              3m29s   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:24:20Z ready_endpoints=3
+atlas-resilience-worker3   Ready   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d     10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d     10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-mt2tc   1/1   Running   0              3m40s   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:24:30Z ready_endpoints=3
+atlas-resilience-worker3   Ready   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d     10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d     10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-mt2tc   1/1   Running   0              3m51s   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:24:41Z ready_endpoints=3
+atlas-resilience-worker3   Ready   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d    10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d    10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-mt2tc   1/1   Running   0              4m1s   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:24:51Z ready_endpoints=3
+atlas-resilience-worker3   Ready   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d     10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d     10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-mt2tc   1/1   Running   0              4m12s   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:25:02Z ready_endpoints=3
+atlas-resilience-worker3   Ready   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d     10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d     10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-mt2tc   1/1   Running   0              4m22s   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:25:12Z ready_endpoints=3
+atlas-resilience-worker3   Ready   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d     10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d     10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-mt2tc   1/1   Running   0              4m32s   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:25:22Z ready_endpoints=3
+atlas-resilience-worker3   Ready   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d     10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d     10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-mt2tc   1/1   Running   0              4m43s   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:25:33Z ready_endpoints=3
+atlas-resilience-worker3   Ready   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d     10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d     10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-mt2tc   1/1   Running   0              4m53s   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:25:43Z ready_endpoints=3
+atlas-resilience-worker3   Ready   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d    10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d    10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-mt2tc   1/1   Running   0              5m3s   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:25:53Z ready_endpoints=3
+atlas-resilience-worker3   Ready   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d     10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d     10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-mt2tc   1/1   Running   0              5m14s   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:26:04Z ready_endpoints=3
+atlas-resilience-worker3   Ready   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d     10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d     10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-mt2tc   1/1   Running   0              5m24s   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:26:14Z ready_endpoints=3
+atlas-resilience-worker3   Ready   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d     10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d     10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-mt2tc   1/1   Running   0              5m34s   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:26:24Z ready_endpoints=3
+atlas-resilience-worker3   Ready   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d     10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d     10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-mt2tc   1/1   Running   0              5m45s   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:26:35Z ready_endpoints=3
+atlas-resilience-worker3   Ready   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d     10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d     10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-mt2tc   1/1   Running   0              5m55s   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:26:45Z ready_endpoints=3
+atlas-resilience-worker3   Ready   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d    10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d    10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-mt2tc   1/1   Running   0              6m5s   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:26:55Z ready_endpoints=3
+atlas-resilience-worker3   Ready   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d     10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d     10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-mt2tc   1/1   Running   0              6m15s   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:27:05Z ready_endpoints=3
+atlas-resilience-worker3   Ready   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d     10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d     10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-mt2tc   1/1   Running   0              6m26s   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:27:16Z ready_endpoints=3
+atlas-resilience-worker3   Ready   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d     10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d     10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-mt2tc   1/1   Running   0              6m36s   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:27:26Z ready_endpoints=3
+atlas-resilience-worker3   Ready   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d     10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d     10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-mt2tc   1/1   Running   0              6m46s   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:27:36Z ready_endpoints=3
+atlas-resilience-worker3   Ready   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d     10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d     10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-mt2tc   1/1   Running   0              6m56s   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:27:46Z ready_endpoints=3
+atlas-resilience-worker3   Ready   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d    10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d    10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-mt2tc   1/1   Running   0              7m6s   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:27:57Z ready_endpoints=3
+atlas-resilience-worker3   Ready   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d     10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d     10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-mt2tc   1/1   Running   0              7m17s   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:28:07Z ready_endpoints=3
+atlas-resilience-worker3   Ready   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d     10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d     10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-mt2tc   1/1   Running   0              7m27s   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:28:17Z ready_endpoints=3
+atlas-resilience-worker3   Ready   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d     10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d     10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-mt2tc   1/1   Running   0              7m37s   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:28:27Z ready_endpoints=3
+atlas-resilience-worker3   Ready   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d     10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d     10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-mt2tc   1/1   Running   0              7m48s   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:28:38Z ready_endpoints=3
+atlas-resilience-worker3   Ready   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d     10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d     10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-mt2tc   1/1   Running   0              7m58s   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:28:48Z ready_endpoints=3
+atlas-resilience-worker3   Ready   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d    10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d    10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-mt2tc   1/1   Running   0              8m8s   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:28:58Z ready_endpoints=3
+atlas-resilience-worker3   Ready   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d     10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d     10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-mt2tc   1/1   Running   0              8m18s   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:29:08Z ready_endpoints=3
+atlas-resilience-worker3   Ready   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d     10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d     10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-mt2tc   1/1   Running   0              8m28s   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:29:18Z ready_endpoints=3
+atlas-resilience-worker3   Ready   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d     10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d     10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-mt2tc   1/1   Running   0              8m39s   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:29:29Z ready_endpoints=3
+atlas-resilience-worker3   Ready   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d     10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d     10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-mt2tc   1/1   Running   0              8m49s   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:29:39Z ready_endpoints=3
+atlas-resilience-worker3   Ready   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d     10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d     10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-mt2tc   1/1   Running   0              8m59s   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:29:49Z ready_endpoints=3
+atlas-resilience-worker3   Ready   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d    10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d    10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-mt2tc   1/1   Running   0              9m9s   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:29:59Z ready_endpoints=3
+atlas-resilience-worker3   Ready   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d     10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d     10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-mt2tc   1/1   Running   0              9m19s   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:30:09Z ready_endpoints=3
+atlas-resilience-worker3   Ready   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d     10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d     10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-mt2tc   1/1   Running   0              9m30s   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:30:20Z ready_endpoints=3
+atlas-resilience-worker3   Ready   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d     10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d     10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-mt2tc   1/1   Running   0              9m40s   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:30:30Z ready_endpoints=3
+atlas-resilience-worker3   Ready   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d     10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d     10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-mt2tc   1/1   Running   0              9m50s   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:30:40Z ready_endpoints=3
+atlas-resilience-worker3   Ready   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d   10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d   10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-mt2tc   1/1   Running   0              10m   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:30:50Z ready_endpoints=3
+atlas-resilience-worker3   Ready   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d   10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d   10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-mt2tc   1/1   Running   0              10m   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:31:00Z ready_endpoints=3
+atlas-resilience-worker3   Ready   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d   10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d   10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-mt2tc   1/1   Running   0              10m   10.244.3.2   atlas-resilience-worker3   <none>   <none>
+--- 2026-10-28T21:31:11Z ready_endpoints=3
+atlas-resilience-worker3   Ready   <none>   24d   v1.37.0
+tawira-7cc57dd969-4pphn   1/1   Running   38 (13h ago)   18d   10.244.2.6   atlas-resilience-worker    <none>   <none>
+tawira-7cc57dd969-jz6jj   1/1   Running   38 (13h ago)   18d   10.244.1.3   atlas-resilience-worker2   <none>   <none>
+tawira-7cc57dd969-mt2tc   1/1   Running   0              10m   10.244.3.2   atlas-resilience-worker3   <none>   <none>

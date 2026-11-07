@@ -1,0 +1,26 @@
+
+fault-relative windows
+offset_s    sent    ok   ratio
+    -150      36    36  100.00%
+    -120     150   150  100.00%
+     -90     150   150  100.00%
+     -60     150   150  100.00%
+     -30     150   150  100.00%
+       0     149     5  3.36%  < SLO
+      30     150   104  69.33%  < SLO
+      60     150   146  97.33%  < SLO
+      90     149   149  100.00%
+     120     150   150  100.00%
+     150     150   150  100.00%
+     180     150   150  100.00%
+     210     150   150  100.00%
+     240     116   116  100.00% (partial; cannot establish RTO)
+
+RTO: 90 s (window start, resolution 30 s)
+sent 1950, failed sales 194 {
+  '0 getaddrinfo EAI_AGAIN tawira': 12,
+  '0 timeout': 156,
+  '200 application error': 26
+}
+failed latency ms: min 2303, median 30001, max 30023
+first failure at 1 s, last at 61 s (relative to fault)

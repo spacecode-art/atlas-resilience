@@ -1,0 +1,3 @@
+notBefore=Nov  7 09:24:08 2026 GMT
+notAfter=Nov 27 09:24:08 2026 GMT
+serial=1000

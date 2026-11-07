@@ -9,11 +9,11 @@
 Systems are usually shown running and rarely shown failing. "Highly
 available" is an assertion until someone kills a zone, partitions the
 database, or expires a certificate and measures what happens. Atlas
-Resilience does that deliberately. Each failure scenario is designed on
-paper, injected into a real application on a local zone-labeled
-Kubernetes cluster, observed through the Phase 3 observability stack, and
-written up with measured detection and recovery times, whether or not the
-system behaved the way the design said it would.
+Resilience does that deliberately. Scenarios declare hypotheses and targets
+before injection. Completed runs
+preserve client outcomes, database reconciliation and Phase 3 telemetry,
+including failed hypotheses. The status table distinguishes measured runs
+from designs that have not been exercised.
 
 ## A note on anonymization
 
@@ -56,16 +56,26 @@ evidence.
 
 ---
 
+## Phase 5 progress
+
+The [roadmap checklist](docs/phase-5-status.md) maps each required deliverable
+to its evidence and remaining work. SC-01 has one measured local run. SC-02 has
+two valid database outage runs, one preserved invalid attempt and a separate
+request-ID replay probe; the first run had one lost response and the repeat had
+none. SC-03 and SC-04 each have two measured local runs. These are still local
+samples, so the scenario documents state exactly what the repeats support.
+Designs, fixture tests and live observations have separate status.
+
 ## Failure Scenarios
 
 | ID | Scenario | Method | Status |
 |---|---|---|---|
-| SC-01 | AZ failure | Stop or partition a zone-labeled kind worker; Tawira spread across zones | Planned |
-| SC-02 | Database failure | Scripted container faults on host Supabase plus Chaos Mesh NetworkChaos on Tawira's egress | Planned |
-| SC-03 | DNS failure | Chaos Mesh DNSChaos | Planned |
-| SC-04 | Certificate expiration | cert-manager short-lived certificates left to lapse | Planned |
-| SC-05 | IAM compromise | Tabletop exercise; revoke/rotate steps rehearsed against MiniStack | Planned |
-| SC-06 | Secrets leak | Tabletop exercise; Gitleaks detection and rotation drill | Planned |
+| SC-01 | AZ failure | Stop or partition a zone-labeled kind worker; Tawira spread across zones | Measured once: 60 s RTO, `sc01c3` ([results](docs/scenarios/SC-01-zone-loss.md)) |
+| SC-02 | Database failure | Local host database stop/restore first; egress fault as a separate comparison | Measured twice: 510 s fault-relative / 30 s DB-ready-relative RTO; `sc02b` had one lost response and `sc02c` had zero; replay safety probe passed ([results](docs/scenarios/SC-02-database-failure.md)) |
+| SC-03 | DNS failure | Chaos Mesh DNSChaos against the load pod's Tawira Service lookup | Measured twice: 90 s RTO in both runs; 17 then 25 lost responses |
+| SC-04 | Certificate expiration | Disposable local TLS boundary with an expired X.509 certificate | Measured twice: 90 s HTTPS recovery RTO in both runs; zero lost responses |
+| SC-05 | IAM compromise | Tabletop and isolated MiniStack rehearsal | [Synthetic rehearsal passed; no live revocation claimed](docs/scenarios/SC-05-iam-compromise.md) |
+| SC-06 | Secrets leak | Tabletop, synthetic-secret detection and rotation drill | [Synthetic rehearsal passed; no real rotation claimed](docs/scenarios/SC-06-secrets-leak.md) |
 | SC-07 | Third-party dependency failure (email, payments) | NetworkChaos on egress to each provider | Planned |
 
 Not every scenario maps to a chaos tool, and this repo says so rather
@@ -91,7 +101,7 @@ graph TB
             subgraph "zone-c"
                 P3[Tawira pod]
             end
-            CM[Chaos Mesh<br/>not yet installed]
+            CM[Chaos Mesh 2.8.3]
         end
 
         SB[(Supabase CLI stack<br/>Docker, host-side)]
@@ -132,23 +142,24 @@ atlas-resilience/
 │   └── tawira/
 │       ├── tawira.yaml            # Deployment (3 replicas, zone spread) + Service
 │       └── .env.example
-├── chaos/                         # (not yet built) Chaos Mesh install + experiment CRDs
-├── measurements/                  # (not yet built) RTO/RPO scripts and results
-├── scripts/                       # (not yet built) scripted host-side faults
+├── chaos/                         # Chaos Mesh 2.8.3 install values + smoke experiment
+├── load/                          # open-loop sale generator + result validator
+├── measurements/                  # windows.mjs analyzer + per-run results
+├── scripts/                       # SC-01/SC-02/SC-03 runners and pod-CIDR check
 ├── terraform/                     # (not yet built) AWS reference design, plan-only
 ├── docs/
 │   ├── adr/                       # Architecture Decision Records
 │   ├── evidence/
 │   │   ├── spike/                 # environment spike evidence (S1 to S5)
 │   │   └── replica-identity/      # before/after for per-replica metric series
-│   ├── scenarios/                 # (not yet written) one doc per SC-ID
-│   ├── runbooks/                  # (not yet written) one runbook per SC-ID
-│   ├── gameday/                   # (not yet built) plan, timeline, roles
-│   ├── postmortems/               # (not yet built) blameless postmortems
-│   ├── architecture/              # (not yet written) failure domains, overview
+│   ├── scenarios/                 # SC-01 to SC-04 results; SC-05/SC-06 prepared
+│   ├── runbooks/                  # SC-01 to SC-04 operator procedures
+│   ├── gameday/                   # plan and recording template; not yet executed
+│   ├── postmortems/               # SC-01 blameless postmortem
+│   ├── findings/                  # detection gap and remediation acceptance criteria
 │   ├── threat-model.md            # (not yet written)
 │   ├── cost-model.md              # (not yet written)
-│   └── slo-rto-rpo.md             # (not yet written)
+│   └── slo-rto-rpo.md             # v0.1 targets and measured SC-01 result
 ├── .editorconfig
 ├── .gitignore
 ├── CHANGELOG.md
@@ -210,12 +221,33 @@ kubectl -n tawira get pods -o wide
 The first `apply` creates pods before the secret exists, so they error
 until the `rollout restart` picks it up. Expected, not a fault.
 
+**Known limitation: the test bed has a clock.** Tawira blocks reads for non-super-admin users once
+a shop's trial ends (`trial_ends_at` plus a 5-day grace). After a long gap between sessions the
+load generator can see an empty product list and exit. `target/tawira/seed.sql` pushes the local
+trial a year ahead; re-run it before a session if the date is near. Multi-node networking failed
+in `sc01a`; whether restarting Docker or the host caused it was never confirmed. Rebuild the
+cluster before a run if its networking checks fail.
+
+**Verify sales, not only HTTP status.** TanStack Start can return HTTP 200 with a serialized
+application error. Keep the local Tawira image in sync with the local database migrations,
+and confirm the smoke summary's `sales_ok` equals `sent` and the tagged sales exist in the
+ledger. SC-01's control gate requires a sale UUID. After editing the generator, refresh both
+script files before creating a load Job:
+
+```bash
+kubectl -n tawira create configmap loadgen-script \
+  --from-file=loadgen.mjs=load/loadgen.mjs \
+  --from-file=sale-result.mjs=load/sale-result.mjs \
+  --dry-run=client -o yaml | kubectl -n tawira apply -f -
+```
+
 ---
 
 ## Current Status
 
 **Built:**
-- ADR-0001 to ADR-0003, all Accepted. ADR-0003's environment spike passed
+- ADR-0001 to ADR-0004 accepted; ADR-0005 records the next placement comparison.
+  ADR-0003's environment spike passed
   all five criteria (results in the ADR)
 - Three-zone kind cluster (Kubernetes v1.37.0 node image): one control
   plane and three workers carrying `zone-a`/`zone-b`/`zone-c` labels,
@@ -226,9 +258,21 @@ until the `rollout restart` picks it up. Expected, not a fault.
   stack; all stacks fit on the development machine without swapping
   (evidence in [`docs/evidence/spike/`](docs/evidence/spike/))
 
+- Chaos Mesh 2.8.3 installation and namespace-isolation smoke test
+  ([evidence](docs/evidence/chaos-install/), ADR-0002 amendment)
+- SC-01: one valid local run, 60 s sale RTO, no acknowledged sales missing;
+  earlier invalid attempts retained with the result validator and gated harness
+- SC-01 verdicts, postmortem and runbook; SC-02 runner, scenario and runbook
+  fixture-tested; two valid database outage runs (`sc02b`, `sc02c`) and one
+  preserved interrupted attempt (`sc02a`) are committed. SC-03 and SC-04 each
+  have two valid local observations with their repeat-specific loss counts.
+  SC-05/SC-06 synthetic tabletop rehearsal is recorded; the Game Day plan remains
+  separate and no live IAM or secrets rotation is claimed
+
 **Not yet built, tracked honestly:**
-- Chaos Mesh installation, every experiment, runbook, and measured
-  RTO/RPO result
+- Game Day execution, SC-07's planned provider tests and the follow-up provider
+  validation for the synthetic SC-05/SC-06 rehearsal
+- Validated deployment of the detection remediation and ADR-0005 comparison
 - A Tawira health endpoint (readiness is currently a TCP probe on the
   port, which proves the process started, not that the app works)
 - The AWS reference design, threat model, Game Day, and demo video
@@ -270,22 +314,12 @@ consistent with it, but the SDK path was not isolated further.
 
 ---
 
-**Three replicas collapsed into one metric series (ADR-0004).** Telemetry
-pushed through the Collector carried no per-pod identity, so
-`count(nodejs_eventloop_utilization_ratio)` returned 1 with three pods
-running. Setting `service.instance.id` from the pod name gave 3, with
-the pod name in the `exported_instance` label
-([evidence](docs/evidence/replica-identity/)). Caveats: one metric used as
-the probe, and dashboard panels that group by `exported_job` still need
-updating in `atlas-observability`.
-
----
-
 ## Cost Model
 
-**$0 spent.** kind, Chaos Mesh, Supabase CLI, and the Phase 3 stack are
-free and open-source and run on one local machine. No cloud resource is
-created by this repo.
+The reported **$0 local test-bed cost** covers kind, Chaos Mesh, Supabase CLI
+and the Phase 3 stack on one machine. No AWS resource is created by this repo.
+Optional Workers AI usage is outside that claim; record provider usage
+separately if that path is exercised.
 
 ---
 
@@ -297,6 +331,7 @@ created by this repo.
 | 0002 | Chaos Mesh for in-cluster faults, scripted host faults for the rest | Accepted |
 | 0003 | Tawira on kind, Supabase CLI stack on the host | Accepted |
 | 0004 | Per-replica telemetry identity (`service.instance.id`) | Accepted |
+| [0005](docs/adr/ADR-0005-zone-loss-placement-and-eviction.md) | Preserve the measured baseline; test taint-aware placement with shorter eviction separately | Accepted for comparison; not deployed |
 
 ---
 
@@ -306,6 +341,11 @@ Nothing here is marked done because a manifest applied cleanly. The S5
 finding is the proof of why: the manifest looked correct and the
 placement was wrong, and only observing the running cluster showed it.
 
+- **Harness regression checks.** `node --test tests/*.test.mjs` tests real/error
+  response classification, the absolute request deadline, control rejection,
+  incomplete measurement data, both recovery anchors, ledger UUID matching,
+  local DB selection and restoration failures. Tests use local HTTP fixtures
+  and command stubs; they do not start a cluster or stop a database.
 - **Experiment template.** Every scenario states hypothesis, steady
   state (measured from the Phase 3 Golden Signals), blast radius,
   abort condition, result, and follow-up before it runs.
@@ -324,19 +364,23 @@ placement was wrong, and only observing the running cluster showed it.
 
 ## Monitoring
 
-Detection is measured with the [`atlas-observability`](https://github.com/spacecode-art/atlas-observability)
-stack. The following comes from static reading of its alert rules and
-**has not been tested**. SC-02 exists in part to confirm or refute it:
+SC-01 `sc01c3` recorded 70 failed connections and no firing alert series. Its
+`HighLatencyP99` series was pending before the fault, then cleared. The failure was
+visible to the client while the HTTP 5xx panel stayed at zero. This is a measured
+coverage gap, tracked as [F-01](docs/findings/F-01-sale-detection-gap.md), with a
+proposed external validated-sale probe, missing/zero-traffic checks, and acceptance
+criteria for a later comparison. Remediation has not been deployed.
 
-- **Possible total-outage blind spot.** `HighErrorRate` divides the 5xx
-  rate by total request rate, so if the application dies and no series
-  exist, the expression may return nothing and never fire. `TargetDown`
-  watches scrape targets, and Prometheus may only be scraping the
-  Collector, not the application.
-- **Detection-time floor.** With 15s scrape and evaluation intervals, a
-  `for: 5m` clause, and Alertmanager's `group_wait`, best-case
-  time-to-detect for the error-rate alert is roughly 5.5 to 6 minutes.
-  Game Day numbers are reported against that baseline.
+The [Phase 3 stack](https://github.com/spacecode-art/atlas-observability) has
+15 s scrape/evaluation intervals, 5-minute holds on application alerts and 30 s
+Alertmanager grouping. About 5.5–6 minutes is a configuration-derived estimate
+for a continuously qualifying application alert, not a universal outage-detection
+floor; `TargetDown` has a different hold. SC-02's `sc02b` and `sc02c` database runs each measured 510 s
+fault-relative recovery and 30 s from confirmed DB readiness, with HTTP 200 application errors
+during the outage and no firing alert series in either exported range. `sc02b`
+had one lost response; `sc02c` had none. The separate `sc02idem1` replay passed
+sequential, concurrent and conflicting request-ID safety checks. These remain
+local observations, not a universal availability or idempotency claim.
 
 ---
 
@@ -350,25 +394,26 @@ already known from this repo's own setup:
 | Chaos Mesh holds powerful cluster permissions and ships a dashboard | Elevation of Privilege | Mitigation specified in ADR-0002: pinned version, dashboard not exposed beyond localhost |
 | The Supabase CLI stack binds all services to `0.0.0.0`, and Studio and pgMeta have no authentication (stated in the CLI's own output) | Information Disclosure | Accepted risk for local-only use; run on a trusted network or firewall ports 54321-54324 |
 | The local image is built outside the Phase 2 signing chain | Tampering | Stated in ADR-0003; image is never pushed |
-| Credentials needed to run the target (local Supabase keys only; no third-party production secrets are used) | Information Disclosure | `.env` is gitignored; secrets enter the cluster via a Kubernetes Secret created from the local file |
+| Credentials needed to run the target (local Supabase keys; if the Workers AI path is exercised, use a scoped throwaway Cloudflare token, never a production one) | Information Disclosure | `.env` is gitignored; secrets enter the cluster via a Kubernetes Secret created from the local file |
 
 ---
 
 ## Incident Runbook
 
-Not yet written. One runbook per scenario ID will live in
-`docs/runbooks/`, each mapped to a real experiment and an alert (or an
-explicit statement that no alert covers it), not generic filler.
+[SC-01](docs/runbooks/SC-01-zone-loss.md) covers control gates, manual aborts,
+restoration, ledger checks and the observed alert gap.
+[SC-02](docs/runbooks/SC-02-database-failure.md) prepares a local database-only
+fault; it has not been executed. Each runbook states what its alerts cover.
 
 ---
 
 ## CI/CD
 
 [`.github/workflows/ci.yml`](.github/workflows/ci.yml) runs on every PR
-and push to `main`. Currently a single job: secrets scanning via
-`atlas-security`'s reusable `reusable-secrets-scan.yml` (pinned to
-`v1.0.4`), consuming the Phase 2 tooling rather than duplicating it.
-Dependabot tracks GitHub Actions.
+and push to `main`. Secrets scanning consumes `atlas-security`'s reusable
+`reusable-secrets-scan.yml` (pinned to `v1.0.4`). A separate Node 22 job runs
+`node --test tests/*.test.mjs` using fixtures and command stubs;
+it does not start a cluster or inject faults. Dependabot tracks GitHub Actions.
 
 **Deliberately not yet in CI:** manifest validation, YAML linting, and
 `terraform validate`/`plan` for the AWS reference design. Those come
@@ -386,7 +431,8 @@ run by hand and are not CI-gated by design.
   browser bundle, and the Dockerfile states that server-only secrets
   must never be passed as build arguments.
 - **No SAST/dependency scanning of Tawira here.** It is scanned in
-  `atlas-security`; this repo deploys it and adds only manifests.
+  `atlas-security`; this repo contains the deployment, load generator, fault
+  runners and measurement tools, rather than the application source.
 
 ---
 
@@ -402,36 +448,38 @@ current AWS pricing.
 
 ## Postmortem Example
 
-No Game Day has been run yet. The first blameless postmortem will live
-in `docs/postmortems/`. The only incident-style finding so far is the
-zone-spread skew documented under Findings So Far.
+The [SC-01 postmortem](docs/postmortems/SC-01-zone-loss.md) covers the valid run,
+invalid-run trail, delayed replica replacement and detection gap. It separates
+observations from untested remedies. The [Game Day plan](docs/gameday/plan.md)
+and recording template are ready; no Game Day has been executed or recorded.
 
 ---
 
 ## Future Roadmap
 
-- Confirm the Golden Signals dashboard populates under traffic from the
-  containerized workload before relying on it as the steady-state
-  instrument
-- ADR for a Tawira health endpoint (liveness should not depend on the
-  database, or a database outage restarts every pod)
-- Install Chaos Mesh with a pinned version and record the install
-  details as an ADR-0002 amendment
-- SC-02 first: confirm or refute the possible Supabase-timeout and
-  total-outage alert gaps, then fix and re-verify
-- SC-01 and SC-03 to SC-07, then the Game Day and postmortem
-- Verify OTel telemetry from the **built** container, closing the open
-  gap in `atlas-observability`
-- Plan-only Terraform reference design and AWS cost model
-- Optional single recorded burst demo on real infrastructure
+- Repeat SC-02/SC-03/SC-04 with fresh run IDs when confidence or a code change
+  warrants it; compare application errors, client outcomes and alert state before
+  changing detection rules. The 2026-11-07 repeats are recorded in the scenario
+  documents.
+- Implement and validate F-01 in `atlas-observability`; verify routing with a
+  test receiver as part of a separate notification drill
+- Compare ADR-0005's placement overlay against the preserved SC-01 baseline
+- Keep the SC-03 DNS control/cleanup and SC-04 TLS boundary fixture-tested;
+  repeat either experiment after runner or application changes
+- Keep the SC-05/SC-06 synthetic rehearsal evidence separate from live IAM or
+  secret-rotation evidence; provision a real emulator only if that scope is approved
+- Execute and record the planned Game Day, then write its postmortem
+- Add a Tawira health endpoint with process liveness independent of database health
+- Plan-only Terraform reference design, sourced AWS cost model and optional burst demo
 
 ---
 
 ## Benchmarks
 
-No RTO/RPO numbers yet. When measured, each result will state the
-environment, the run count, and the detection baseline it is compared
-against. Local-environment numbers will not be presented as cloud
+First result: SC-01 `sc01c3`, **60 s RTO**, 30 s resolution, one local run;
+5,480 acknowledged sales matched the ledger, with none missing
+([details](docs/scenarios/SC-01-zone-loss.md)). Each result states its
+environment, run count and detection evidence. Local-environment numbers will not be presented as cloud
 service timings.
 
 ---

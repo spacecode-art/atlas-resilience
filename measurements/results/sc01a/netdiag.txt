@@ -1,0 +1,13 @@
+## docker's real IPs
+/atlas-resilience-worker 172.21.0.5
+/atlas-resilience-worker2 172.21.0.2
+/atlas-resilience-worker3 172.21.0.3
+/atlas-resilience-control-plane 172.21.0.4
+## what Kubernetes believes
+NAME                             PODCIDR         IP
+atlas-resilience-control-plane   10.244.0.0/24   172.21.0.4
+atlas-resilience-worker          10.244.1.0/24   172.21.0.5
+atlas-resilience-worker2         10.244.3.0/24   172.21.0.2
+atlas-resilience-worker3         10.244.2.0/24   172.21.0.3
+## kindnet logs, worker2
+error: error from server (NotFound): pods "kindnet-qwgrz" not found in namespace "kube-system"

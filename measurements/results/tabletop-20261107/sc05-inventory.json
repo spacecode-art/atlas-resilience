@@ -1,0 +1,13 @@
+{
+  "principal": "atlas-dev-rehearsal",
+  "account": "fixture-account",
+  "oldFingerprint": "862edfde54536fcf",
+  "newFingerprint": "d0cdbae6090f4fd0",
+  "expectedPermissions": [
+    "orders:read"
+  ],
+  "forbiddenPermissions": [
+    "iam:delete-user"
+  ],
+  "fixtureOnly": true
+}
