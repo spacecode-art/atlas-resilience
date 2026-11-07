@@ -152,8 +152,8 @@ atlas-resilience/
 │   ├── evidence/
 │   │   ├── spike/                 # environment spike evidence (S1 to S5)
 │   │   └── replica-identity/      # before/after for per-replica metric series
-│   ├── scenarios/                 # SC-01 results; SC-02/SC-05/SC-06 prepared
-│   ├── runbooks/                  # SC-01 and SC-02 operator procedures
+│   ├── scenarios/                 # SC-01 to SC-04 results; SC-05/SC-06 prepared
+│   ├── runbooks/                  # SC-01 to SC-04 operator procedures
 │   ├── gameday/                   # plan and recording template; not yet executed
 │   ├── postmortems/               # SC-01 blameless postmortem
 │   ├── findings/                  # detection gap and remediation acceptance criteria
@@ -375,9 +375,11 @@ The [Phase 3 stack](https://github.com/spacecode-art/atlas-observability) has
 15 s scrape/evaluation intervals, 5-minute holds on application alerts and 30 s
 Alertmanager grouping. About 5.5–6 minutes is a configuration-derived estimate
 for a continuously qualifying application alert, not a universal outage-detection
-floor; `TargetDown` has a different hold. SC-02 is prepared to test database
-failure and automatic recovery, including whether failures remove telemetry,
-leave zero rates, or return application errors with HTTP 200.
+floor; `TargetDown` has a different hold. SC-02's `sc02b` database run measured
+510 s fault-relative recovery and 30 s from confirmed DB readiness, with HTTP 200
+application errors during the outage and no firing alert series in the exported
+range. The separate `sc02idem1` replay passed sequential, concurrent and
+conflicting request-ID safety checks; both remain single local observations.
 
 ---
 
