@@ -2,8 +2,9 @@
 
 ## Status
 
-Design prepared 2026-11-07. **Not run.** The experiment manifest is a reviewed
-fixture, not evidence that DNS injection or recovery has worked in this cluster.
+Design prepared 2026-11-07. One valid local run (`sc03b`) completed on
+2026-11-07; `sc03a` is preserved as an invalid selector run. This is one local
+observation, not a general DNS-availability claim.
 The Chaos Mesh DNS server is enabled in `chaos/install/values.yaml`, but the
 selection and status conditions must be verified during a dedicated session.
 
@@ -51,6 +52,8 @@ unready injector, unhealthy replicas or an invalid pod CIDR before injection.
 At runtime it adds a unique `sc03-run=<RUN_ID>` pod label and overlays that
 selector into the DNSChaos object. This avoids selecting completed load pods
 from an earlier run, which would make Chaos Mesh report `no running task found`.
+The runner also extends the object duration beyond the planned fault window and
+deletes it explicitly, so automatic expiry cannot be mistaken for cleanup.
 Before applying it:
 
 1. Confirm the current context, namespace annotation, Chaos DNS Server pod and
@@ -89,7 +92,47 @@ found`. The runner aborted and deleted the DNSChaos object and load Job. This
 run is invalid for RTO or hypothesis verdicts; the failure exposed an overly
 broad selector and is preserved in `measurements/results/sc03a/`.
 
-No live result, alert timing, RTO, RPO or hypothesis verdict exists yet.
+### sc03b: measured (2026-11-07, one local run)
+
+The 120-second control passed at 637 requests, 100% validated sales, p95 652 ms
+and p99 965 ms. The corrected runner selected only the `sc03-run=sc03b` pod;
+the DNS error phase lasted 60 seconds, then the object was deleted and recovery
+was observed for 180 seconds. The load pod stayed Running with zero restarts.
+
+| Measure | Observed |
+|---|---|
+| Requests sent | 1,950 of 1,950 planned |
+| Validated sale successes / database rows | 1,756 / 1,773 |
+| Clean failures | 177 |
+| Lost responses | 17 database rows without a validated client acknowledgement |
+| Acknowledged missing/mismatched / duplicate tags / unmatched DB tags | 0 / 0 / 0 |
+| Failure shape | 156 30-second timeouts, 12 `EAI_AGAIN` resolver errors, 26 HTTP 200 application errors |
+| Failure send times relative to fault | +1 to +61 s |
+| Success-ratio RTO | **90 s**, 30 s resolution; recovery windows at +90 s and later were 100% |
+| Resolver probe before/after | `10.96.109.75` / `10.96.109.75` |
+| Alerts | No firing `ALERTS{alertstate="firing"}` series in the 08:51–08:59 UTC query; `HighLatencyP99` remained pending |
+
+The 17 lost responses are the most important result: the database committed a
+sale while the client did not receive a validated acknowledgement. The run had
+no duplicate rows and no acknowledged UUID mismatch, but a caller retrying such
+a request could risk a second sale. The generator did not retry, so retry
+safety is not established. This is a business-outcome finding, not merely a DNS
+availability number.
+
+Hypothesis verdicts for this one run:
+
+| ID | Verdict | Evidence and limit |
+|---|---|---|
+| H1 | Supported | DNS errors and request failures occurred during the selected fault; no failure was sent after +61 s. |
+| H2 | Supported for this run | Resolver returned the same Service IP after deletion; no app restart was needed; RTO was 90 s. One run cannot establish automatic recovery generally. |
+| H3 | Partly supported | No acknowledged UUID was missing and no duplicate tag appeared, but 17 lost responses were recorded. |
+| H4 | Not refuted | No firing alert series appeared; `HighLatencyP99` was already pending. The alert query is corroboration, not notification-delivery proof. |
+
+Evidence is preserved in `measurements/results/sc03b/`, including the client
+log, ledger, reconciliation, windows, resolver probes, generated object,
+Prometheus range queries and timeline. The status-condition snapshot was added
+after this run; the runner nevertheless reached the DNS phase only after its
+`Selected`/`AllInjected` gate passed.
 Chaos Mesh documents DNSChaos `error` behavior, pattern matching and the
 required DNS server; this repository's 2.8.3 install enables that component,
 but those facts are prerequisites, not a local observation.

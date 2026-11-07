@@ -73,3 +73,9 @@ follows [Keep a Changelog](https://keepachangelog.com/).
   client/ledger/window evidence capture.
 - `fix(sc03)`: scope each DNSChaos run to a unique load-pod label after the
   first live attempt selected a completed Job pod and correctly failed closed.
+- `fix(sc03)`: persist the confirmed Chaos Mesh status and make explicit object
+  deletion, rather than automatic duration expiry, the recovery action.
+- `test(sc03)`: record `sc03b`, one valid local DNS run: 90 s success RTO,
+  1,756 validated sales, 17 lost responses and no duplicate tags. Preserve the
+  invalid `sc03a` selector run and do not claim retry safety or broad DNS
+  availability from one observation.

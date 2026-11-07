@@ -7,7 +7,7 @@ Phase 5 (Resilience). This is a deliverable checklist, not a completion claim.
 |---|---|---|
 | AZ failure design | SC-01 design, H1–H6 verdicts, one valid local run | Optional ADR-0005 capacity comparison is separate from the measured baseline. |
 | DB failure design | SC-02 hypotheses, runner and `sc02smk7` smoke | Read-only preflight and 150-sale smoke passed on 2026-11-07; the database outage remains unrun. |
-| DNS failure design | [`SC-03`](scenarios/SC-03-dns-failure.md), guarded runner, reviewed fixture and 2026-11-07 readiness check | Execute a dedicated run proving resolver selection, cleanup and recovery. |
+| DNS failure design | [`SC-03`](scenarios/SC-03-dns-failure.md), guarded runner, readiness check and `sc03b` | Repeat/extend the observation and investigate lost responses; no broad DNS-availability claim. |
 | Certificate-expiry design | [`SC-04`](scenarios/SC-04-certificate-expiry.md) boundary decision | Build and fixture-test a disposable TLS termination path; current HTTP deployment is not eligible. |
 | IAM compromise design | SC-05 tabletop document | Rehearsal is optional evidence; no real revocation claimed. |
 | Secrets-leak design | SC-06 tabletop document | Rehearsal is optional evidence; no real credential rotation claimed. |

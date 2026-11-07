@@ -115,17 +115,21 @@ log "CONTROL OK: validated sales, volume and latency targets met"
 
 log "FAULT DNSChaos apply $CHAOS_NAME selector=sc03-run=$RUN_ID"
 k create --dry-run=client -f chaos/experiments/sc03-dns-error.yaml -o json \
-  | jq --arg name "$CHAOS_NAME" --arg run "$RUN_ID" '.metadata.name=$name | .spec.selector.labelSelectors={"sc03-run":$run}' \
+  | jq --arg name "$CHAOS_NAME" --arg run "$RUN_ID" --arg duration "$((FAULT_S + 120))s" \
+    '.metadata.name=$name | .spec.duration=$duration | .spec.selector.labelSelectors={"sc03-run":$run}' \
   > "$OUT/dnschaos.json"
 k apply -f "$OUT/dnschaos.json" >/dev/null
 FAULT_ACTIVE=1
 for _ in $(seq 1 30); do
-  status="$(k -n "$NS" get dnschaos "$CHAOS_NAME" -o json | jq -r '[.status.conditions[]? | select(.type=="Selected") | .status] | first // ""')"
-  injected="$(k -n "$NS" get dnschaos "$CHAOS_NAME" -o json | jq -r '[.status.conditions[]? | select(.type=="AllInjected") | .status] | first // ""')"
+  status_json="$(k -n "$NS" get dnschaos "$CHAOS_NAME" -o json)"
+  status="$(printf '%s' "$status_json" | jq -r '[.status.conditions[]? | select(.type=="Selected") | .status] | first // ""')"
+  injected="$(printf '%s' "$status_json" | jq -r '[.status.conditions[]? | select(.type=="AllInjected") | .status] | first // ""')"
   [[ "$status" == True && "$injected" == True ]] && break
   sleep 2
 done
 [[ "$status" == True && "$injected" == True ]] || die "Chaos Mesh did not confirm Selected and AllInjected"
+printf '%s\n' "$status_json" > "$OUT/dnschaos-status.json"
+log "DNSChaos SELECTED=$status ALLINJECTED=$injected"
 phase dns-error "$FAULT_S"
 
 log "RESTORE DNSChaos delete $CHAOS_NAME"
