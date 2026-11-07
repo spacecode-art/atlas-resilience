@@ -50,7 +50,7 @@ try {
     return time;
   };
   const fault = eventTime(/ FAULT /, true);
-  const restore = eventTime(/ RESTORE docker start \S+$/);
+  const restore = eventTime(/ RESTORE (?:docker start \S+|certificate reload \S+)$/);
   const dbReady = eventTime(/ DB_READY(?: |$)/);
   if (dbReady !== null && dbReady < fault) throw new Error('DB_READY precedes fault');
   const { rows } = parseClientLog(readFileSync(join(dir, 'client.jsonl'), 'utf8'));

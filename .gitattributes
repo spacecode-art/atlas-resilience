@@ -3,3 +3,4 @@ docs/evidence/chaos-install/c4-reinstall-after-rebuild.txt -whitespace
 measurements/results/smoke20261102b/ledger.json -whitespace
 measurements/results/sc02smk7/ledger.json -whitespace
 measurements/results/sc03b/ledger.json -whitespace
+measurements/results/sc04b/ledger.json -whitespace

@@ -43,6 +43,17 @@ test('DB-ready recovery uses its own 30 s grid, not subtraction from fault RTO',
   assert.match(result.stdout, /RTO: 120 s/);
   assert.match(result.stdout, /DB-ready RTO: 30 s/);
 }));
+test('certificate reload is accepted as the recovery event', () => temporary(dir => {
+  const rows = requests(180, i => i >= 60);
+  writeFileSync(join(dir, 'events.log'), [
+    '2026-11-02T00:00:00Z FAULT certificate expired reload sc04-tls-proxy',
+    '2026-11-02T00:01:30Z RESTORE certificate reload sc04-tls-proxy',
+  ].join('\n') + '\n');
+  writeFileSync(join(dir, 'client.jsonl'), clientText(rows));
+  const result = cli('measurements/scripts/windows.mjs', [dir]);
+  assert.ifError(result.error); assert.equal(result.status, 0, result.stderr);
+  assert.match(result.stdout, /failures sent after restore: 0/);
+}));
 test('a sparse interior window cannot disappear from the RTO calculation', () => temporary(dir => {
   const rows = requests(90).map((r, i) => ({ ...r, ts: new Date(Date.parse(r.ts) + (i >= 30 ? 30_000 : 0)).toISOString() }));
   saveRun(dir, rows);

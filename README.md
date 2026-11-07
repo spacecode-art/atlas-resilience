@@ -261,7 +261,9 @@ kubectl -n tawira create configmap loadgen-script \
   earlier invalid attempts retained with the result validator and gated harness
 - SC-01 verdicts, postmortem and runbook; SC-02 runner, scenario and runbook
   fixture-tested; live preflight and the 150-sale `sc02smk7` smoke passed,
-  while the database fault remains unrun;
+  while the database fault remains unrun; SC-04's disposable TLS boundary,
+  certificate-reload fixture and one measured expiry run (`sc04b`, 90 s HTTPS
+  recovery RTO) are committed;
   SC-05/SC-06 tabletop designs and Game Day plan written, not executed
 
 **Not yet built, tracked honestly:**

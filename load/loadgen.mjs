@@ -4,6 +4,7 @@
 // Every request carries a unique tag in mpesaRef (method is cash) so that
 // sales can be counted in the database afterward: lost, duplicate, ambiguous.
 import http from "node:http";
+import https from "node:https";
 import { randomUUID } from "node:crypto";
 import { saleResult } from "./sale-result.mjs";
 
@@ -19,7 +20,8 @@ const RUN_ID = e.RUN_ID ?? Date.now().toString(36);
 
 if (!Number.isInteger(RPS) || RPS < 1 || !Number.isInteger(DURATION_S) || DURATION_S < 1 ||
     !/^[a-z0-9]{1,16}$/.test(RUN_ID)) throw new Error("invalid RPS, DURATION_S or RUN_ID");
-if (new URL(TARGET).protocol !== "http:") throw new Error("local load generator requires an http TARGET_URL");
+const targetUrl = new URL(TARGET);
+if (!['http:', 'https:'].includes(targetUrl.protocol)) throw new Error("local load generator requires an http(s) TARGET_URL");
 
 async function getJson(url, init) {
   const r = await fetch(url, init);
@@ -80,7 +82,8 @@ function post(payload) {
       resolve({ ...result, sent_ts: sentAt, ms: Math.round(performance.now() - t0) });
     };
     const u = new URL(`${TARGET}/_serverFn/${FN_ID}`);
-    const req = http.request(
+    const request = u.protocol === 'https:' ? https.request : http.request;
+    const req = request(
       {
         hostname: u.hostname, port: u.port, path: u.pathname, method: "POST",
         agent: false, timeout: 30000,

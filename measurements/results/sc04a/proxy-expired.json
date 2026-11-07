@@ -1,0 +1,316 @@
+{
+    "apiVersion": "v1",
+    "kind": "Pod",
+    "metadata": {
+        "creationTimestamp": "2026-11-07T09:20:32Z",
+        "generateName": "sc04-tls-proxy-64df947bf9-",
+        "generation": 1,
+        "labels": {
+            "app": "sc04-tls-proxy",
+            "pod-template-hash": "64df947bf9",
+            "topology.kubernetes.io/zone": "zone-b"
+        },
+        "name": "sc04-tls-proxy-64df947bf9-r22gj",
+        "namespace": "tawira",
+        "ownerReferences": [
+            {
+                "apiVersion": "apps/v1",
+                "blockOwnerDeletion": true,
+                "controller": true,
+                "kind": "ReplicaSet",
+                "name": "sc04-tls-proxy-64df947bf9",
+                "uid": "2eeb78a0-0c85-4b91-bd7e-16371616bc76"
+            }
+        ],
+        "resourceVersion": "141225",
+        "uid": "3ddae1c8-a7dc-4382-971b-f0c43256c679"
+    },
+    "spec": {
+        "containers": [
+            {
+                "command": [
+                    "node",
+                    "/proxy/sc04-proxy.mjs"
+                ],
+                "env": [
+                    {
+                        "name": "UPSTREAM_URL",
+                        "value": "http://tawira:3000"
+                    },
+                    {
+                        "name": "PORT",
+                        "value": "8443"
+                    }
+                ],
+                "image": "tawira:chaos-local",
+                "imagePullPolicy": "Never",
+                "name": "proxy",
+                "ports": [
+                    {
+                        "containerPort": 8443,
+                        "name": "https",
+                        "protocol": "TCP"
+                    }
+                ],
+                "readinessProbe": {
+                    "failureThreshold": 3,
+                    "initialDelaySeconds": 2,
+                    "periodSeconds": 2,
+                    "successThreshold": 1,
+                    "tcpSocket": {
+                        "port": "https"
+                    },
+                    "timeoutSeconds": 1
+                },
+                "resources": {
+                    "limits": {
+                        "memory": "128Mi"
+                    },
+                    "requests": {
+                        "cpu": "25m",
+                        "memory": "64Mi"
+                    }
+                },
+                "securityContext": {
+                    "allowPrivilegeEscalation": false,
+                    "capabilities": {
+                        "drop": [
+                            "ALL"
+                        ]
+                    }
+                },
+                "terminationMessagePath": "/dev/termination-log",
+                "terminationMessagePolicy": "File",
+                "volumeMounts": [
+                    {
+                        "mountPath": "/proxy",
+                        "name": "proxy-script",
+                        "readOnly": true
+                    },
+                    {
+                        "mountPath": "/tls",
+                        "name": "tls",
+                        "readOnly": true
+                    },
+                    {
+                        "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                        "name": "kube-api-access-pssj7",
+                        "readOnly": true
+                    }
+                ]
+            }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "enableServiceLinks": true,
+        "nodeName": "atlas-resilience-worker2",
+        "preemptionPolicy": "PreemptLowerPriority",
+        "priority": 0,
+        "restartPolicy": "Always",
+        "schedulerName": "default-scheduler",
+        "securityContext": {
+            "runAsGroup": 101,
+            "runAsNonRoot": true,
+            "runAsUser": 100,
+            "seccompProfile": {
+                "type": "RuntimeDefault"
+            }
+        },
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 30,
+        "tolerations": [
+            {
+                "effect": "NoExecute",
+                "key": "node.kubernetes.io/not-ready",
+                "operator": "Exists",
+                "tolerationSeconds": 300
+            },
+            {
+                "effect": "NoExecute",
+                "key": "node.kubernetes.io/unreachable",
+                "operator": "Exists",
+                "tolerationSeconds": 300
+            }
+        ],
+        "volumes": [
+            {
+                "configMap": {
+                    "defaultMode": 420,
+                    "name": "sc04-tls-proxy-script"
+                },
+                "name": "proxy-script"
+            },
+            {
+                "name": "tls",
+                "secret": {
+                    "defaultMode": 420,
+                    "secretName": "sc04-tls-cert"
+                }
+            },
+            {
+                "name": "kube-api-access-pssj7",
+                "projected": {
+                    "defaultMode": 420,
+                    "sources": [
+                        {
+                            "serviceAccountToken": {
+                                "expirationSeconds": 3607,
+                                "path": "token"
+                            }
+                        },
+                        {
+                            "configMap": {
+                                "items": [
+                                    {
+                                        "key": "ca.crt",
+                                        "path": "ca.crt"
+                                    }
+                                ],
+                                "name": "kube-root-ca.crt"
+                            }
+                        },
+                        {
+                            "downwardAPI": {
+                                "items": [
+                                    {
+                                        "fieldRef": {
+                                            "apiVersion": "v1",
+                                            "fieldPath": "metadata.namespace"
+                                        },
+                                        "path": "namespace"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "status": {
+        "allocatedResources": {
+            "cpu": "25m",
+            "memory": "64Mi"
+        },
+        "conditions": [
+            {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2026-11-07T09:20:33Z",
+                "observedGeneration": 1,
+                "status": "True",
+                "type": "PodReadyToStartContainers"
+            },
+            {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2026-11-07T09:20:32Z",
+                "observedGeneration": 1,
+                "status": "True",
+                "type": "Initialized"
+            },
+            {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2026-11-07T09:20:37Z",
+                "observedGeneration": 1,
+                "status": "True",
+                "type": "Ready"
+            },
+            {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2026-11-07T09:20:37Z",
+                "observedGeneration": 1,
+                "status": "True",
+                "type": "ContainersReady"
+            },
+            {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2026-11-07T09:20:32Z",
+                "observedGeneration": 1,
+                "status": "True",
+                "type": "PodScheduled"
+            }
+        ],
+        "containerStatuses": [
+            {
+                "allocatedResources": {
+                    "cpu": "25m",
+                    "memory": "64Mi"
+                },
+                "containerID": "containerd://f685ad5047d09d83c6216a1c26c37e892960876a5dbbd9e6c005463a616e99c9",
+                "image": "docker.io/library/tawira:chaos-local",
+                "imageID": "docker.io/library/import-2026-11-02@sha256:dcf35f75d5644e1489482f976806ad9aa50f14baea4ae749e656008c0fb9b518",
+                "lastState": {},
+                "name": "proxy",
+                "ready": true,
+                "resources": {
+                    "limits": {
+                        "memory": "128Mi"
+                    },
+                    "requests": {
+                        "cpu": "25m",
+                        "memory": "64Mi"
+                    }
+                },
+                "restartCount": 0,
+                "started": true,
+                "state": {
+                    "running": {
+                        "startedAt": "2026-11-07T09:20:34Z"
+                    }
+                },
+                "user": {
+                    "linux": {
+                        "gid": 101,
+                        "supplementalGroups": [
+                            101
+                        ],
+                        "uid": 100
+                    }
+                },
+                "volumeMounts": [
+                    {
+                        "mountPath": "/proxy",
+                        "name": "proxy-script",
+                        "readOnly": true,
+                        "recursiveReadOnly": "Disabled"
+                    },
+                    {
+                        "mountPath": "/tls",
+                        "name": "tls",
+                        "readOnly": true,
+                        "recursiveReadOnly": "Disabled"
+                    },
+                    {
+                        "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                        "name": "kube-api-access-pssj7",
+                        "readOnly": true,
+                        "recursiveReadOnly": "Disabled"
+                    }
+                ]
+            }
+        ],
+        "hostIP": "172.21.0.4",
+        "hostIPs": [
+            {
+                "ip": "172.21.0.4"
+            }
+        ],
+        "observedGeneration": 1,
+        "phase": "Running",
+        "podIP": "10.244.2.7",
+        "podIPs": [
+            {
+                "ip": "10.244.2.7"
+            }
+        ],
+        "qosClass": "Burstable",
+        "resources": {
+            "limits": {
+                "memory": "128Mi"
+            },
+            "requests": {
+                "memory": "64Mi"
+            }
+        },
+        "startTime": "2026-11-07T09:20:32Z"
+    }
+}

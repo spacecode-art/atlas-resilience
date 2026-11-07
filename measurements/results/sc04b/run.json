@@ -1,0 +1,15 @@
+{
+  "scenario": "SC-04",
+  "mode": "run",
+  "run": "sc04b",
+  "context": "kind-atlas-resilience",
+  "loadgen_node": "atlas-resilience-worker2",
+  "rps": 5,
+  "control_s": 120,
+  "fault_s": 60,
+  "recovery_s": 180,
+  "proxy_image_id": "docker.io/library/import-2026-11-02@sha256:dcf35f75d5644e1489482f976806ad9aa50f14baea4ae749e656008c0fb9b518",
+  "source_commit": "46f1f02a0d3d0f07155b8b732bfab18db5538e89",
+  "started_at": "2026-11-07T09:24:09Z",
+  "evidence_note": "Derived from the runner's saved proxy-before.json and events.log; source had uncommitted SC-04 edits during the run."
+}
