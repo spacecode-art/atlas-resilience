@@ -63,3 +63,6 @@ follows [Keep a Changelog](https://keepachangelog.com/).
 - `test(resilience)`: expand CI to 50 local fixture/stub regression checks;
   fail pod-CIDR preflight on Kubernetes API errors rather than reporting OK.
   Read-only live preflight correctly refuses the stale generator ConfigMap.
+- `docs(scenarios)`: add a scoped SC-03 DNSChaos design and reviewed fixture;
+  record SC-04's missing TLS boundary explicitly instead of presenting HTTP as
+  certificate-expiry evidence.

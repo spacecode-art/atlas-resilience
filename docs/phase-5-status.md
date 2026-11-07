@@ -7,8 +7,8 @@ Phase 5 (Resilience). This is a deliverable checklist, not a completion claim.
 |---|---|---|
 | AZ failure design | SC-01 design, H1–H6 verdicts, one valid local run | Optional ADR-0005 capacity comparison is separate from the measured baseline. |
 | DB failure design | SC-02 hypotheses and predeclared targets | Runner, restoration and measurement failure paths fixture-tested; live preflight, smoke and outage remain unrun. |
-| DNS failure design | Tooling available, no SC-03 design yet | Specify target DNS name, resolution/cache behavior, control, blast radius and cleanup before a fault. |
-| Certificate-expiry design | No SC-04 design or TLS termination in the target | Choose a dedicated local TLS endpoint; distinguish actual expiry from secret deletion or process restart. |
+| DNS failure design | [`SC-03`](scenarios/SC-03-dns-failure.md), reviewed DNSChaos fixture | Fixture-test resolver selection/cleanup, then execute a dedicated run. |
+| Certificate-expiry design | [`SC-04`](scenarios/SC-04-certificate-expiry.md) boundary decision | Build and fixture-test a disposable TLS termination path; current HTTP deployment is not eligible. |
 | IAM compromise design | SC-05 tabletop document | Rehearsal is optional evidence; no real revocation claimed. |
 | Secrets-leak design | SC-06 tabletop document | Rehearsal is optional evidence; no real credential rotation claimed. |
 | Local chaos exercise | Chaos Mesh smoke and namespace-isolation evidence; SC-01 host-side worker fault | Record exact tooling/runtime for each later fault. |
@@ -26,7 +26,8 @@ both recovery anchors and UUID ledger reconciliation. Failure paths pass fixture
 tests; no live SC-02 fault is claimed. See the [runbook](runbooks/SC-02-database-failure.md)
 for read-only preflight, smoke and the separately scheduled fault run.
 
-Then complete the missing DNS and certificate scenario designs, review the
+Then fixture-test and execute the DNS scenario. Complete the certificate
+boundary before attempting its scenario. Review the
 Game Day entry conditions, execute/record the selected local exercises and write
 the resulting postmortem. A plan or a passing YAML parser is not that evidence.
 

@@ -27,6 +27,11 @@ records the commands, monitoring, recovery limits and evidence required for
 H1–H6. Actual image deployment, a full live fault/restoration, app restart
 behavior, alert MTTD and DB-ready RTO remain unverified for SC-02.
 
+Subsequent design validation on 2026-11-07 parsed the new load Job and SC-03
+DNSChaos YAML, and the installed kind API accepted the DNSChaos object with
+`kubectl apply --dry-run=server`. No experiment object was created. The full
+fixture suite remained at 50 passing tests.
+
 ADR-0001 was corrected from duplicated workload text with the correction date
 visible. SC-01 verdicts were consolidated while preserving the user's cautious
 “not refuted” interpretation and narrowing unisolated scheduling claims. The
