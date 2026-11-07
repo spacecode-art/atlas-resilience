@@ -6,7 +6,7 @@ Phase 5 (Resilience). This is a deliverable checklist, not a completion claim.
 | Roadmap deliverable | Current evidence | Remaining work |
 |---|---|---|
 | AZ failure design | SC-01 design, H1–H6 verdicts, one valid local run | Optional ADR-0005 capacity comparison is separate from the measured baseline. |
-| DB failure design | SC-02 hypotheses and predeclared targets | Runner, restoration and measurement failure paths fixture-tested; live preflight, smoke and outage remain unrun. |
+| DB failure design | SC-02 hypotheses, runner and `sc02smk7` smoke | Read-only preflight and 150-sale smoke passed on 2026-11-07; the database outage remains unrun. |
 | DNS failure design | [`SC-03`](scenarios/SC-03-dns-failure.md), reviewed DNSChaos fixture | Fixture-test resolver selection/cleanup, then execute a dedicated run. |
 | Certificate-expiry design | [`SC-04`](scenarios/SC-04-certificate-expiry.md) boundary decision | Build and fixture-test a disposable TLS termination path; current HTTP deployment is not eligible. |
 | IAM compromise design | SC-05 tabletop document | Rehearsal is optional evidence; no real revocation claimed. |
@@ -22,9 +22,10 @@ separate scope; do not silently make them prerequisites for local Phase 5 proof.
 ## Next complete piece of work
 SC-02 now has a checked-in runner with explicit local DB identity, a validated-sale
 control gate, bounded outage/restore, preserved logs, strict measurement checks,
-both recovery anchors and UUID ledger reconciliation. Failure paths pass fixture
-tests; no live SC-02 fault is claimed. See the [runbook](runbooks/SC-02-database-failure.md)
-for read-only preflight, smoke and the separately scheduled fault run.
+both recovery anchors and UUID ledger reconciliation. On 2026-11-07, the live
+read-only preflight passed and `sc02smk7` produced 150/150 clean, ledger-matched
+sales. The database outage remains unrun. See the [runbook](runbooks/SC-02-database-failure.md)
+for the separately scheduled fault run.
 
 Then fixture-test and execute the DNS scenario. Complete the certificate
 boundary before attempting its scenario. Review the

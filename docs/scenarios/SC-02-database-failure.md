@@ -1,7 +1,9 @@
 # SC-02: Local database unavailable, then restored
 
 ## Status
-Runner and measurement tools fixture-tested 2026-11-02. **Not run against the live stack.** No detection or recovery result is claimed.
+Runner and measurement tools fixture-tested 2026-11-02. The live read-only
+preflight and 150-sale smoke passed on 2026-11-07 (`sc02smk7`). **The database
+outage itself has not run.** No outage detection or recovery result is claimed.
 Run only in a dedicated local session after the [runbook](../runbooks/SC-02-database-failure.md)
 preflight. Keep these predictions and the original targets visible after execution.
 
@@ -55,6 +57,17 @@ Always start the selected DB on exit, retain its volume, wait for readiness,
 verify authenticated reads and validated writes, then confirm all replicas.
 
 ## Evidence and results
+
+### sc02smk7: valid smoke (2026-11-07)
+
+The read-only preflight passed after refreshing the load-script ConfigMap. The
+30-second, 5 RPS Job completed with 150 requests and 150 validated sale UUIDs;
+all 150 matched exactly one ledger row. There were no clean failures, lost
+responses, duplicate tags or unmatched database tags. Client latency was
+228/729/1,006 ms at p50/p95/p99. This is a workload and ledger control, not a
+database-failure result. Raw artifacts are preserved in
+`measurements/results/sc02smk7/`.
+
 Use a fresh ID such as `sc02a`. Save current image/migration identifiers,
 control and complete client logs, events (`FAULT`, `DB_READY`, restore), sampled
 pod/DB/alert timelines, ledger and UUID reconciliation, Prometheus query ranges,

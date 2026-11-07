@@ -68,7 +68,7 @@ designs and the recorded Game Day remain open. Designs, fixture tests and live o
 | ID | Scenario | Method | Status |
 |---|---|---|---|
 | SC-01 | AZ failure | Stop or partition a zone-labeled kind worker; Tawira spread across zones | Measured once: 60 s RTO, `sc01c3` ([results](docs/scenarios/SC-01-zone-loss.md)) |
-| SC-02 | Database failure | Local host database stop/restore first; egress fault as a separate comparison | [Prepared, not run](docs/scenarios/SC-02-database-failure.md) |
+| SC-02 | Database failure | Local host database stop/restore first; egress fault as a separate comparison | [Smoke passed; outage not run](docs/scenarios/SC-02-database-failure.md) |
 | SC-03 | DNS failure | Chaos Mesh DNSChaos against the load pod's Tawira Service lookup | Design prepared; not run |
 | SC-04 | Certificate expiration | Disposable local TLS boundary with an expired X.509 certificate | Boundary design required; not run |
 | SC-05 | IAM compromise | Tabletop and isolated MiniStack rehearsal | [Designed, not rehearsed](docs/scenarios/SC-05-iam-compromise.md) |
@@ -260,8 +260,8 @@ kubectl -n tawira create configmap loadgen-script \
 - SC-01: one valid local run, 60 s sale RTO, no acknowledged sales missing;
   earlier invalid attempts retained with the result validator and gated harness
 - SC-01 verdicts, postmortem and runbook; SC-02 runner, scenario and runbook
-  fixture-tested; the live check currently rejects stale generator code, and
-  smoke/fault remain unrun;
+  fixture-tested; live preflight and the 150-sale `sc02smk7` smoke passed,
+  while the database fault remains unrun;
   SC-05/SC-06 tabletop designs and Game Day plan written, not executed
 
 **Not yet built, tracked honestly:**
