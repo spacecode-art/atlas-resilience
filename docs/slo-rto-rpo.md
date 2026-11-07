@@ -85,7 +85,8 @@ Notes:
   could double-charge because `process_sale` had no idempotency key. The
   2026-11-02 image refresh uses a newer Tawira version with request IDs.
   The generator supplies a fresh UUID per request and never retries, so
-  `sc01c3` does not test replay or retry safety.
+  `sc01c3` does not test replay or retry safety. The targeted `sc02idem1`
+  replay is a separate one-run observation and does not change the SC-01 result.
 - Loss of the database volume itself is design-only. The database sits outside
   Chaos Mesh (ADR-0003) and no backup is configured in this environment.
 
@@ -150,3 +151,4 @@ without the original left visible.
 | 2026-10-13 | Defined how RTO is measured: client results bucketed in 30 s windows by send time; RTO is the start of the first window from which every later window meets the SLO (resolution 30 s). No target changed. | Section 3 set targets but no measurement method. Fixed before SC-01 runs so it cannot be chosen after seeing a result. |
 | 2026-11-02 | Recorded the first valid SC-01 sale-recovery result (`sc01c3`): 60 s RTO, no acknowledged sales missing. No target changed. | HTTP-only validation had counted application errors as successes; the corrected generator requires a sale UUID and reconciles the ledger. See `scenarios/SC-01-zone-loss.md` for workload provenance and invalid attempts. |
 | 2026-11-02 | Before SC-02: require complete consistent logs and full recovery windows; add independent DB-ready grid and reproducible UUID reconciliation. No target changed. | Truncated logs and partial final windows could otherwise establish misleading recovery. Reprocessing preserved `sc01c3` still gives 60 s. |
+| 2026-11-07 | Added `sc02idem1` as a separate request-ID replay observation; no RTO/RPO target changed. | `sc02b` recorded one lost response. The replay tests sequential, concurrent and conflicting request-ID reuse without relabeling the outage result. |

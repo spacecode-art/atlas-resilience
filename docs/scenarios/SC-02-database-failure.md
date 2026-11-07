@@ -120,14 +120,28 @@ transition, not acknowledged sales.
 H1 is supported: confirmed database unavailability produced application-level
 sale failures. H2 is supported for this run: validated sales resumed without an
 application restart. H3 is supported against the DB-ready target, while the
-fault-relative result is reported separately. H4 is unresolved: the database
-contains every distinct sale tag, but one response was lost, so retry/idempotency
-safety is not proven. H5 is observed as an alert gap in this run: no firing
+fault-relative result is reported separately. H4 remains unresolved for the
+outage run: the database contains every distinct sale tag, but one response was
+lost. The separate `sc02idem1` replay supports request-level retry safety for
+this endpoint, but does not turn the outage run into a zero-loss result. H5 is
+observed as an alert gap in this run: no firing
 series was exported while the business operation failed, and `HighLatencyP99`
 was only pending. H6 is unresolved because no firing alert was recorded; this
 run cannot establish whether the rule qualified continuously or whether alert
 delivery was the limiting step. A repeat run is required before generalizing
 these findings.
+
+### sc02idem1: request-ID replay (2026-11-07)
+
+The targeted replay probe sent sequential duplicates, concurrent duplicates and
+conflicting payload reuse. Sequential and concurrent duplicates each produced
+one ledger row and both responses returned the same sale UUID. Reusing a
+`requestId` with a new tag and quantity produced one ledger row; the second
+request returned an HTTP 200 application error and created no second row. The
+verifier reported zero safety failures and zero contract gaps. This is one
+local endpoint observation and supporting evidence for retry handling, not a
+universal idempotency guarantee. Raw responses, the read-only ledger export and
+script provenance are in `measurements/results/sc02idem1/`.
 
 Use a fresh ID such as `sc02c`. Save current image/migration identifiers,
 control and complete client logs, events (`FAULT`, `DB_READY`, restore), sampled

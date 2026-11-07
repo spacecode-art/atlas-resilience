@@ -61,7 +61,8 @@ evidence.
 The [roadmap checklist](docs/phase-5-status.md) maps each required deliverable
 to its evidence and remaining work. SC-01 has one measured local run. SC-02 has
 one measured database outage run and a preserved invalid attempt; its one lost
-response requires a repeat and retry/idempotency investigation. SC-03 and SC-04 each have one measured local run and need
+response has a targeted request-ID replay result and still needs repeat
+confidence. SC-03 and SC-04 each have one measured local run and need
 repeat observations before broader availability claims. Designs, fixture tests
 and live observations have separate status.
 
@@ -70,7 +71,7 @@ and live observations have separate status.
 | ID | Scenario | Method | Status |
 |---|---|---|---|
 | SC-01 | AZ failure | Stop or partition a zone-labeled kind worker; Tawira spread across zones | Measured once: 60 s RTO, `sc01c3` ([results](docs/scenarios/SC-01-zone-loss.md)) |
-| SC-02 | Database failure | Local host database stop/restore first; egress fault as a separate comparison | Measured once: 510 s fault-relative / 30 s DB-ready-relative RTO; one lost response ([results](docs/scenarios/SC-02-database-failure.md)) |
+| SC-02 | Database failure | Local host database stop/restore first; egress fault as a separate comparison | Measured once: 510 s fault-relative / 30 s DB-ready-relative RTO; one lost response; replay safety probe passed ([results](docs/scenarios/SC-02-database-failure.md)) |
 | SC-03 | DNS failure | Chaos Mesh DNSChaos against the load pod's Tawira Service lookup | Measured once: 90 s RTO; 17 lost responses |
 | SC-04 | Certificate expiration | Disposable local TLS boundary with an expired X.509 certificate | Measured once: 90 s HTTPS recovery RTO; `sc04b` |
 | SC-05 | IAM compromise | Tabletop and isolated MiniStack rehearsal | [Designed, not rehearsed](docs/scenarios/SC-05-iam-compromise.md) |

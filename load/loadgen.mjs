@@ -52,7 +52,7 @@ const item = (productId, i) => ({
     v: [str(productId), { t: 0, s: 1 }, undef, undef],
   },
 });
-const body = (tag, productId) =>
+const body = (tag, productId, requestId) =>
   JSON.stringify({
     t: {
       t: 10, i: 0, o: 0,
@@ -62,7 +62,7 @@ const body = (tag, productId) =>
           t: 10, i: 1, o: 0,
           p: {
             k: ["requestId", "branchId", "method", "mpesaRef", "customerName", "customerPhone", "items"],
-            v: [str(randomUUID()), str(BRANCH_ID), str("cash"), str(tag), undef, undef,
+            v: [str(requestId), str(BRANCH_ID), str("cash"), str(tag), undef, undef,
                 { t: 9, i: 2, a: [item(productId, 3)], o: 0 }],
           },
         }],
@@ -131,11 +131,12 @@ await new Promise((done) => {
     const idx = n++;
     const tag = `lg-${RUN_ID}-${String(idx).padStart(5, "0")}`;
     const pid = products[Math.floor(Math.random() * products.length)].id;
-    const p = post(body(tag, pid)).then((r) => {
+    const requestId = randomUUID();
+    const p = post(body(tag, pid, requestId)).then((r) => {
       results.push(r);
       r.ok = r.status === 200 && r.ok === true;
       const keepBody = idx === 0 || !r.ok;
-      console.log(JSON.stringify({ tag, ts: new Date().toISOString(), sent_ts: r.sent_ts, status: r.status, ok: r.ok, saleId: r.saleId, ms: r.ms, err: r.err, body: keepBody ? r.body : undefined }));
+      console.log(JSON.stringify({ tag, requestId, ts: new Date().toISOString(), sent_ts: r.sent_ts, status: r.status, ok: r.ok, saleId: r.saleId, ms: r.ms, err: r.err, body: keepBody ? r.body : undefined }));
     });
     inflight.add(p);
     p.finally(() => inflight.delete(p));

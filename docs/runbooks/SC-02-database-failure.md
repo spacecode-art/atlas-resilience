@@ -144,3 +144,31 @@ proof and may miss brief states between samples. Record app restarts, manual
 interventions and any incomplete evidence. Verify DB/Auth/PostgREST and test
 sales after the run, evaluate H1–H6 against unchanged targets, and write the
 postmortem. No notifications are sent by this procedure.
+
+## Request-ID replay probe
+
+After a smoke or outage run has been restored, test the retry contract with a
+fresh ID. The probe uses three cases: sequential duplicate requests, concurrent
+duplicate requests and reuse of the same request ID with different content.
+Run it through a temporary port-forward so the host process reaches the Tawira
+Service, and use Node's dotenv parser rather than shell-sourcing `load/.env`:
+
+```bash
+kubectl --context kind-atlas-resilience -n tawira \
+  port-forward svc/tawira 13000:3000
+mkdir -p measurements/results/sc02idem2
+RUN_ID=sc02idem2 TARGET_URL=http://127.0.0.1:13000 \
+  node --env-file=load/.env scripts/sc02-replay.mjs --run \
+  > measurements/results/sc02idem2/replay.json
+docker exec -i "$DB" psql -X -qAt -U postgres -v ON_ERROR_STOP=1 \
+  -v run_id=sc02idem2 < measurements/scripts/export-ledger.sql \
+  > measurements/results/sc02idem2/ledger.json
+node scripts/sc02-replay.mjs --verify \
+  measurements/results/sc02idem2/replay.json \
+  measurements/results/sc02idem2/ledger.json
+```
+
+The probe's safety result is supporting evidence for request-level retry
+handling. It does not erase a lost response from an outage run or establish a
+volume-loss RPO. Preserve the replay, ledger, provenance and verifier output
+under the same run ID.
