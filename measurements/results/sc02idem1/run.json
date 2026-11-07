@@ -1,0 +1,25 @@
+{
+  "scenario": "SC-02",
+  "mode": "idempotency-replay",
+  "run": "sc02idem1",
+  "started_at": "2026-11-07T15:33:16.049Z",
+  "completed_at": "2026-11-07T15:33:17.561Z",
+  "target": "Tawira Service via kubectl port-forward 127.0.0.1:13000 -> 3000",
+  "db_container_id": "38f1a3a99ef0ce2d6b8862dab83a67eb14586842ea3493cfa6a47a8b8bbc857c",
+  "db_image": "public.ecr.aws/supabase/postgres:17.6.1.155",
+  "source_commit": "dd97a63",
+  "working_tree_sources": [
+    "load/loadgen.mjs",
+    "scripts/sc02-replay.mjs"
+  ],
+  "sha256": {
+    "load/loadgen.mjs": "8b5a1a5521ed48720fc47f4f1e7bbf26c8634fbfe1b0c0829a9c9220ed53439f",
+    "scripts/sc02-replay.mjs": "0abdacdfb59f53ae85f7c7be1adef3b3e113614b844db132fcd566d759814805",
+    "measurements/scripts/export-ledger.sql": "4ede391dbdb729c982d9ab2520208bd9a35a889e6b2e9aaa3887240af511d8aa"
+  },
+  "cases": [
+    "sequential duplicate requestId and tag",
+    "concurrent duplicate requestId and tag",
+    "sequential requestId reuse with a new tag and quantity"
+  ]
+}

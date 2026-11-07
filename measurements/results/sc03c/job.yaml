@@ -1,0 +1,52 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: loadgen-sc03c
+  namespace: tawira
+spec:
+  backoffLimit: 0
+  template:
+    metadata:
+      labels:
+        app: loadgen
+        sc03-run: sc03c
+    spec:
+      containers:
+      - command:
+        - node
+        - /scripts/loadgen.mjs
+        env:
+        - name: RPS
+          value: "5"
+        - name: DURATION_S
+          value: "270"
+        - name: RUN_ID
+          value: sc03c
+        envFrom:
+        - secretRef:
+            name: loadgen-env
+        image: tawira:chaos-local
+        imagePullPolicy: Never
+        name: loadgen
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+        volumeMounts:
+        - mountPath: /scripts
+          name: script
+      nodeSelector:
+        kubernetes.io/hostname: atlas-resilience-worker2
+      restartPolicy: Never
+      securityContext:
+        runAsGroup: 101
+        runAsNonRoot: true
+        runAsUser: 100
+        seccompProfile:
+          type: RuntimeDefault
+      volumes:
+      - configMap:
+          name: loadgen-script
+        name: script
+  ttlSecondsAfterFinished: 3600

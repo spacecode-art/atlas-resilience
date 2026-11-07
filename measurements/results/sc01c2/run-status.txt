@@ -1,0 +1,1 @@
+Invalid sale experiment: first HTTP 200 body reports missing process_sale signature in schema cache. No tagged sales were recorded. Worker fault/restore evidence is valid cluster behaviour only.

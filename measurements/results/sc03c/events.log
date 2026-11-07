@@ -1,0 +1,9 @@
+2026-11-07T16:05:16Z LOAD started run=sc03c rps=5 duration=270s node=atlas-resilience-worker2
+2026-11-07T16:05:32Z PHASE control-observation (105s)
+2026-11-07T16:07:27Z CONTROL OK: validated sales, volume and latency targets met
+2026-11-07T16:07:27Z FAULT DNSChaos apply sc03-sc03c selector=sc03-run=sc03c
+2026-11-07T16:07:31Z DNSChaos SELECTED=True ALLINJECTED=True
+2026-11-07T16:07:31Z PHASE dns-error (60s)
+2026-11-07T16:08:33Z RESTORE DNSChaos delete sc03-sc03c
+2026-11-07T16:08:35Z PHASE recovery (60s)
+2026-11-07T16:09:51Z DONE DNS error, cleanup and recovery evidence captured

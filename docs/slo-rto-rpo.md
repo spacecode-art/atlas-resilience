@@ -44,12 +44,12 @@ Caveats, stated up front:
 - **MTTD**: time from fault injection to the first alert that fires.
 - **RTO**: time from fault injection until the success ratio is back within
   its SLO and stays there.
-- **RPO**: the amount of acknowledged (HTTP 200) sales that can be lost.
+- **RPO**: the amount of acknowledged (HTTP 200 with a validated `saleId`) sales that can be lost.
 - **Ledger outcomes**, per tagged request, comparing client result with
   database rows:
-  - *clean success*: 200 and exactly one row
-  - *clean failure*: not 200 and no row
-  - *lost response*: row exists but the client did not see a 200
+  - *clean success*: validated sale UUID and exactly one matching row
+  - *clean failure*: no validated sale acknowledgement and no row
+  - *lost response*: row exists but the client did not receive a validated sale acknowledgement
   - *duplicate*: more than one row for one tag
   - *ambiguous*: client saw no definite result and a row exists
 
@@ -72,7 +72,7 @@ total-outage equivalent.
 
 | Scenario | Fault | RTO target | RPO target | Status |
 |---|---|---|---|---|
-| SC-01 | Loss of one zone's worker (one of three replicas) | 2 minutes to success ratio at or above 99.5% | 0, because the stateless tier holds no sales | Unmeasured |
+| SC-01 | Loss of one zone's worker (one of three replicas) | 2 minutes to success ratio at or above 99.5% | 0, because the stateless tier holds no sales | Measured once: 60 s RTO, 0 acknowledged sales missing (`sc01c3`) |
 | SC-02 | Database unavailable, then restored | 5 minutes after the database is back, with no manual restart of Tawira | 0 for acknowledged sales | Unmeasured |
 | SC-03 to SC-07 | See each scenario doc | Set in the scenario doc **before** the run | Set in the scenario doc | Not started |
 
@@ -81,24 +81,54 @@ Notes:
 - SC-02 tests whether Tawira recovers by itself. Supabase calls may have no
   timeout, so requests could hang rather than fail fast. This is a hypothesis
   to confirm or refute, not an assumption.
-- Retrying a sale after a lost response may double-charge, because
-  `process_sale` has no idempotency key. The ledger exists to test this.
+- In the original `base2` workload, retrying a sale after a lost response
+  could double-charge because `process_sale` had no idempotency key. The
+  2026-11-02 image refresh uses a newer Tawira version with request IDs.
+  The generator supplies a fresh UUID per request and never retries, so
+  `sc01c3` does not test replay or retry safety. The targeted `sc02idem1`
+  replay is a separate one-run observation and does not change the SC-01 result.
 - Loss of the database volume itself is design-only. The database sits outside
   Chaos Mesh (ADR-0003) and no backup is configured in this environment.
 
 ## 5. Detection
 
-The alerting pipeline has a computed floor of about 5.5 to 6 minutes between a
-fault and a page: 15 s scrape and evaluation, a `for: 5m` hold, and
-Alertmanager grouping. This is derived from the `atlas-observability` rules,
-not measured here. Consequences:
+For a continuously qualifying application alert, the configured 15 s scrape
+and evaluation intervals, `for: 5m` hold and Alertmanager grouping suggest
+about 5.5–6 minutes to notification. This is a configuration estimate, not a
+measured or universal detection floor. Consequences:
 
-- A fault shorter than about 6 minutes cannot page.
+- A condition must remain above a rule's threshold for its configured hold;
+  fault duration alone does not determine firing. Other rules have different
+  holds (`TargetDown` uses 2 minutes), and a rate window can outlast a fault.
+- SC-01 `sc01c3` had 70 client transport failures and no firing alert series.
+  Server-side 5xx telemetry does not measure those failed connections.
+  Remediation is tracked in [F-01](findings/F-01-sale-detection-gap.md).
 - Proposed MTTD target: at most 7 minutes for a sustained fault.
-- Hypothesis for SC-02: during a total outage there is no traffic, so
-  `HighErrorRate` has no series to evaluate and may never fire. If confirmed,
-  the fix is an alert on absence (`absent()`), recorded as a finding with
-  before and after evidence.
+- SC-02 will distinguish a missing series, an existing series with zero
+  increase, and application errors serialized as HTTP 200. A database outage
+  need not remove request telemetry. `absent()` alone cannot cover all three;
+  external validated-sale probes and traffic-aware checks are proposed in F-01.
+
+### Measurement validity (2026-11-02, before SC-02)
+A final client summary must match the request count, validated outcomes and
+run ID. Request indices must be contiguous; mixed runs, duplicates, malformed
+rows and truncated logs are invalid. New summaries also declare RPS and duration
+so that a complete process exit cannot disguise fewer requests than planned.
+Partial logs are accepted only for the pre-fault control gate.
+
+RTO uses send time (`sent_ts` for new runs; completion minus duration for older
+logs). Only full 30 s windows with at least 20 requests can establish recovery;
+a sparse interior window invalidates continuity. A partial final window cannot
+establish recovery and can contradict an earlier healthy window. Recovery means
+all later observed windows meet the SLO, not a promise about unobserved time.
+SC-02 reports independently bucketed fault-relative and DB-ready-relative RTO;
+subtracting rounded offsets would use the wrong grid. The stricter analyzer
+still reports 60 s for the complete, preserved `sc01c3` evidence.
+
+Ledger reconciliation checks every acknowledged UUID against its tagged DB row,
+reports lost responses separately and rejects missing/mismatched acknowledgements,
+duplicate tags or DB tags absent from the complete client log. A zero-loss result
+for a stop/start of the existing volume says nothing about volume-loss recovery.
 
 ## 6. Limits of this environment
 
@@ -117,4 +147,8 @@ without the original left visible.
 
 | Date | Change | Reason |
 |---|---|---|
-| 2026-10-13 | v0.1 drafted from `base2` baseline | Initial proposal |
+| 2026-10-13 | v0.1 drafted from `base2` baseline | Initial proposal; date verified against commit `10fefe2` (the earlier 2026-10-16 row was a transcription error). |
+| 2026-10-13 | Defined how RTO is measured: client results bucketed in 30 s windows by send time; RTO is the start of the first window from which every later window meets the SLO (resolution 30 s). No target changed. | Section 3 set targets but no measurement method. Fixed before SC-01 runs so it cannot be chosen after seeing a result. |
+| 2026-11-02 | Recorded the first valid SC-01 sale-recovery result (`sc01c3`): 60 s RTO, no acknowledged sales missing. No target changed. | HTTP-only validation had counted application errors as successes; the corrected generator requires a sale UUID and reconciles the ledger. See `scenarios/SC-01-zone-loss.md` for workload provenance and invalid attempts. |
+| 2026-11-02 | Before SC-02: require complete consistent logs and full recovery windows; add independent DB-ready grid and reproducible UUID reconciliation. No target changed. | Truncated logs and partial final windows could otherwise establish misleading recovery. Reprocessing preserved `sc01c3` still gives 60 s. |
+| 2026-11-07 | Added `sc02idem1` as a separate request-ID replay observation; no RTO/RPO target changed. | `sc02b` recorded one lost response. The replay tests sequential, concurrent and conflicting request-ID reuse without relabeling the outage result. |

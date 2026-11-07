@@ -1,0 +1,87 @@
+{
+  "apiVersion": "batch/v1",
+  "kind": "Job",
+  "metadata": {
+    "name": "loadgen-sc02a",
+    "namespace": "tawira"
+  },
+  "spec": {
+    "backoffLimit": 0,
+    "template": {
+      "metadata": {
+        "labels": {
+          "app": "loadgen"
+        }
+      },
+      "spec": {
+        "containers": [
+          {
+            "command": [
+              "node",
+              "/scripts/loadgen.mjs"
+            ],
+            "envFrom": [
+              {
+                "secretRef": {
+                  "name": "loadgen-env"
+                }
+              }
+            ],
+            "image": "tawira:chaos-local",
+            "imagePullPolicy": "Never",
+            "name": "loadgen",
+            "securityContext": {
+              "allowPrivilegeEscalation": false,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ]
+              }
+            },
+            "volumeMounts": [
+              {
+                "mountPath": "/scripts",
+                "name": "script"
+              }
+            ],
+            "env": [
+              {
+                "name": "RPS",
+                "value": "5"
+              },
+              {
+                "name": "DURATION_S",
+                "value": "1350"
+              },
+              {
+                "name": "RUN_ID",
+                "value": "sc02a"
+              }
+            ]
+          }
+        ],
+        "restartPolicy": "Never",
+        "securityContext": {
+          "runAsGroup": 101,
+          "runAsNonRoot": true,
+          "runAsUser": 100,
+          "seccompProfile": {
+            "type": "RuntimeDefault"
+          }
+        },
+        "volumes": [
+          {
+            "configMap": {
+              "name": "loadgen-script"
+            },
+            "name": "script"
+          }
+        ],
+        "nodeSelector": {
+          "kubernetes.io/hostname": "atlas-resilience-worker2"
+        }
+      }
+    },
+    "ttlSecondsAfterFinished": 3600
+  }
+}

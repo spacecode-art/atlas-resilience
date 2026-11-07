@@ -1,0 +1,1 @@
+http://127.0.0.1:3000/d/atlas-golden-signals/atlas-observability-golden-signals-tawira?orgId=1&from=1793630756000&to=1793631911000&timezone=Africa%2FNairobi&kiosk=

@@ -1,0 +1,8 @@
+Host check after seed fix: login 200; products 200 rows 20.
+Smoke smoke20261102b: 150 sent, 150 validated sales, 150 distinct ledger rows, no failures or duplicates.
+Shell syntax: bash -n scripts/sc01-zone-loss.sh passed.
+Node syntax: generator and analyzer checks passed.
+Response fixtures: real base2 sale accepted; sc01c2 HTTP 200 application error, malformed JSON and unexpected response rejected.
+Control fixtures: healthy validated sales accepted; HTTP 200 application errors, legacy HTTP-only rows, transport errors and excessive latency rejected.
+Analyzer fixtures: application-error HTTP 200 rows count as failures; validated recovery at 30 s found; legacy HTTP-only and empty sc01b data rejected.
+Required string counts: CONTROL OK=1; not running 15 s after start=1; NODE IP unchanged=1; no request rows=1.

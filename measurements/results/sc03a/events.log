@@ -1,0 +1,4 @@
+2026-11-07T08:46:25Z LOAD started run=sc03a rps=5 duration=390s node=atlas-resilience-worker2
+2026-11-07T08:46:40Z PHASE control-observation (105s)
+2026-11-07T08:48:32Z CONTROL OK: validated sales, volume and latency targets met
+2026-11-07T08:48:32Z FAULT DNSChaos apply sc03-tawira-service-dns-error

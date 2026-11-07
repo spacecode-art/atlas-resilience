@@ -1,0 +1,11 @@
+2026-11-07T16:16:53.805Z LOAD started run=sc02c rps=5 duration=1350s
+2026-11-07T16:17:09.084Z PHASE control (105s)
+2026-11-07T16:18:54.395Z CONTROL OK: validated sales, volume and latency targets met
+2026-11-07T16:18:54.428Z FAULT docker stop local-test-db
+2026-11-07T16:18:58.684Z DB_STOPPED
+2026-11-07T16:18:58.685Z PHASE db-unavailable (480s)
+2026-11-07T16:26:58.687Z RESTORE docker start local-test-db
+2026-11-07T16:27:02.022Z DB_READY
+2026-11-07T16:27:02.023Z PHASE recovery (600s)
+2026-11-07T16:37:02.024Z RECOVERY_OBSERVATION_COMPLETE
+2026-11-07T16:39:32.673Z DONE measurement and ledger captured; verify verdicts and alert history before reporting results

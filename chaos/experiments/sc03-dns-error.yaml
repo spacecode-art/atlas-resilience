@@ -1,0 +1,18 @@
+# SC-03 design fixture. Apply only after the scenario's control and selection
+# checks pass. This targets the load generator, not CoreDNS or the app pods.
+apiVersion: chaos-mesh.org/v1alpha1
+kind: DNSChaos
+metadata:
+  name: sc03-tawira-service-dns-error
+  namespace: tawira
+spec:
+  action: error
+  mode: all
+  patterns:
+    - tawira.tawira.svc.cluster.local
+  selector:
+    namespaces:
+      - tawira
+    labelSelectors:
+      app: loadgen
+  duration: 60s

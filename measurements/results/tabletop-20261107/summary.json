@@ -1,0 +1,11 @@
+{
+  "run": "tabletop-20261107",
+  "status": "passed",
+  "startedAt": "2026-11-07T16:51:05.942Z",
+  "finishedAt": "2026-11-07T16:51:06.058Z",
+  "scenarios": {
+    "SC05": "passed",
+    "SC06": "passed"
+  },
+  "classification": "synthetic tabletop rehearsal; no live IAM, secrets rotation or external notification claim"
+}
