@@ -71,3 +71,5 @@ follows [Keep a Changelog](https://keepachangelog.com/).
 - `feat(sc03)`: add an attended DNS runner with a read-only preflight, validated
   control gate, `Selected`/`AllInjected` checks, explicit deletion cleanup and
   client/ledger/window evidence capture.
+- `fix(sc03)`: scope each DNSChaos run to a unique load-pod label after the
+  first live attempt selected a completed Job pod and correctly failed closed.

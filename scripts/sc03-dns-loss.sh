@@ -6,7 +6,7 @@ set -euo pipefail
 
 CONTEXT="kind-atlas-resilience"
 NS="tawira"
-CHAOS_NAME="sc03-tawira-service-dns-error"
+CHAOS_NAME="sc03-${RUN_ID}"
 LOADGEN_NODE="${LOADGEN_NODE:-atlas-resilience-worker2}"
 RUN_ID="${RUN_ID:?set RUN_ID, e.g. RUN_ID=sc03a}"
 DB="${DB:?set DB to the verified local Supabase Postgres container}"
@@ -95,8 +95,9 @@ probe() {
   k -n "$NS" exec "$POD" -- node -e 'require("dns").lookup("tawira.tawira.svc.cluster.local",(e,a)=>{if(e){console.error(e.code);process.exit(1)}console.log(a)})' > "$OUT/dns-$target.txt" 2>&1
 }
 
-PATCH="$(printf '{"metadata":{"name":"%s"},"spec":{"template":{"spec":{"nodeSelector":{"kubernetes.io/hostname":"%s"},"containers":[{"name":"loadgen","env":[{"name":"RPS","value":"%s"},{"name":"DURATION_S","value":"%s"},{"name":"RUN_ID","value":"%s"}]}]}}}}' "$JOB" "$LOADGEN_NODE" "$RPS" "$((PRE_S + FAULT_S + POST_S + 30))" "$RUN_ID")"
-k patch --local -f load/job.yaml -p "$PATCH" -o yaml | k -n "$NS" create -f - >/dev/null
+PATCH="$(printf '{"metadata":{"name":"%s"},"spec":{"template":{"metadata":{"labels":{"sc03-run":"%s"}},"spec":{"nodeSelector":{"kubernetes.io/hostname":"%s"},"containers":[{"name":"loadgen","env":[{"name":"RPS","value":"%s"},{"name":"DURATION_S","value":"%s"},{"name":"RUN_ID","value":"%s"}]}]}}}}' "$JOB" "$RUN_ID" "$LOADGEN_NODE" "$RPS" "$((PRE_S + FAULT_S + POST_S + 30))" "$RUN_ID")"
+k patch --local -f load/job.yaml -p "$PATCH" -o yaml > "$OUT/job.yaml"
+k -n "$NS" create -f "$OUT/job.yaml" >/dev/null
 JOB_CREATED=1
 k -n "$NS" wait --for=condition=Ready pod -l "job-name=$JOB" --timeout=120s >/dev/null
 POD="$(k -n "$NS" get pod -l "job-name=$JOB" -o jsonpath='{.items[0].metadata.name}')"
@@ -112,8 +113,11 @@ k -n "$NS" logs "job/$JOB" > "$OUT/control.jsonl"
 node measurements/scripts/control.mjs "$OUT/control.jsonl" "$RPS" "$PRE_S" > "$OUT/control-result.json" || die "control failed; DNS fault NOT injected"
 log "CONTROL OK: validated sales, volume and latency targets met"
 
-log "FAULT DNSChaos apply $CHAOS_NAME"
-k apply -f chaos/experiments/sc03-dns-error.yaml >/dev/null
+log "FAULT DNSChaos apply $CHAOS_NAME selector=sc03-run=$RUN_ID"
+k create --dry-run=client -f chaos/experiments/sc03-dns-error.yaml -o json \
+  | jq --arg name "$CHAOS_NAME" --arg run "$RUN_ID" '.metadata.name=$name | .spec.selector.labelSelectors={"sc03-run":$run}' \
+  > "$OUT/dnschaos.json"
+k apply -f "$OUT/dnschaos.json" >/dev/null
 FAULT_ACTIVE=1
 for _ in $(seq 1 30); do
   status="$(k -n "$NS" get dnschaos "$CHAOS_NAME" -o json | jq -r '[.status.conditions[]? | select(.type=="Selected") | .status] | first // ""')"

@@ -48,6 +48,9 @@ The attended runner is [`scripts/sc03-dns-loss.sh`](../../scripts/sc03-dns-loss.
 `--check` is read-only and `--run` is the only mode that creates a load Job or
 applies DNSChaos. It refuses a stale ConfigMap, active Job, existing experiment,
 unready injector, unhealthy replicas or an invalid pod CIDR before injection.
+At runtime it adds a unique `sc03-run=<RUN_ID>` pod label and overlays that
+selector into the DNSChaos object. This avoids selecting completed load pods
+from an earlier run, which would make Chaos Mesh report `no running task found`.
 Before applying it:
 
 1. Confirm the current context, namespace annotation, Chaos DNS Server pod and
@@ -74,6 +77,17 @@ recovery shortcut. A manually restarted pod is an intervention and invalidates
 the automatic-recovery hypothesis.
 
 ## Result
+
+### sc03a: invalid before injection was verified (2026-11-07)
+
+The 120-second control passed with 637 requests and a 100% validated-sale
+ratio. During the fault phase, the DNS server logged repeated errors for
+`tawira.tawira.svc.cluster.local` from the live load pod, but the DNSChaos
+status reported `Selected=True` and `AllInjected=False`. Its container record
+also selected the completed `sc02smk7` load pod and failed with `no running task
+found`. The runner aborted and deleted the DNSChaos object and load Job. This
+run is invalid for RTO or hypothesis verdicts; the failure exposed an overly
+broad selector and is preserved in `measurements/results/sc03a/`.
 
 No live result, alert timing, RTO, RPO or hypothesis verdict exists yet.
 Chaos Mesh documents DNSChaos `error` behavior, pattern matching and the
