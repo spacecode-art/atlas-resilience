@@ -165,7 +165,8 @@ notification delivery behavior.
 
 Evidence is preserved in `measurements/results/sc03c/`, including the client
 log, ledger, reconciliation, windows, DNSChaos status/object, resolver probes,
-events and timeline.
+events, timeline and the fixed-window
+[Grafana dashboard capture](../../measurements/results/sc03c/dashboard-run.png).
 Chaos Mesh documents DNSChaos `error` behavior, pattern matching and the
 required DNS server; this repository's 2.8.3 install enables that component,
 but those facts are prerequisites, not a local observation.

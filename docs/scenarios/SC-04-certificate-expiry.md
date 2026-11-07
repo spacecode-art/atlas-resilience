@@ -171,7 +171,8 @@ H1, H2 and H3 are supported for both local observations; H4 remains unrefuted
 by the alert query, which is corroboration only and not notification-delivery
 proof. Evidence is preserved in `measurements/results/sc04c/`, including the
 client log, certificate metadata, HTTPS probes, proxy identity/log, ledger
-reconciliation, events and recovery windows.
+reconciliation, events, recovery windows and the fixed-window
+[Grafana dashboard capture](../../measurements/results/sc04c/dashboard-run.png).
 
 ### Fixture result (2026-11-07)
 

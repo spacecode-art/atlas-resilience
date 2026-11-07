@@ -140,7 +140,8 @@ requests, 4,306 validated sales and 2,444 HTTP 200 application-level failures.
 All failures were the access-verification error observed while the database was
 unavailable or becoming ready. The complete client log, ledger export, event
 and timeline logs, Prometheus ranges and reconciliation are in
-`measurements/results/sc02c/`.
+`measurements/results/sc02c/`, including the fixed-window
+[Grafana dashboard capture](../../measurements/results/sc02c/dashboard-run.png).
 
 | Measure | Observation |
 |---|---:|
