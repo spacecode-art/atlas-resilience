@@ -60,8 +60,10 @@ evidence.
 
 The [roadmap checklist](docs/phase-5-status.md) maps each required deliverable
 to its evidence and remaining work. SC-01 has one measured local run. SC-02 is
-fixture-tested with an explicit runner; its live fault, DNS/certificate
-designs and the recorded Game Day remain open. Designs, fixture tests and live observations have separate status.
+fixture-tested with an explicit runner; its live database fault and the recorded
+Game Day remain open. SC-03 and SC-04 each have one measured local run and need
+repeat observations before broader availability claims. Designs, fixture tests
+and live observations have separate status.
 
 ## Failure Scenarios
 
@@ -70,7 +72,7 @@ designs and the recorded Game Day remain open. Designs, fixture tests and live o
 | SC-01 | AZ failure | Stop or partition a zone-labeled kind worker; Tawira spread across zones | Measured once: 60 s RTO, `sc01c3` ([results](docs/scenarios/SC-01-zone-loss.md)) |
 | SC-02 | Database failure | Local host database stop/restore first; egress fault as a separate comparison | [Smoke passed; outage not run](docs/scenarios/SC-02-database-failure.md) |
 | SC-03 | DNS failure | Chaos Mesh DNSChaos against the load pod's Tawira Service lookup | Measured once: 90 s RTO; 17 lost responses |
-| SC-04 | Certificate expiration | Disposable local TLS boundary with an expired X.509 certificate | Boundary design required; not run |
+| SC-04 | Certificate expiration | Disposable local TLS boundary with an expired X.509 certificate | Measured once: 90 s HTTPS recovery RTO; `sc04b` |
 | SC-05 | IAM compromise | Tabletop and isolated MiniStack rehearsal | [Designed, not rehearsed](docs/scenarios/SC-05-iam-compromise.md) |
 | SC-06 | Secrets leak | Tabletop, synthetic-secret detection and rotation drill | [Designed, not rehearsed](docs/scenarios/SC-06-secrets-leak.md) |
 | SC-07 | Third-party dependency failure (email, payments) | NetworkChaos on egress to each provider | Planned |
