@@ -1,0 +1,10 @@
+2026-11-07T09:44:55.468Z LOAD started run=sc02a rps=5 duration=1350s
+2026-11-07T09:45:10.808Z PHASE control (105s)
+2026-11-07T09:46:56.693Z CONTROL OK: validated sales, volume and latency targets met
+2026-11-07T09:46:56.726Z FAULT docker stop local-test-db
+2026-11-07T09:47:00.294Z DB_STOPPED
+2026-11-07T09:47:00.295Z PHASE db-unavailable (480s)
+2026-11-07T09:58:03Z OBSERVABILITY_STACK_EXITED; runner process was no longer active
+2026-11-07T10:04:04Z RESTORE docker start local-test-db (manual cleanup)
+2026-11-07T10:04:04Z DB_READY
+2026-11-07T10:04:42Z INVALID operator process terminated during DB hold; no SC-02 RTO/RPO verdict

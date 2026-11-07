@@ -1,0 +1,1 @@
+{"status":"success","data":{"resultType":"matrix","result":[{"metric":{"__name__":"ALERTS","alertname":"HighLatencyP99","alertstate":"pending","severity":"warning"},"values":[[1794046710,"1"],[1794046740,"1"],[1794046770,"1"],[1794046800,"1"],[1794046830,"1"],[1794046860,"1"],[1794046890,"1"],[1794046920,"1"],[1794046950,"1"]]}]}}

@@ -59,9 +59,9 @@ evidence.
 ## Phase 5 progress
 
 The [roadmap checklist](docs/phase-5-status.md) maps each required deliverable
-to its evidence and remaining work. SC-01 has one measured local run. SC-02 is
-fixture-tested with an explicit runner; its live database fault and the recorded
-Game Day remain open. SC-03 and SC-04 each have one measured local run and need
+to its evidence and remaining work. SC-01 has one measured local run. SC-02 has
+one measured database outage run and a preserved invalid attempt; its one lost
+response requires a repeat and retry/idempotency investigation. SC-03 and SC-04 each have one measured local run and need
 repeat observations before broader availability claims. Designs, fixture tests
 and live observations have separate status.
 
@@ -70,7 +70,7 @@ and live observations have separate status.
 | ID | Scenario | Method | Status |
 |---|---|---|---|
 | SC-01 | AZ failure | Stop or partition a zone-labeled kind worker; Tawira spread across zones | Measured once: 60 s RTO, `sc01c3` ([results](docs/scenarios/SC-01-zone-loss.md)) |
-| SC-02 | Database failure | Local host database stop/restore first; egress fault as a separate comparison | [Smoke passed; outage not run](docs/scenarios/SC-02-database-failure.md) |
+| SC-02 | Database failure | Local host database stop/restore first; egress fault as a separate comparison | Measured once: 510 s fault-relative / 30 s DB-ready-relative RTO; one lost response ([results](docs/scenarios/SC-02-database-failure.md)) |
 | SC-03 | DNS failure | Chaos Mesh DNSChaos against the load pod's Tawira Service lookup | Measured once: 90 s RTO; 17 lost responses |
 | SC-04 | Certificate expiration | Disposable local TLS boundary with an expired X.509 certificate | Measured once: 90 s HTTPS recovery RTO; `sc04b` |
 | SC-05 | IAM compromise | Tabletop and isolated MiniStack rehearsal | [Designed, not rehearsed](docs/scenarios/SC-05-iam-compromise.md) |
@@ -262,14 +262,15 @@ kubectl -n tawira create configmap loadgen-script \
 - SC-01: one valid local run, 60 s sale RTO, no acknowledged sales missing;
   earlier invalid attempts retained with the result validator and gated harness
 - SC-01 verdicts, postmortem and runbook; SC-02 runner, scenario and runbook
-  fixture-tested; live preflight and the 150-sale `sc02smk7` smoke passed,
-  while the database fault remains unrun; SC-04's disposable TLS boundary,
+  fixture-tested; the database fault has one measured run (`sc02b`) and one
+  preserved interrupted attempt (`sc02a`); SC-04's disposable TLS boundary,
   certificate-reload fixture and one measured expiry run (`sc04b`, 90 s HTTPS
   recovery RTO) are committed;
   SC-05/SC-06 tabletop designs and Game Day plan written, not executed
 
 **Not yet built, tracked honestly:**
-- SC-02 to SC-07 executions and measured recovery results beyond SC-01
+- Repeat observations for SC-02 to SC-04, SC-05/SC-06 tabletop execution and
+  SC-07's planned provider tests
 - Validated deployment of the detection remediation and ADR-0005 comparison
 - A Tawira health endpoint (readiness is currently a TCP probe on the
   port, which proves the process started, not that the app works)

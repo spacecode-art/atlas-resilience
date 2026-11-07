@@ -1,7 +1,9 @@
 # SC-02: database outage procedure
 
 ## Status and responsibilities
-Prepared and fixture-tested on 2026-11-02; **no live SC-02 fault has run**.
+Prepared and fixture-tested on 2026-11-02. A complete local outage run
+(`sc02b`) and an invalid interrupted attempt (`sc02a`) were recorded on
+2026-11-07; repeat the run after reviewing the scenario's lost-response finding.
 Read the [scenario](../scenarios/SC-02-database-failure.md) first. Assign an
 operator for the DB and an observer for client outcomes and telemetry; one
 person may hold both roles while actively watching.
@@ -60,7 +62,7 @@ invalid evidence; correct the cause and use a new ID.
 Only after the smoke passes, during an explicitly scheduled fault session:
 
 ```bash
-SMOKE_DIR=measurements/results/sc02smoke1 RUN_ID=sc02a \
+SMOKE_DIR=measurements/results/sc02smoke1 RUN_ID=sc02c \
   node scripts/sc02-db-loss.mjs --run
 ```
 
@@ -121,12 +123,12 @@ Each new `measurements/results/<RUN_ID>/` contains:
 snapshots, not the canonical result. The partial client snapshot is gitignored.
 A failed run may have only some artifacts; `ABORT` disqualifies recovery analysis.
 
-Reproduce the final checks without Docker:
+Reproduce the final checks without Docker (substitute the run ID being reviewed):
 
 ```bash
-node measurements/scripts/reconcile.mjs measurements/results/sc02a/client.jsonl \
-  measurements/results/sc02a/ledger.json
-node measurements/scripts/windows.mjs measurements/results/sc02a
+node measurements/scripts/reconcile.mjs measurements/results/sc02b/client.jsonl \
+  measurements/results/sc02b/ledger.json
+node measurements/scripts/windows.mjs measurements/results/sc02b
 ```
 
 The analyzer requires a complete, consistent final summary, contiguous request

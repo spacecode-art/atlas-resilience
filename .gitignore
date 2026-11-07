@@ -11,3 +11,4 @@ measurements/results/*.raw
 
 # Live monitor snapshots are incomplete; client.jsonl is the canonical result.
 measurements/results/*/live-client.jsonl
+measurements/results/*/monitor-ledger.json
