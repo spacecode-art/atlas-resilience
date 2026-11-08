@@ -3,9 +3,9 @@
 ## Status
 Runner and measurement tools fixture-tested 2026-11-02. The live read-only
 preflight and 150-sale smokes passed on 2026-11-07 (`sc02smk9`, `sc02smk10`).
-Two complete database outage runs (`sc02b`, `sc02c`) are measured; the earlier
-interrupted attempt (`sc02a`) is retained as invalid evidence. The first valid
-run had one lost response and the repeat had none. These remain local samples,
+Three complete database outage runs (`sc02b`, `sc02c`, `gdsc02`) are measured;
+the earlier interrupted attempt (`sc02a`) is retained as invalid evidence.
+`sc02b` had one lost response; `sc02c` and `gdsc02` had none. These remain local samples,
 not a general availability claim. Run only in a dedicated local session after
 the [runbook](../runbooks/SC-02-database-failure.md) preflight.
 
@@ -168,6 +168,26 @@ the one lost response in `sc02b`. H5 is observed as the same alert gap: neither
 exported range contained a firing series while the business operation failed.
 H6 remains unresolved because a missing firing series does not distinguish rule
 qualification from notification or query coverage.
+
+### gdsc02: Game Day database outage (2026-11-08)
+
+The fresh `gdsmk` smoke passed with 150 validated sales and 150 matching ledger
+rows. The 120-second control passed with 601 requests, 100% validated sales,
+p95 345 ms and p99 461 ms. The local Postgres container was stopped at
+09:48:50Z, confirmed stopped at 09:48:52Z, restored at 09:56:52Z and ready at
+09:56:55Z. Tawira was not restarted; all three replicas remained Ready.
+
+The 1,350-second run sent 6,750 requests. It recorded 4,319 validated sales
+and 2,431 HTTP 200 application errors. Reconciliation found 4,319 matching
+database rows and distinct tags, with no acknowledged missing or mismatched
+sales, lost responses, duplicates or unmatched rows. Fault-relative RTO was
+510 s; DB-ready-relative RTO was 30 s, both at 30-second resolution. The first
+complete DB-ready window reached 95.33%; the following window reached 100%.
+Twenty failures were sent after the restore command; the ten-minute recovery
+observation completed and later windows qualified. No firing alert series was
+observed in the sampled timeline. H6 remains unresolved because sampled
+absence does not establish whether a rule qualified continuously or whether a
+notification was delivered. Artifacts are under `measurements/results/gdsc02/`.
 
 ### sc02idem1: request-ID replay (2026-11-07)
 
