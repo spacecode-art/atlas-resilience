@@ -1,0 +1,2 @@
+2026-11-08T13:55:25.251Z LOAD started run=sc01dsmk rps=5 duration=30s
+2026-11-08T13:55:59.573Z DONE measurement and ledger captured; verify verdicts and alert history before reporting results

@@ -1,0 +1,11 @@
+NAME                             STATUS   ROLES           AGE    VERSION   INTERNAL-IP   EXTERNAL-IP   OS-IMAGE                       KERNEL-VERSION             CONTAINER-RUNTIME
+atlas-resilience-control-plane   Ready    control-plane   6d5h   v1.37.0   172.21.0.5    <none>        Debian GNU/Linux 13 (trixie)   7.1.5+kali-amd64 (amd64)   containerd://2.3.4
+atlas-resilience-worker          Ready    <none>          6d5h   v1.37.0   172.21.0.2    <none>        Debian GNU/Linux 13 (trixie)   7.1.5+kali-amd64 (amd64)   containerd://2.3.4
+atlas-resilience-worker2         Ready    <none>          6d5h   v1.37.0   172.21.0.4    <none>        Debian GNU/Linux 13 (trixie)   7.1.5+kali-amd64 (amd64)   containerd://2.3.4
+atlas-resilience-worker3         Ready    <none>          6d5h   v1.37.0   172.21.0.3    <none>        Debian GNU/Linux 13 (trixie)   7.1.5+kali-amd64 (amd64)   containerd://2.3.4
+NAME                      READY   STATUS      RESTARTS   AGE   IP            NODE                       NOMINATED NODE   READINESS GATES
+loadgen-mdrfm             0/1     Completed   0          18m   10.244.2.15   atlas-resilience-worker2   <none>           <none>
+loadgen-sc01dsmk-h4bc4    0/1     Completed   0          22m   10.244.2.14   atlas-resilience-worker2   <none>           <none>
+tawira-6d9cdf7bf4-5s2tk   1/1     Running     0          14m   10.244.2.16   atlas-resilience-worker2   <none>           <none>
+tawira-6d9cdf7bf4-vl59q   1/1     Running     0          24m   10.244.2.13   atlas-resilience-worker2   <none>           <none>
+tawira-6d9cdf7bf4-ws2q9   1/1     Running     0          24m   10.244.3.7    atlas-resilience-worker    <none>           <none>

@@ -1,8 +1,8 @@
 # SC-05: Compromised IAM identity tabletop
 
 ## Status and scope
-Designed 2026-11-02. A synthetic local rehearsal (`tabletop-20261107`) passed
-on 2026-11-07. No account changes, credential revocation or live AWS calls were
+Designed 2026-11-02. Synthetic local rehearsals (`tabletop-20261107` and
+`tabletop-20261108`) passed. No account changes, credential revocation or live AWS calls were
 made. The rehearsal uses a fictional Atlas dev identity and an in-memory state
 machine; it does not prove AWS IAM or STS enforcement.
 
@@ -49,3 +49,7 @@ measurements.
 Evidence is in `measurements/results/tabletop-20261107/sc05-inventory.json`,
 `sc05-result.json` and `events.json`. No real identity, credential, AWS API or
 STS session was involved.
+
+The Game Day repeat is in `measurements/results/tabletop-20261108/`. It passed
+the same fixture checks; its simulated 1/3/4-second milestones are not
+wall-clock response measurements.

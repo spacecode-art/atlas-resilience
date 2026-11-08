@@ -67,9 +67,8 @@ All must hold; each is evidenced with a captured command output in
 - **S2:** A page is served and a login completes end to end against the host
   Supabase (covers the browser-URL vs server-URL split, and any JWT/issuer
   mismatch between them).
-- **S3:** Traces from the pod reach the Phase 3 Collector, which also
-  closes the "OTel unverified in the built container" gap in
-  `atlas-observability`'s roadmap.
+- **S3:** Traces from the pod reach the Phase 3 Collector, closing the
+  "OTel unverified in the built container" gap in `atlas-observability`.
 - **S4:** Tawira, kind, Supabase and the LGTM stack run concurrently
   without sustained swapping. Record peak memory; do not guess it.
 - **S5:** Replicas schedule across all three zone-labeled workers.

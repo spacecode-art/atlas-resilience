@@ -17,6 +17,11 @@ const outputIndex = args.indexOf('--output');
 const output = outputIndex >= 0 && args[outputIndex + 1]
   ? args[outputIndex + 1]
   : 'measurements/results/tabletop-20261107';
+const runIndex = args.indexOf('--run');
+const run = runIndex >= 0 && args[runIndex + 1]
+  ? args[runIndex + 1]
+  : 'tabletop-20261107';
+if (!/^[a-z0-9-]{1,32}$/.test(run)) throw new Error('run must match [a-z0-9-]{1,32}');
 
 mkdirSync(output, { recursive: true });
 const startedAt = new Date().toISOString();
@@ -112,10 +117,10 @@ const finishedAt = new Date().toISOString();
 const status = events.every((entry) => entry.result === 'passed') ? 'passed' : 'failed';
 writeFileSync(join(output, 'events.json'), JSON.stringify(events, null, 2) + '\n');
 writeFileSync(join(output, 'summary.json'), JSON.stringify({
-  run: 'tabletop-20261107', status, startedAt, finishedAt,
+  run, status, startedAt, finishedAt,
   scenarios: { SC05: 'passed', SC06: status },
   classification: 'synthetic tabletop rehearsal; no live IAM, secrets rotation or external notification claim',
 }, null, 2) + '\n');
 for (const entry of events) console.log(JSON.stringify(entry));
-console.log(JSON.stringify({ summary: true, run: 'tabletop-20261107', status }));
+console.log(JSON.stringify({ summary: true, run, status }));
 process.exitCode = status === 'passed' ? 0 : 1;
