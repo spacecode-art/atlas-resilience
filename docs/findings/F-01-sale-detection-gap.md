@@ -1,8 +1,9 @@
 # F-01: Client sale failures are absent from server 5xx alerts
 
 ## Status
-Open, observed once in SC-01 `sc01c3` on 2026-11-02. Remediation is designed;
-no Phase 3 rule, exporter or notification route was changed in this work.
+Open, first observed in SC-01 `sc01c3` on 2026-11-02 and reproduced in the
+2026-11-08 SC-02 outage run `gdsc02`. Remediation is designed; no Phase 3 rule,
+exporter or notification route was changed in this work.
 Owner: the `atlas-observability` change, verified with `atlas-resilience` drills.
 
 ## Evidence
@@ -18,6 +19,13 @@ would not detect either failure mode. An eight-minute loss of a worker is not
 an eight-minute application outage. A five-minute hold is not a universal
 six-minute detection floor: firing depends on the rule expression, the series
 and its continuous active duration. `TargetDown` has a separate two-minute hold.
+
+`measurements/results/gdsc02/` adds a repeat: 2,431 HTTP 200 application errors
+occurred while Postgres was stopped or becoming ready. The runner's sampled
+timeline had no firing alert series. This supports the same business-outcome
+coverage gap but does not show whether an existing expression qualified
+continuously between samples. `gdsc01` and `sc01d` did not capture alert-range
+exports, so no alert verdict is derived from those runs.
 
 ## Remediation before claiming coverage
 1. In `atlas-observability`, add an independent probe of the sale path. A test

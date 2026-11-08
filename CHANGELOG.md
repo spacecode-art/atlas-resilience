@@ -58,8 +58,8 @@ follows [Keep a Changelog](https://keepachangelog.com/).
 - `fix(load)`: absolute 30 s request deadline bounds connect and trickling
   responses; record send timestamps and planned load in the final summary.
 - `docs(review)`: correct ADR-0001's duplicated target-workload content,
-  consolidate SC-01 verdicts without strengthening the conclusions, and map
-  remaining Phase 5 deliverables to the Atlas roadmap.
+  consolidate SC-01 verdicts without strengthening the conclusions, and clarify
+  the Phase 5 evidence scope.
 - `test(resilience)`: expand CI to 50 local fixture/stub regression checks;
   fail pod-CIDR preflight on Kubernetes API errors rather than reporting OK.
   Read-only live preflight correctly refuses the stale generator ConfigMap.

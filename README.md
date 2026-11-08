@@ -40,9 +40,10 @@ evidence.
 
 ## Objectives
 
-- Seven failure scenarios (SC-01 to SC-07), each a vertical slice:
-  design doc, chaos experiment, runbook, measured RTO/RPO, postmortem,
-  all sharing one ID
+- Six failure scenarios (SC-01 to SC-06), with design and evidence. SC-01 to
+  SC-04 have local fault exercises; SC-05 and SC-06 are synthetic tabletop
+  rehearsals.
+- Operator runbooks for SC-01 and SC-02
 - A real application on a three-zone local cluster, with replicas
   spread across zones
 - Every experiment states its hypothesis, steady state, blast radius,
@@ -58,26 +59,24 @@ evidence.
 
 ## Phase 5 progress
 
-The [roadmap checklist](docs/phase-5-status.md) maps each required deliverable
-to its evidence and remaining work. SC-01 has one measured local run. SC-02 has
-two valid database outage runs, one preserved invalid attempt and a separate
-request-ID replay probe; the first run had one lost response and the repeat had
-none. SC-03 and SC-04 each have two measured local runs. These are still local
-samples, so the scenario documents state exactly what the repeats support.
-Designs, fixture tests and live observations have separate status.
+SC-01 has two unchanged-policy runs and one separate ADR-0005 comparison. SC-02
+has three valid database outage runs, one preserved invalid attempt and a
+separate request-ID replay probe; one run had a lost response and the later two
+did not. SC-03 and SC-04 each have two
+measured local runs. These are local samples, so the scenario documents state
+exactly what they support. Designs, fixture tests and live observations have
+separate status.
 
 ## Failure Scenarios
 
 | ID | Scenario | Method | Status |
 |---|---|---|---|
-| SC-01 | AZ failure | Stop or partition a zone-labeled kind worker; Tawira spread across zones | Measured once: 60 s RTO, `sc01c3` ([results](docs/scenarios/SC-01-zone-loss.md)) |
-| SC-02 | Database failure | Local host database stop/restore first; egress fault as a separate comparison | Measured twice: 510 s fault-relative / 30 s DB-ready-relative RTO; `sc02b` had one lost response and `sc02c` had zero; replay safety probe passed ([results](docs/scenarios/SC-02-database-failure.md)) |
+| SC-01 | AZ failure | Stop or partition a zone-labeled kind worker; Tawira spread across zones | Baselines `sc01c3`/`gdsc01`: 60 s RTO; ADR-0005 comparison `sc01d`: 90 s, all criteria passed ([results](docs/scenarios/SC-01-zone-loss.md)) |
+| SC-02 | Database failure | Local host database stop/restore first; egress fault as a separate comparison | Three local runs: 510 s fault-relative / 30 s DB-ready-relative RTO; one lost response in `sc02b`, none in `sc02c` or `gdsc02`; replay probe passed ([results](docs/scenarios/SC-02-database-failure.md)) |
 | SC-03 | DNS failure | Chaos Mesh DNSChaos against the load pod's Tawira Service lookup | Measured twice: 90 s RTO in both runs; 17 then 25 lost responses |
 | SC-04 | Certificate expiration | Disposable local TLS boundary with an expired X.509 certificate | Measured twice: 90 s HTTPS recovery RTO in both runs; zero lost responses |
-| SC-05 | IAM compromise | Tabletop and isolated MiniStack rehearsal | [Synthetic rehearsal passed; no live revocation claimed](docs/scenarios/SC-05-iam-compromise.md) |
+| SC-05 | IAM compromise | Synthetic tabletop fixture | [Rehearsal passed; no live revocation claimed](docs/scenarios/SC-05-iam-compromise.md) |
 | SC-06 | Secrets leak | Tabletop, synthetic-secret detection and rotation drill | [Synthetic rehearsal passed; no real rotation claimed](docs/scenarios/SC-06-secrets-leak.md) |
-| SC-07 | Third-party dependency failure (email, payments) | NetworkChaos on egress to each provider | Planned |
-
 Not every scenario maps to a chaos tool, and this repo says so rather
 than pretending otherwise. SC-05 and SC-06 are tabletop exercises. Zones
 are node labels on one machine, not independent fault domains, so loss
@@ -145,20 +144,17 @@ atlas-resilience/
 ├── chaos/                         # Chaos Mesh 2.8.3 install values + smoke experiment
 ├── load/                          # open-loop sale generator + result validator
 ├── measurements/                  # windows.mjs analyzer + per-run results
-├── scripts/                       # SC-01/SC-02/SC-03 runners and pod-CIDR check
-├── terraform/                     # (not yet built) AWS reference design, plan-only
+├── scripts/                       # SC-01 to SC-04 runners and pod-CIDR check
 ├── docs/
 │   ├── adr/                       # Architecture Decision Records
 │   ├── evidence/
 │   │   ├── spike/                 # environment spike evidence (S1 to S5)
 │   │   └── replica-identity/      # before/after for per-replica metric series
-│   ├── scenarios/                 # SC-01 to SC-04 results; SC-05/SC-06 prepared
-│   ├── runbooks/                  # SC-01 to SC-04 operator procedures
-│   ├── gameday/                   # plan and recording template; not yet executed
-│   ├── postmortems/               # SC-01 blameless postmortem
+│   ├── scenarios/                 # SC-01 to SC-06 designs and evidence
+│   ├── runbooks/                  # SC-01 and SC-02 operator procedures
+│   ├── gameday/                   # operating plan and 2026-11-08 session record
+│   ├── postmortems/               # SC-01 and Game Day postmortems
 │   ├── findings/                  # detection gap and remediation acceptance criteria
-│   ├── threat-model.md            # (not yet written)
-│   ├── cost-model.md              # (not yet written)
 │   └── slo-rto-rpo.md             # v0.1 targets and measured SC-01 result
 ├── .editorconfig
 ├── .gitignore
@@ -260,22 +256,16 @@ kubectl -n tawira create configmap loadgen-script \
 
 - Chaos Mesh 2.8.3 installation and namespace-isolation smoke test
   ([evidence](docs/evidence/chaos-install/), ADR-0002 amendment)
-- SC-01: one valid local run, 60 s sale RTO, no acknowledged sales missing;
+- SC-01: two unchanged-policy local runs with 60 s sale RTO; the separate
+  ADR-0005 comparison `sc01d` met its 90 s RTO and replica-replacement targets;
   earlier invalid attempts retained with the result validator and gated harness
 - SC-01 verdicts, postmortem and runbook; SC-02 runner, scenario and runbook
-  fixture-tested; two valid database outage runs (`sc02b`, `sc02c`) and one
+  fixture-tested; three valid database outage runs (`sc02b`, `sc02c`, `gdsc02`) and one
   preserved interrupted attempt (`sc02a`) are committed. SC-03 and SC-04 each
   have two valid local observations with their repeat-specific loss counts.
-  SC-05/SC-06 synthetic tabletop rehearsal is recorded; the Game Day plan remains
-  separate and no live IAM or secrets rotation is claimed
-
-**Not yet built, tracked honestly:**
-- Game Day execution, SC-07's planned provider tests and the follow-up provider
-  validation for the synthetic SC-05/SC-06 rehearsal
-- Validated deployment of the detection remediation and ADR-0005 comparison
-- A Tawira health endpoint (readiness is currently a TCP probe on the
-  port, which proves the process started, not that the app works)
-- The AWS reference design, threat model, Game Day, and demo video
+  SC-05/SC-06 synthetic tabletop rehearsals are recorded; the 2026-11-08 Game
+  Day and postmortem are documented separately. No live IAM or secrets rotation
+  is claimed
 
 ---
 
@@ -386,8 +376,7 @@ local observations, not a universal availability or idempotency claim.
 
 ## Threat Model
 
-Full STRIDE analysis: not yet written (`docs/threat-model.md`). Risks
-already known from this repo's own setup:
+Known operational risks from this repo's local test setup:
 
 | Finding | Category | Status |
 |---|---|---|
@@ -402,8 +391,9 @@ already known from this repo's own setup:
 
 [SC-01](docs/runbooks/SC-01-zone-loss.md) covers control gates, manual aborts,
 restoration, ledger checks and the observed alert gap.
-[SC-02](docs/runbooks/SC-02-database-failure.md) prepares a local database-only
-fault; it has not been executed. Each runbook states what its alerts cover.
+[SC-02](docs/runbooks/SC-02-database-failure.md) prepares the local
+database-only fault; results are recorded in the SC-02 scenario. Each runbook
+states what its alerts cover.
 
 ---
 
@@ -414,11 +404,6 @@ and push to `main`. Secrets scanning consumes `atlas-security`'s reusable
 `reusable-secrets-scan.yml` (pinned to `v1.0.4`). A separate Node 22 job runs
 `node --test tests/*.test.mjs` using fixtures and command stubs;
 it does not start a cluster or inject faults. Dependabot tracks GitHub Actions.
-
-**Deliberately not yet in CI:** manifest validation, YAML linting, and
-`terraform validate`/`plan` for the AWS reference design. Those come
-with the content they validate. The experiments themselves are
-run by hand and are not CI-gated by design.
 
 ---
 
@@ -436,57 +421,24 @@ run by hand and are not CI-gated by design.
 
 ---
 
-## Cost Analysis
-
-The AWS-equivalent design (multi-AZ database, per-AZ NAT per
-`atlas-network` ADR-0004) is planned as a plan-only Terraform reference
-reusing `atlas-foundation`'s database module. Its cost model is not yet
-written, and no dollar figures are claimed until they are sourced from
-current AWS pricing.
-
----
-
 ## Postmortem Example
 
 The [SC-01 postmortem](docs/postmortems/SC-01-zone-loss.md) covers the valid run,
-invalid-run trail, delayed replica replacement and detection gap. It separates
-observations from untested remedies. The [Game Day plan](docs/gameday/plan.md)
-and recording template are ready; no Game Day has been executed or recorded.
-
----
-
-## Future Roadmap
-
-- Repeat SC-02/SC-03/SC-04 with fresh run IDs when confidence or a code change
-  warrants it; compare application errors, client outcomes and alert state before
-  changing detection rules. The 2026-11-07 repeats are recorded in the scenario
-  documents.
-- Implement and validate F-01 in `atlas-observability`; verify routing with a
-  test receiver as part of a separate notification drill
-- Compare ADR-0005's placement overlay against the preserved SC-01 baseline
-- Keep the SC-03 DNS control/cleanup and SC-04 TLS boundary fixture-tested;
-  repeat either experiment after runner or application changes
-- Keep the SC-05/SC-06 synthetic rehearsal evidence separate from live IAM or
-  secret-rotation evidence; provision a real emulator only if that scope is approved
-- Execute and record the planned Game Day, then write its postmortem
-- Add a Tawira health endpoint with process liveness independent of database health
-- Plan-only Terraform reference design, sourced AWS cost model and optional burst demo
+invalid-run trail, delayed replica replacement and detection gap. The
+[2026-11-08 Game Day postmortem](docs/postmortems/2026-11-08-game-day.md) and
+[execution record](docs/gameday/2026-11-08-execution.md) document the local
+exercise. No video recording was made.
 
 ---
 
 ## Benchmarks
 
-First result: SC-01 `sc01c3`, **60 s RTO**, 30 s resolution, one local run;
-5,480 acknowledged sales matched the ledger, with none missing
+Latest baseline SC-01 result: `gdsc01`, **60 s RTO**, 30 s resolution. The
+separate `sc01d` overlay comparison measured **90 s** and met its predeclared
+criteria. Both runs reconciled all acknowledged sales without duplicates
 ([details](docs/scenarios/SC-01-zone-loss.md)). Each result states its
 environment, run count and detection evidence. Local-environment numbers will not be presented as cloud
 service timings.
-
----
-
-## Demo Video
-
-Not yet recorded.
 
 ---
 

@@ -1,0 +1,11 @@
+2026-11-08T09:03:10Z LOAD started run=gdsc01 rps=5 duration=1110s node=atlas-resilience-worker2 ip=10.244.2.10
+2026-11-08T09:03:10Z PHASE steady-state (120s)
+2026-11-08T09:03:25Z PHASE control-observation (105s)
+2026-11-08T09:05:19Z CONTROL OK: traffic >=90% expected, success >=99.5%, p95 <=1s, p99 <=2s
+2026-11-08T09:05:19Z FAULT docker kill atlas-resilience-worker3 (zone zone-c)
+2026-11-08T09:05:20Z PHASE zone-down (480s)
+2026-11-08T09:13:24Z RESTORE docker start atlas-resilience-worker3
+2026-11-08T09:13:27Z NODE Ready
+2026-11-08T09:13:27Z NODE IP unchanged (172.21.0.3)
+2026-11-08T09:13:27Z PHASE recovery (480s)
+2026-11-08T09:21:47Z DONE. Next: ledger reconcile, then node measurements/scripts/windows.mjs measurements/results/gdsc01

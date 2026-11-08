@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "fixtureOnly": true,
+  "detector": "local regex fixture detector (Gitleaks was not invoked)",
+  "matchedFiles": [
+    ".env"
+  ],
+  "tokenValuesRecorded": false,
+  "archiveEntries": [
+    "consumer.txt"
+  ],
+  "leakedInArchive": [],
+  "oldConsumerProbe": "denied",
+  "newConsumerProbe": "allowed",
+  "limitations": [
+    "No Gitleaks rule-set coverage",
+    "No real issuer revocation",
+    "No external consumer or notification"
+  ]
+}
