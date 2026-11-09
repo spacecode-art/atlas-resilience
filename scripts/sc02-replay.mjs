@@ -11,6 +11,7 @@ import https from "node:https";
 import { randomUUID } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { saleResult } from "../load/sale-result.mjs";
+import { parseClientLog, acknowledged, UUID } from "../measurements/scripts/client-log.mjs";
 
 const e = process.env;
 const mode = process.argv[2];
@@ -86,9 +87,7 @@ function post(token, payload) {
   });
 }
 
-async function runCases() {
-  const runId = e.RUN_ID;
-  if (!/^[a-z0-9]{1,16}$/.test(runId ?? "")) throw new Error("RUN_ID must match [a-z0-9]{1,16}");
+async function login() {
   for (const k of ["SUPABASE_URL", "SUPABASE_PUBLISHABLE_KEY", "LOAD_EMAIL", "LOAD_PASSWORD", "TARGET_URL", "SALE_FN_ID", "BRANCH_ID"]) {
     if (!e[k]) throw new Error(`${k} is required`);
   }
@@ -97,7 +96,55 @@ async function runCases() {
     headers: { apikey: e.SUPABASE_PUBLISHABLE_KEY, "content-type": "application/json" },
     body: JSON.stringify({ email: e.LOAD_EMAIL, password: e.LOAD_PASSWORD }),
   });
-  const token = auth.access_token;
+  return auth.access_token;
+}
+
+// Resend every lost response (sale recorded, no acknowledgement) with its original
+// requestId, tag and product. Runs after the fault, against a healthy system.
+async function replayLost(clientFile, ledgerFile) {
+  const { rows, run } = parseClientLog(readFileSync(clientFile, "utf8"));
+  const ledger = JSON.parse(readFileSync(ledgerFile, "utf8"));
+  if (!Array.isArray(ledger)) throw new Error("ledger must be an array");
+  const byTag = new Map(ledger.map((r) => [r.mpesa_ref, r]));
+  const lost = rows.filter((r) => !acknowledged(r) && byTag.has(r.tag));
+  if (!lost.length) throw new Error("no lost responses in this run; nothing to replay");
+  const unusable = lost.filter((r) => !UUID.test(r.requestId ?? "") || !UUID.test(r.productId ?? ""));
+  if (unusable.length) throw new Error(`${unusable.length} lost rows lack requestId/productId; this run predates replay logging`);
+  const token = await login();
+  const results = [];
+  for (const r of lost) {
+    const entry = byTag.get(r.tag);
+    if (entry.rows !== 1) throw new Error(`${r.tag} has ${entry.rows} ledger rows before replay; refusing`);
+    const response = await post(token, body(r.requestId, r.tag, r.productId, 1));
+    results.push({ tag: r.tag, requestId: r.requestId, expectedSaleId: entry.sale_ids[0], response });
+  }
+  console.log(JSON.stringify({ run, replayed: results.length, results }, null, 2));
+}
+
+function verifyLost(resultsFile, ledgerFile) {
+  const { run, results } = JSON.parse(readFileSync(resultsFile, "utf8"));
+  const ledger = JSON.parse(readFileSync(ledgerFile, "utf8"));
+  if (!Array.isArray(ledger) || ledger.some((r) => !String(r.mpesa_ref).startsWith(`lg-${run}-`))) {
+    throw new Error("ledger is not an array of rows for this run");
+  }
+  const rowsFor = new Map(ledger.map((r) => [r.mpesa_ref, r.rows]));
+  let recovered = 0, safety = 0, gaps = 0;
+  for (const { tag, expectedSaleId, response } of results) {
+    const oneRow = rowsFor.get(tag) === 1;
+    const wrongSale = response.ok && response.saleId !== expectedSaleId;
+    if (!oneRow || wrongSale) { safety++; console.log(`FAIL  [safety] ${tag} rows=${rowsFor.get(tag) ?? 0} wrongSale=${Boolean(wrongSale)}`); }
+    else if (!response.ok) { gaps++; console.log(`FAIL  [contract] ${tag} replay not acknowledged (${response.err ?? response.status})`); }
+    else recovered++;
+  }
+  console.log(`\nreplayed ${results.length}: recovered ${recovered}, safety failures ${safety}, contract gaps ${gaps}`);
+  console.log(`one local observation (run ${run}); not a general idempotency claim`);
+  if (safety || gaps) process.exitCode = 1;
+}
+
+async function runCases() {
+  const runId = e.RUN_ID;
+  if (!/^[a-z0-9]{1,16}$/.test(runId ?? "")) throw new Error("RUN_ID must match [a-z0-9]{1,16}");
+  const token = await login();
   const products = await getJson(
     `${e.SUPABASE_URL}/rest/v1/products?select=id&sku=like.LG-*&is_deleted=eq.false`,
     { headers: { apikey: e.SUPABASE_PUBLISHABLE_KEY, authorization: `Bearer ${token}` } },
@@ -154,7 +201,9 @@ function verify(resultsFile, ledgerFile) {
 try {
   if (mode === "--run" && process.argv.length === 3) await runCases();
   else if (mode === "--verify" && process.argv.length === 5) verify(process.argv[3], process.argv[4]);
-  else throw new Error("usage: --run | --verify <replay.json> <ledger.json>");
+  else if (mode === "--replay-lost" && process.argv.length === 5) await replayLost(process.argv[3], process.argv[4]);
+  else if (mode === "--verify-lost" && process.argv.length === 5) verifyLost(process.argv[3], process.argv[4]);
+  else throw new Error("usage: --run | --verify <replay.json> <ledger.json> | --replay-lost <client.jsonl> <ledger.json> | --verify-lost <replay-lost.json> <ledger-after.json>");
 } catch (error) {
   console.error(`INVALID: ${error.message}`);
   process.exitCode = 2;

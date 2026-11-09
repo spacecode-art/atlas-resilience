@@ -1,0 +1,11 @@
+{
+  "run": "rpo2",
+  "image": "public.ecr.aws/supabase/postgres:17.6.1.155",
+  "rows_at_backup": "42943",
+  "rows_at_simulated_loss": 43093,
+  "rows_after_restore": 42943,
+  "acknowledged_rows_lost": 150,
+  "rpo_window_s": 7080.2,
+  "restore_s": 12,
+  "restore_errors": 6
+}

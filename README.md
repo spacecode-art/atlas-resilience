@@ -72,8 +72,8 @@ separate status.
 | ID | Scenario | Method | Status |
 |---|---|---|---|
 | SC-01 | AZ failure | Stop or partition a zone-labeled kind worker; Tawira spread across zones | Baselines `sc01c3`/`gdsc01`: 60 s RTO; ADR-0005 comparison `sc01d`: 90 s, all criteria passed ([results](docs/scenarios/SC-01-zone-loss.md)) |
-| SC-02 | Database failure | Local host database stop/restore first; egress fault as a separate comparison | Three local runs: 510 s fault-relative / 30 s DB-ready-relative RTO; one lost response in `sc02b`, none in `sc02c` or `gdsc02`; replay probe passed ([results](docs/scenarios/SC-02-database-failure.md)) |
-| SC-03 | DNS failure | Chaos Mesh DNSChaos against the load pod's Tawira Service lookup | Measured twice: 90 s RTO in both runs; 17 then 25 lost responses |
+| SC-02 | Database failure | Local host database stop/restore first; egress fault as a separate comparison | Three local runs: 510 s fault-relative / 30 s DB-ready-relative RTO; one lost response in `sc02b`, none in `sc02c` or `gdsc02`; replay probe passed ([results](docs/scenarios/SC-02-database-failure.md)); volume-loss restore drill: 150 acknowledged sales lost after a 187 s-old backup ([drill](docs/evidence/review/2026-11-09-volume-loss-drill.md)) |
+| SC-03 | DNS failure | Chaos Mesh DNSChaos against the load pod's Tawira Service lookup | Measured three times: 90 s RTO in all three; 17, 25 and 12 lost responses; `sc03d` replay recovered 12 of 12 by request ID ([replay](docs/evidence/review/2026-11-09-sc03d-replay.md)) |
 | SC-04 | Certificate expiration | Disposable local TLS boundary with an expired X.509 certificate | Measured twice: 90 s HTTPS recovery RTO in both runs; zero lost responses |
 | SC-05 | IAM compromise | Synthetic tabletop fixture | [Rehearsal passed; no live revocation claimed](docs/scenarios/SC-05-iam-compromise.md) |
 | SC-06 | Secrets leak | Tabletop, synthetic-secret detection and rotation drill | [Synthetic rehearsal passed; no real rotation claimed](docs/scenarios/SC-06-secrets-leak.md) |
@@ -431,6 +431,21 @@ exercise. No video recording was made.
 
 ---
 
+## Future Roadmap
+
+Open work, tracked honestly. None of it is claimed as done.
+
+- **F-01 sale-path detection** (owner: `atlas-observability`): a validated-sale probe, a failure-ratio alert and a heartbeat alert, then a notification-delivery drill. Five faults so far produced customer-visible failures with no firing alert.
+- **Backups:** automated full-database backup including the `auth` schema, a login test after restore, and continuous archiving for a measured RPO in seconds.
+- **Retry-capable client:** make the sale client retry with the same request ID, and measure lost responses falling to zero.
+- **Tawira health endpoint:** readiness is a TCP probe and proves only that the process started.
+- **SC-07** third-party dependency failure (email, payments): planned, not built.
+- **ADR-0005 overlay:** `sc01d` met its criteria; the overlay was not promoted. Decide.
+- **Second participant and a recorded Game Day,** with a separately authorized notification drill.
+- **AWS reference design and an optional cloud burst demo:** separate scope, not a prerequisite for the local Phase 5 proof.
+
+---
+
 ## Benchmarks
 
 Latest baseline SC-01 result: `gdsc01`, **60 s RTO**, 30 s resolution. The
@@ -439,6 +454,12 @@ criteria. Both runs reconciled all acknowledged sales without duplicates
 ([details](docs/scenarios/SC-01-zone-loss.md)). Each result states its
 environment, run count and detection evidence. Local-environment numbers will not be presented as cloud
 service timings.
+
+---
+
+## Demo Video
+
+Not yet recorded. The shot list is in [`docs/demo/SHOT-LIST.md`](docs/demo/SHOT-LIST.md); the recording will show a live run and the committed evidence.
 
 ---
 
