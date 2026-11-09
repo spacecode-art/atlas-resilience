@@ -51,3 +51,31 @@ test('replay verifier rejects a duplicate ledger row', () => {
     assert.match(result.stdout, /safety failures: 1/);
   } finally { rmSync(dir, { recursive: true, force: true }); }
 });
+function lostFixture(dir, ledgerRows, response = { ok: true, saleId: '00000000-0000-4000-8000-000000000009' }) {
+  const results = { run: 'test', replayed: 1, results: [{ tag: 'lg-test-00005', requestId: 'r', expectedSaleId: '00000000-0000-4000-8000-000000000009', response }] };
+  const resultsFile = join(dir, 'replay-lost.json');
+  const ledgerFile = join(dir, 'ledger-after.json');
+  writeFileSync(resultsFile, JSON.stringify(results));
+  writeFileSync(ledgerFile, JSON.stringify(ledgerRows));
+  return [resultsFile, ledgerFile];
+}
+
+test('lost-response verifier accepts a replay that returns the original sale', () => {
+  const dir = mkdtempSync(join(tmpdir(), 'atlas-sc02-lost-'));
+  try {
+    const [results, ledger] = lostFixture(dir, [{ mpesa_ref: 'lg-test-00005', rows: 1 }]);
+    const result = spawnSync(process.execPath, [script, '--verify-lost', results, ledger], { encoding: 'utf8', env: childEnv() });
+    assert.equal(result.status, 0, result.stderr);
+    assert.match(result.stdout, /recovered 1, safety failures 0, contract gaps 0/);
+  } finally { rmSync(dir, { recursive: true, force: true }); }
+});
+
+test('lost-response verifier fails a replay that created a second row', () => {
+  const dir = mkdtempSync(join(tmpdir(), 'atlas-sc02-lost-'));
+  try {
+    const [results, ledger] = lostFixture(dir, [{ mpesa_ref: 'lg-test-00005', rows: 2 }]);
+    const result = spawnSync(process.execPath, [script, '--verify-lost', results, ledger], { encoding: 'utf8', env: childEnv() });
+    assert.equal(result.status, 1);
+    assert.match(result.stdout, /safety failures 1/);
+  } finally { rmSync(dir, { recursive: true, force: true }); }
+});

@@ -3,6 +3,7 @@
 *.tfvars
 .env
 measurements/results/*.raw
+measurements/results/*/*.dump
 *.mp4
 !docs/**/*.mp4
 
