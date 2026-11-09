@@ -1,0 +1,15 @@
+FAIL  [contract] lg-sc03d-00810 replay not acknowledged (invalid sale response JSON)
+FAIL  [contract] lg-sc03d-00811 replay not acknowledged (invalid sale response JSON)
+FAIL  [contract] lg-sc03d-00812 replay not acknowledged (invalid sale response JSON)
+FAIL  [contract] lg-sc03d-00813 replay not acknowledged (invalid sale response JSON)
+FAIL  [contract] lg-sc03d-00814 replay not acknowledged (invalid sale response JSON)
+FAIL  [contract] lg-sc03d-00815 replay not acknowledged (invalid sale response JSON)
+FAIL  [contract] lg-sc03d-00816 replay not acknowledged (invalid sale response JSON)
+FAIL  [contract] lg-sc03d-00817 replay not acknowledged (invalid sale response JSON)
+FAIL  [contract] lg-sc03d-00818 replay not acknowledged (invalid sale response JSON)
+FAIL  [contract] lg-sc03d-00819 replay not acknowledged (invalid sale response JSON)
+FAIL  [contract] lg-sc03d-00820 replay not acknowledged (invalid sale response JSON)
+FAIL  [contract] lg-sc03d-00821 replay not acknowledged (invalid sale response JSON)
+
+replayed 12: recovered 0, safety failures 0, contract gaps 12
+one local observation (run sc03d); not a general idempotency claim

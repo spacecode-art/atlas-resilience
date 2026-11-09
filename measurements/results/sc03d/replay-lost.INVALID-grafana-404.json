@@ -1,0 +1,150 @@
+{
+  "run": "sc03d",
+  "replayed": 12,
+  "results": [
+    {
+      "tag": "lg-sc03d-00810",
+      "requestId": "bbbc51b2-b76a-4825-ab9d-d57fbac3a41e",
+      "expectedSaleId": "3ff5c826-47e4-48ab-8888-5d4446641ec5",
+      "response": {
+        "status": 404,
+        "sent_ts": "2026-11-09T09:33:02.440Z",
+        "ok": false,
+        "err": "invalid sale response JSON",
+        "body": "<!DOCTYPE html>\n<html lang=\"en-US\">\n  <head>\n    \n    <meta charset=\"utf-8\" />\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\" />\n    <meta name=\"viewport\" content=\"width=device-width\" />\n    <meta name=\"theme-color\" content=\"#000\" />\n\n    <title>Grafana</title>\n\n    <base href=\"/\" />\n\n    <link rel=\"icon\" type=\"image/png\" href=\"public/img/fav32.png\" />\n    <link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"public/img/apple-touch-icon.png\" />\n    <link rel=\"mask-icon\" href=\"public/img/grafana_mask_icon.svg\" color=\"#F05A28\" />\n\n    \n    \n    <link rel=\"stylesheet\" href=\"public/build/grafana.dark.75ad3458069d453da8ea.css\" />\n    \n\n    <script nonce=\"\">\n      performance.mark('frontend_boot_css_time_seconds');\n    </script>\n\n    <meta name=\"apple-mobile-web-app-capable\" content=\"yes\" />\n    <meta name=\"apple-mobile-web-app-status-bar-style\" content=\"black\" />\n    <meta name=\"msapplication-TileColor\" content=\"#2b5797\" />\n    <meta name=\"msapplication-config\" content=\"publ"
+      }
+    },
+    {
+      "tag": "lg-sc03d-00811",
+      "requestId": "6603f0ae-37ea-4c0f-9166-a3da5367151d",
+      "expectedSaleId": "653aee27-9a1d-4cac-a286-d4e21e8ecadd",
+      "response": {
+        "status": 404,
+        "sent_ts": "2026-11-09T09:33:02.466Z",
+        "ok": false,
+        "err": "invalid sale response JSON",
+        "body": "<!DOCTYPE html>\n<html lang=\"en-US\">\n  <head>\n    \n    <meta charset=\"utf-8\" />\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\" />\n    <meta name=\"viewport\" content=\"width=device-width\" />\n    <meta name=\"theme-color\" content=\"#000\" />\n\n    <title>Grafana</title>\n\n    <base href=\"/\" />\n\n    <link rel=\"icon\" type=\"image/png\" href=\"public/img/fav32.png\" />\n    <link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"public/img/apple-touch-icon.png\" />\n    <link rel=\"mask-icon\" href=\"public/img/grafana_mask_icon.svg\" color=\"#F05A28\" />\n\n    \n    \n    <link rel=\"stylesheet\" href=\"public/build/grafana.dark.75ad3458069d453da8ea.css\" />\n    \n\n    <script nonce=\"\">\n      performance.mark('frontend_boot_css_time_seconds');\n    </script>\n\n    <meta name=\"apple-mobile-web-app-capable\" content=\"yes\" />\n    <meta name=\"apple-mobile-web-app-status-bar-style\" content=\"black\" />\n    <meta name=\"msapplication-TileColor\" content=\"#2b5797\" />\n    <meta name=\"msapplication-config\" content=\"publ"
+      }
+    },
+    {
+      "tag": "lg-sc03d-00812",
+      "requestId": "42c9f9d9-5abb-461a-a682-8aced9785148",
+      "expectedSaleId": "d98d1ba3-0663-4f58-ae92-d7460a6b56c7",
+      "response": {
+        "status": 404,
+        "sent_ts": "2026-11-09T09:33:02.473Z",
+        "ok": false,
+        "err": "invalid sale response JSON",
+        "body": "<!DOCTYPE html>\n<html lang=\"en-US\">\n  <head>\n    \n    <meta charset=\"utf-8\" />\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\" />\n    <meta name=\"viewport\" content=\"width=device-width\" />\n    <meta name=\"theme-color\" content=\"#000\" />\n\n    <title>Grafana</title>\n\n    <base href=\"/\" />\n\n    <link rel=\"icon\" type=\"image/png\" href=\"public/img/fav32.png\" />\n    <link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"public/img/apple-touch-icon.png\" />\n    <link rel=\"mask-icon\" href=\"public/img/grafana_mask_icon.svg\" color=\"#F05A28\" />\n\n    \n    \n    <link rel=\"stylesheet\" href=\"public/build/grafana.dark.75ad3458069d453da8ea.css\" />\n    \n\n    <script nonce=\"\">\n      performance.mark('frontend_boot_css_time_seconds');\n    </script>\n\n    <meta name=\"apple-mobile-web-app-capable\" content=\"yes\" />\n    <meta name=\"apple-mobile-web-app-status-bar-style\" content=\"black\" />\n    <meta name=\"msapplication-TileColor\" content=\"#2b5797\" />\n    <meta name=\"msapplication-config\" content=\"publ"
+      }
+    },
+    {
+      "tag": "lg-sc03d-00813",
+      "requestId": "8e553331-7e69-4a27-ba0b-b4e27ac5d964",
+      "expectedSaleId": "e175939d-ab06-4ee9-8455-8289b0ffc219",
+      "response": {
+        "status": 404,
+        "sent_ts": "2026-11-09T09:33:02.479Z",
+        "ok": false,
+        "err": "invalid sale response JSON",
+        "body": "<!DOCTYPE html>\n<html lang=\"en-US\">\n  <head>\n    \n    <meta charset=\"utf-8\" />\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\" />\n    <meta name=\"viewport\" content=\"width=device-width\" />\n    <meta name=\"theme-color\" content=\"#000\" />\n\n    <title>Grafana</title>\n\n    <base href=\"/\" />\n\n    <link rel=\"icon\" type=\"image/png\" href=\"public/img/fav32.png\" />\n    <link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"public/img/apple-touch-icon.png\" />\n    <link rel=\"mask-icon\" href=\"public/img/grafana_mask_icon.svg\" color=\"#F05A28\" />\n\n    \n    \n    <link rel=\"stylesheet\" href=\"public/build/grafana.dark.75ad3458069d453da8ea.css\" />\n    \n\n    <script nonce=\"\">\n      performance.mark('frontend_boot_css_time_seconds');\n    </script>\n\n    <meta name=\"apple-mobile-web-app-capable\" content=\"yes\" />\n    <meta name=\"apple-mobile-web-app-status-bar-style\" content=\"black\" />\n    <meta name=\"msapplication-TileColor\" content=\"#2b5797\" />\n    <meta name=\"msapplication-config\" content=\"publ"
+      }
+    },
+    {
+      "tag": "lg-sc03d-00814",
+      "requestId": "9fa3e2fb-05e5-4ee3-8416-ba076e704872",
+      "expectedSaleId": "0b1f0545-90fa-40f4-a94e-d0e868ee2108",
+      "response": {
+        "status": 404,
+        "sent_ts": "2026-11-09T09:33:02.494Z",
+        "ok": false,
+        "err": "invalid sale response JSON",
+        "body": "<!DOCTYPE html>\n<html lang=\"en-US\">\n  <head>\n    \n    <meta charset=\"utf-8\" />\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\" />\n    <meta name=\"viewport\" content=\"width=device-width\" />\n    <meta name=\"theme-color\" content=\"#000\" />\n\n    <title>Grafana</title>\n\n    <base href=\"/\" />\n\n    <link rel=\"icon\" type=\"image/png\" href=\"public/img/fav32.png\" />\n    <link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"public/img/apple-touch-icon.png\" />\n    <link rel=\"mask-icon\" href=\"public/img/grafana_mask_icon.svg\" color=\"#F05A28\" />\n\n    \n    \n    <link rel=\"stylesheet\" href=\"public/build/grafana.dark.75ad3458069d453da8ea.css\" />\n    \n\n    <script nonce=\"\">\n      performance.mark('frontend_boot_css_time_seconds');\n    </script>\n\n    <meta name=\"apple-mobile-web-app-capable\" content=\"yes\" />\n    <meta name=\"apple-mobile-web-app-status-bar-style\" content=\"black\" />\n    <meta name=\"msapplication-TileColor\" content=\"#2b5797\" />\n    <meta name=\"msapplication-config\" content=\"publ"
+      }
+    },
+    {
+      "tag": "lg-sc03d-00815",
+      "requestId": "83599ef6-f121-4a5c-8b20-9720a05042e5",
+      "expectedSaleId": "ec30d4e8-4d00-4193-aaf7-e73c241f4fbe",
+      "response": {
+        "status": 404,
+        "sent_ts": "2026-11-09T09:33:02.500Z",
+        "ok": false,
+        "err": "invalid sale response JSON",
+        "body": "<!DOCTYPE html>\n<html lang=\"en-US\">\n  <head>\n    \n    <meta charset=\"utf-8\" />\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\" />\n    <meta name=\"viewport\" content=\"width=device-width\" />\n    <meta name=\"theme-color\" content=\"#000\" />\n\n    <title>Grafana</title>\n\n    <base href=\"/\" />\n\n    <link rel=\"icon\" type=\"image/png\" href=\"public/img/fav32.png\" />\n    <link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"public/img/apple-touch-icon.png\" />\n    <link rel=\"mask-icon\" href=\"public/img/grafana_mask_icon.svg\" color=\"#F05A28\" />\n\n    \n    \n    <link rel=\"stylesheet\" href=\"public/build/grafana.dark.75ad3458069d453da8ea.css\" />\n    \n\n    <script nonce=\"\">\n      performance.mark('frontend_boot_css_time_seconds');\n    </script>\n\n    <meta name=\"apple-mobile-web-app-capable\" content=\"yes\" />\n    <meta name=\"apple-mobile-web-app-status-bar-style\" content=\"black\" />\n    <meta name=\"msapplication-TileColor\" content=\"#2b5797\" />\n    <meta name=\"msapplication-config\" content=\"publ"
+      }
+    },
+    {
+      "tag": "lg-sc03d-00816",
+      "requestId": "04aab933-d358-47b5-9c3a-3616514fa529",
+      "expectedSaleId": "e20f8d97-e290-41cd-87c8-f4fa110d3be1",
+      "response": {
+        "status": 404,
+        "sent_ts": "2026-11-09T09:33:02.506Z",
+        "ok": false,
+        "err": "invalid sale response JSON",
+        "body": "<!DOCTYPE html>\n<html lang=\"en-US\">\n  <head>\n    \n    <meta charset=\"utf-8\" />\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\" />\n    <meta name=\"viewport\" content=\"width=device-width\" />\n    <meta name=\"theme-color\" content=\"#000\" />\n\n    <title>Grafana</title>\n\n    <base href=\"/\" />\n\n    <link rel=\"icon\" type=\"image/png\" href=\"public/img/fav32.png\" />\n    <link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"public/img/apple-touch-icon.png\" />\n    <link rel=\"mask-icon\" href=\"public/img/grafana_mask_icon.svg\" color=\"#F05A28\" />\n\n    \n    \n    <link rel=\"stylesheet\" href=\"public/build/grafana.dark.75ad3458069d453da8ea.css\" />\n    \n\n    <script nonce=\"\">\n      performance.mark('frontend_boot_css_time_seconds');\n    </script>\n\n    <meta name=\"apple-mobile-web-app-capable\" content=\"yes\" />\n    <meta name=\"apple-mobile-web-app-status-bar-style\" content=\"black\" />\n    <meta name=\"msapplication-TileColor\" content=\"#2b5797\" />\n    <meta name=\"msapplication-config\" content=\"publ"
+      }
+    },
+    {
+      "tag": "lg-sc03d-00817",
+      "requestId": "220626fa-1be1-49c0-a216-f2496fe92dfa",
+      "expectedSaleId": "3e2ad9e7-25b3-4737-b856-53c964f398d0",
+      "response": {
+        "status": 404,
+        "sent_ts": "2026-11-09T09:33:02.512Z",
+        "ok": false,
+        "err": "invalid sale response JSON",
+        "body": "<!DOCTYPE html>\n<html lang=\"en-US\">\n  <head>\n    \n    <meta charset=\"utf-8\" />\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\" />\n    <meta name=\"viewport\" content=\"width=device-width\" />\n    <meta name=\"theme-color\" content=\"#000\" />\n\n    <title>Grafana</title>\n\n    <base href=\"/\" />\n\n    <link rel=\"icon\" type=\"image/png\" href=\"public/img/fav32.png\" />\n    <link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"public/img/apple-touch-icon.png\" />\n    <link rel=\"mask-icon\" href=\"public/img/grafana_mask_icon.svg\" color=\"#F05A28\" />\n\n    \n    \n    <link rel=\"stylesheet\" href=\"public/build/grafana.dark.75ad3458069d453da8ea.css\" />\n    \n\n    <script nonce=\"\">\n      performance.mark('frontend_boot_css_time_seconds');\n    </script>\n\n    <meta name=\"apple-mobile-web-app-capable\" content=\"yes\" />\n    <meta name=\"apple-mobile-web-app-status-bar-style\" content=\"black\" />\n    <meta name=\"msapplication-TileColor\" content=\"#2b5797\" />\n    <meta name=\"msapplication-config\" content=\"publ"
+      }
+    },
+    {
+      "tag": "lg-sc03d-00818",
+      "requestId": "1689816f-91e1-4d96-9597-53820615e6c6",
+      "expectedSaleId": "e9d9e065-9bd7-4c40-881a-cb8b3d0f56a1",
+      "response": {
+        "status": 404,
+        "sent_ts": "2026-11-09T09:33:02.546Z",
+        "ok": false,
+        "err": "invalid sale response JSON",
+        "body": "<!DOCTYPE html>\n<html lang=\"en-US\">\n  <head>\n    \n    <meta charset=\"utf-8\" />\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\" />\n    <meta name=\"viewport\" content=\"width=device-width\" />\n    <meta name=\"theme-color\" content=\"#000\" />\n\n    <title>Grafana</title>\n\n    <base href=\"/\" />\n\n    <link rel=\"icon\" type=\"image/png\" href=\"public/img/fav32.png\" />\n    <link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"public/img/apple-touch-icon.png\" />\n    <link rel=\"mask-icon\" href=\"public/img/grafana_mask_icon.svg\" color=\"#F05A28\" />\n\n    \n    \n    <link rel=\"stylesheet\" href=\"public/build/grafana.dark.75ad3458069d453da8ea.css\" />\n    \n\n    <script nonce=\"\">\n      performance.mark('frontend_boot_css_time_seconds');\n    </script>\n\n    <meta name=\"apple-mobile-web-app-capable\" content=\"yes\" />\n    <meta name=\"apple-mobile-web-app-status-bar-style\" content=\"black\" />\n    <meta name=\"msapplication-TileColor\" content=\"#2b5797\" />\n    <meta name=\"msapplication-config\" content=\"publ"
+      }
+    },
+    {
+      "tag": "lg-sc03d-00819",
+      "requestId": "eef28f0c-f397-475b-8aac-d29a362c3ec5",
+      "expectedSaleId": "7a75216a-dc2f-4c97-acf2-b64e16ac8c0a",
+      "response": {
+        "status": 404,
+        "sent_ts": "2026-11-09T09:33:02.567Z",
+        "ok": false,
+        "err": "invalid sale response JSON",
+        "body": "<!DOCTYPE html>\n<html lang=\"en-US\">\n  <head>\n    \n    <meta charset=\"utf-8\" />\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\" />\n    <meta name=\"viewport\" content=\"width=device-width\" />\n    <meta name=\"theme-color\" content=\"#000\" />\n\n    <title>Grafana</title>\n\n    <base href=\"/\" />\n\n    <link rel=\"icon\" type=\"image/png\" href=\"public/img/fav32.png\" />\n    <link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"public/img/apple-touch-icon.png\" />\n    <link rel=\"mask-icon\" href=\"public/img/grafana_mask_icon.svg\" color=\"#F05A28\" />\n\n    \n    \n    <link rel=\"stylesheet\" href=\"public/build/grafana.dark.75ad3458069d453da8ea.css\" />\n    \n\n    <script nonce=\"\">\n      performance.mark('frontend_boot_css_time_seconds');\n    </script>\n\n    <meta name=\"apple-mobile-web-app-capable\" content=\"yes\" />\n    <meta name=\"apple-mobile-web-app-status-bar-style\" content=\"black\" />\n    <meta name=\"msapplication-TileColor\" content=\"#2b5797\" />\n    <meta name=\"msapplication-config\" content=\"publ"
+      }
+    },
+    {
+      "tag": "lg-sc03d-00820",
+      "requestId": "27a323a9-3101-4153-9ac6-c2a8b95301e7",
+      "expectedSaleId": "caffbbdb-3037-4e9b-b3e8-c8e9a9763f4d",
+      "response": {
+        "status": 404,
+        "sent_ts": "2026-11-09T09:33:02.577Z",
+        "ok": false,
+        "err": "invalid sale response JSON",
+        "body": "<!DOCTYPE html>\n<html lang=\"en-US\">\n  <head>\n    \n    <meta charset=\"utf-8\" />\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\" />\n    <meta name=\"viewport\" content=\"width=device-width\" />\n    <meta name=\"theme-color\" content=\"#000\" />\n\n    <title>Grafana</title>\n\n    <base href=\"/\" />\n\n    <link rel=\"icon\" type=\"image/png\" href=\"public/img/fav32.png\" />\n    <link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"public/img/apple-touch-icon.png\" />\n    <link rel=\"mask-icon\" href=\"public/img/grafana_mask_icon.svg\" color=\"#F05A28\" />\n\n    \n    \n    <link rel=\"stylesheet\" href=\"public/build/grafana.dark.75ad3458069d453da8ea.css\" />\n    \n\n    <script nonce=\"\">\n      performance.mark('frontend_boot_css_time_seconds');\n    </script>\n\n    <meta name=\"apple-mobile-web-app-capable\" content=\"yes\" />\n    <meta name=\"apple-mobile-web-app-status-bar-style\" content=\"black\" />\n    <meta name=\"msapplication-TileColor\" content=\"#2b5797\" />\n    <meta name=\"msapplication-config\" content=\"publ"
+      }
+    },
+    {
+      "tag": "lg-sc03d-00821",
+      "requestId": "ec403693-88eb-4327-9d5d-547feffbc8d0",
+      "expectedSaleId": "10a4cb1c-78d1-40a4-a3dc-1a1bd97a5fa0",
+      "response": {
+        "status": 404,
+        "sent_ts": "2026-11-09T09:33:02.584Z",
+        "ok": false,
+        "err": "invalid sale response JSON",
+        "body": "<!DOCTYPE html>\n<html lang=\"en-US\">\n  <head>\n    \n    <meta charset=\"utf-8\" />\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\" />\n    <meta name=\"viewport\" content=\"width=device-width\" />\n    <meta name=\"theme-color\" content=\"#000\" />\n\n    <title>Grafana</title>\n\n    <base href=\"/\" />\n\n    <link rel=\"icon\" type=\"image/png\" href=\"public/img/fav32.png\" />\n    <link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"public/img/apple-touch-icon.png\" />\n    <link rel=\"mask-icon\" href=\"public/img/grafana_mask_icon.svg\" color=\"#F05A28\" />\n\n    \n    \n    <link rel=\"stylesheet\" href=\"public/build/grafana.dark.75ad3458069d453da8ea.css\" />\n    \n\n    <script nonce=\"\">\n      performance.mark('frontend_boot_css_time_seconds');\n    </script>\n\n    <meta name=\"apple-mobile-web-app-capable\" content=\"yes\" />\n    <meta name=\"apple-mobile-web-app-status-bar-style\" content=\"black\" />\n    <meta name=\"msapplication-TileColor\" content=\"#2b5797\" />\n    <meta name=\"msapplication-config\" content=\"publ"
+      }
+    }
+  ]
+}
