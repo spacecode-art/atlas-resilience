@@ -1,0 +1,2 @@
+CERT_HAS_EXPIRED
+command terminated with exit code 1
