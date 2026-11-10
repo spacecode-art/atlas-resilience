@@ -5,6 +5,32 @@ follows [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-11-10
+
+First complete release: Phase 5 (Resilience) on a local 3-zone kind cluster.
+Every result below is one local observation, not a general claim.
+
+- `feat(resilience)`: SC-02 retry-safety replay (`scripts/sc02-replay.mjs`,
+  `--replay-lost` and `--verify-lost`); the load generator now sends a
+  `requestId` per sale. Run `sc03d`: 12 sales were recorded but never
+  acknowledged, and all 12 were recovered by retrying the same request ID,
+  one database row each.
+- `feat(resilience)`: volume-loss restore drill
+  (`scripts/sc02-restore-drill.sh`). Run `rpo2`: 187 s of exposure since the
+  backup, 150 sales. A public-schema-only backup is not a full recovery (5
+  foreign keys to `auth.users` failed to restore); backups must include the
+  `auth` schema.
+- `feat(resilience)`: SC-04 expired-certificate run `demo2`: 1,950 sent,
+  1,609 validated sales, 1,609 database rows, 0 missing, 0 duplicates, 0 lost
+  responses. Recorded in a demo video linked from the README.
+- `docs(evidence)`: SC-03d replay and volume-loss drill write-ups under
+  `docs/evidence/review/`; demo shot list in `docs/demo/`.
+- `docs(readme)`: Future Roadmap added (sale-path detection, backups
+  including `auth`, retry-capable client, health endpoint, SC-07, ADR-0005);
+  Demo Video section added; stale roadmap-status and audit files removed.
+- `test`: suite at 57/57 passing.
+- `chore`: ignore `measurements/results/*/*.dump`.
+
 - `docs(adr)`: ADR-0001 (local kind cluster as failure domain), ADR-0002
   (Chaos Mesh plus scripted host faults), ADR-0003 (Tawira on kind,
   Supabase on the host; accepted after the environment spike)
