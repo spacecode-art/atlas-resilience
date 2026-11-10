@@ -134,7 +134,6 @@ atlas-resilience/
 ├── .github/
 │   ├── workflows/
 │   │   └── ci.yml                 # secrets scan via atlas-security
-│   └── dependabot.yml
 ├── cluster/
 │   └── kind-config.yaml           # 1 control plane + 3 zone-labeled workers
 ├── target/
@@ -403,7 +402,8 @@ states what its alerts cover.
 and push to `main`. Secrets scanning consumes `atlas-security`'s reusable
 `reusable-secrets-scan.yml` (pinned to `v1.0.4`). A separate Node 22 job runs
 `node --test tests/*.test.mjs` using fixtures and command stubs;
-it does not start a cluster or inject faults. Dependabot tracks GitHub Actions.
+it does not start a cluster or inject faults. GitHub Actions versions are
+maintained directly in the workflow.
 
 ---
 

@@ -41,8 +41,7 @@ Every result below is one local observation, not a general claim.
   placement skew during a rolling update
 - `docs(evidence)`: spike S1 (cluster) and S5 (zone spread, before and
   after) results
-- `ci`: secrets scan via `atlas-security`'s reusable workflow, Dependabot
-  for GitHub Actions
+- `ci`: secrets scan via `atlas-security`'s reusable workflow
 - `docs(readme)`: README rewritten to the Atlas standard
 - `chore`: removed empty scaffold placeholder files; each returns when
   it has content
