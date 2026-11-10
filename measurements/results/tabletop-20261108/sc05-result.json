@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "fixtureOnly": true,
+  "simulated_detection_s": 1,
+  "simulated_containment_s": 3,
+  "simulated_restoration_s": 4,
+  "oldKeyProbe": "denied",
+  "replacementExpectedProbe": "allowed",
+  "replacementForbiddenProbe": "denied",
+  "limitations": [
+    "No AWS API call",
+    "No STS session revocation",
+    "No production identity or credential"
+  ]
+}

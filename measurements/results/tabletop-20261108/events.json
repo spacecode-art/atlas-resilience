@@ -1,0 +1,65 @@
+[
+  {
+    "at": "2026-11-08T10:11:53.224Z",
+    "scenario": "SC-05",
+    "action": "identify unexpected fixture event",
+    "result": "passed",
+    "simulated_elapsed_s": 1,
+    "principal": "atlas-dev-rehearsal"
+  },
+  {
+    "at": "2026-11-08T10:11:53.224Z",
+    "scenario": "SC-05",
+    "action": "preserve audit fixture and scope resource",
+    "result": "passed",
+    "simulated_elapsed_s": 2,
+    "eventId": "fixture-event-001"
+  },
+  {
+    "at": "2026-11-08T10:11:53.224Z",
+    "scenario": "SC-05",
+    "action": "disable old fixture key",
+    "result": "passed",
+    "simulated_elapsed_s": 3,
+    "oldKeyProbe": "denied"
+  },
+  {
+    "at": "2026-11-08T10:11:53.224Z",
+    "scenario": "SC-05",
+    "action": "replace consumer and verify least privilege",
+    "result": "passed",
+    "simulated_elapsed_s": 4,
+    "expectedProbe": "allowed",
+    "forbiddenProbe": "denied",
+    "activeFingerprint": "d0cdbae6090f4fd0"
+  },
+  {
+    "at": "2026-11-08T10:11:53.381Z",
+    "scenario": "SC-06",
+    "action": "synthetic detector finds fixture token",
+    "result": "passed",
+    "simulated_elapsed_s": 1,
+    "matchedFiles": [
+      ".env"
+    ]
+  },
+  {
+    "at": "2026-11-08T10:11:53.381Z",
+    "scenario": "SC-06",
+    "action": "git archive excludes untracked .env",
+    "result": "passed",
+    "simulated_elapsed_s": 2,
+    "archiveEntries": [
+      "consumer.txt"
+    ]
+  },
+  {
+    "at": "2026-11-08T10:11:53.381Z",
+    "scenario": "SC-06",
+    "action": "mock consumer rotation",
+    "result": "passed",
+    "simulated_elapsed_s": 3,
+    "oldConsumerProbe": "denied",
+    "newConsumerProbe": "allowed"
+  }
+]

@@ -34,6 +34,6 @@ fixture suite remained at 50 passing tests.
 
 ADR-0001 was corrected from duplicated workload text with the correction date
 visible. SC-01 verdicts were consolidated while preserving the user's cautious
-“not refuted” interpretation and narrowing unisolated scheduling claims. The
-roadmap checklist tracks missing DNS/certificate designs and the recorded
-Game Day separately from optional SC-07/AWS work.
+“not refuted” interpretation and narrowing unisolated scheduling claims. SC-03
+DNS and SC-04 certificate design reviews were separate from this SC-02
+preparation pass.

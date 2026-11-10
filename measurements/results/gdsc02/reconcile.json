@@ -1,0 +1,13 @@
+{
+  "run": "gdsc02",
+  "sent": 6750,
+  "sales_ok": 4319,
+  "database_rows": 4319,
+  "distinct_database_tags": 4319,
+  "clean_success": 4319,
+  "clean_failure": 2431,
+  "acknowledged_missing_or_mismatched": 0,
+  "lost_response": 0,
+  "duplicate_tags": 0,
+  "unmatched_database_tags": 0
+}

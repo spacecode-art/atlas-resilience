@@ -1,9 +1,11 @@
 # Atlas resilience Game Day plan
 
 ## Status
-Prepared 2026-11-02. Date and participants not scheduled. **Not executed or
-recorded.** SC-01 evidence is one prior experiment, not a Game Day recording.
-Use [the record template](record-template.md) during a future session.
+Prepared 2026-11-02 and executed as a solo local session on 2026-11-08. See the
+[execution record](2026-11-08-execution.md) and [postmortem](../postmortems/2026-11-08-game-day.md).
+The session exercised SC-01, SC-02 and synthetic SC-05/SC-06. It did not
+include an ADR-0005 comparison, live IAM or secret rotation, external
+notifications, or video recording.
 
 ## Objectives and roles
 Demonstrate trustworthy sale outcomes and recovery evidence, distinguish
@@ -20,7 +22,7 @@ abort path; never describe simulated roles as separate participants.
 - Fresh run IDs, prewritten hypotheses/targets, recorded versions and manifest
   choice, tested restore commands, sufficient stock and an available observer.
 - SC-02 procedure reviewed separately; F-01 open detection gap explicitly noted.
-- SC-05/SC-06 use synthetic fixtures and an emulator; no real credentials.
+- SC-05/SC-06 use synthetic local fixtures; no provider APIs or real credentials.
 - Recording destination and redaction review chosen. Do not record terminal
   secrets, private project references, tokens or webhook URLs. No automatic
   publishing/upload or third-party notification is part of this plan.
@@ -49,4 +51,5 @@ fixed dashboard time range. Mark recording gaps or missing audio rather than
 reconstructing them. Keep the raw recording private until reviewed for secrets;
 store a redacted link and timestamps in the record only after a real recording
 exists. Commit sanitized textual evidence and postmortem with measured verdicts,
-remaining gaps and follow-up owners. No recording artifact exists yet.
+remaining gaps and follow-up owners. The 2026-11-08 session has no recording
+artifact; its text evidence is the session record and per-run artifacts.

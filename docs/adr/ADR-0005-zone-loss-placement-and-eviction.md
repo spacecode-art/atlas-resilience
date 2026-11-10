@@ -1,8 +1,9 @@
 # ADR-0005: Zone-loss placement and eviction
 
 ## Status
-Accepted for a controlled comparison on 2026-11-02. The overlay is prepared,
-not deployed or measured. The default Deployment preserves the `sc01c3` policy.
+Controlled comparison completed on 2026-11-08. All predeclared local criteria
+passed. The comparison overlay was rolled back; the default Deployment remains
+the unchanged baseline policy.
 
 ## Context
 One local `sc01c3` run recovered successful sales in 60 s, but the third replica
@@ -63,3 +64,35 @@ defines eligible domains, taint policy and `minDomains`.
 [Kubernetes tolerations](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/)
 documents the implicit 300-second tolerations. Reviewed 2026-11-02.
 All domains here are labels on one host, not independent availability zones.
+
+## Comparison result: `sc01d` (2026-11-08)
+
+The baseline run `gdsc01` recovered sale success in 60 s. It had two Ready
+endpoints after worker3 loss until the worker returned; three endpoints were
+first sampled again at +499 s. In the pre-registered comparison, the replacement
+pod became Ready on surviving worker2 at +126 s while worker3 was NotReady.
+The Deployment remained at three replicas and the endpoint count returned to
+three. It was placed in zone-b alongside the existing worker2 replica; the
+overlay did not rebalance it after worker3 returned.
+
+The 120-second control passed with 642 requests, 100% validated sales,
+p95 614 ms and p99 1,042 ms. `sc01d` sent 5,550 requests; 5,454 validated sales
+matched distinct ledger rows and 96 were clean transport failures. There were
+no acknowledged sales missing, lost responses, duplicate tags or unmatched
+rows. Sale-success RTO was 90 s at 30 s resolution, within the unchanged
+120-second target. Failure send times were +2 to +61 s; none followed restore.
+
+| Predeclared criterion | Observation | Verdict |
+|---|---|---|
+| Third Ready replica on a surviving worker within 180 s | Ready on worker2 at +126 s | Met |
+| Sale-success RTO at most 120 s | 90 s, 30 s resolution | Met |
+| No acknowledged missing sales or duplicate tags | 0 missing/mismatched, 0 duplicates, 0 unmatched tags | Met |
+
+The overlay was removed by reapplying `target/tawira/tawira.yaml`; the rollout
+completed with no explicit tolerations and 1/1/1 placement. This validates the
+overlay against the local workload and this one fault. It does not prove
+independent-zone recovery, establish behavior for stateful workloads, or
+automatically justify promotion to the default. Evidence includes the
+[pre-registration](../evidence/review/2026-11-08-sc01d-hypotheses.md), rendered
+[candidate](../evidence/review/2026-11-08-sc01d-candidate-deployment.yaml), and
+`measurements/results/sc01d/`.

@@ -1,8 +1,8 @@
 # SC-06: Secret leak detection and rotation tabletop
 
 ## Status and scope
-Designed 2026-11-02. A synthetic local rehearsal (`tabletop-20261107`) passed
-on 2026-11-07. No real secret was generated, leaked, revoked or sent to a third
+Designed 2026-11-02. Synthetic local rehearsals (`tabletop-20261107` and
+`tabletop-20261108`) passed. No real secret was generated, leaked, revoked or sent to a third
 party. The work ran in a disposable local repository with a local regex detector;
 never seed a real credential in Atlas history.
 
@@ -53,3 +53,7 @@ verify archive containment and 3 s to rotate the mock consumer. This is process 
 Gitleaks was not invoked, no issuer was contacted and no real secret was
 rotated. Evidence is in `measurements/results/tabletop-20261107/sc06-scan.json`
 and `events.json`.
+
+The Game Day repeat is in `measurements/results/tabletop-20261108/` and passed
+the same fixture checks. It does not extend Gitleaks rule-set coverage or prove
+real credential revocation or consumer rotation.

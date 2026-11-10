@@ -1,7 +1,11 @@
 # SC-01: Loss of one zone's worker
 
 ## Status
-Designed 2026-10-16. One valid local run completed on 2026-11-02 (`sc01c3`); earlier attempts are preserved below. Predictions below are written before the run so they can fail.
+Designed 2026-10-16. Two unchanged-policy baseline runs completed: `sc01c3`
+on 2026-11-02 and `gdsc01` during the 2026-11-08 Game Day. The separate
+ADR-0005 overlay comparison `sc01d` also completed on 2026-11-08. Earlier
+attempts are preserved below. Predictions below are written before the run so
+they can fail.
 
 ## Fault
 `docker kill` on the kind worker `atlas-resilience-worker3` (zone-c), held for 8 minutes, then
@@ -170,3 +174,31 @@ Underlying cause: not diagnosed. The cluster was rebuilt before node-network dia
 captured, so the suspected cause (Docker reassigning node container IPs after a host restart) is
 unverified. The control gate and loadgen IP check in the script now detect this condition at the
 start of a run.
+
+### `gdsc01`: Game Day repeat (2026-11-08)
+
+The 120-second control passed with 636 validated sales, p95 437 ms and p99
+684 ms. Worker3 was killed at 09:05:19Z and restored at 09:13:24Z. It became
+Ready at 09:13:27Z with its original IP. The 5 RPS run sent 5,550 requests;
+5,465 validated sales matched 5,465 distinct ledger rows. There were 85 clean
+transport failures, no acknowledged sales missing, lost responses, duplicate
+tags or unmatched rows. Sale-success RTO was 60 s at 30 s resolution, within
+the 120 s target. Failures were sent from 0 to 49 s after the fault; none were
+sent after restoration. No alert-range export was captured for this run. This is a second
+local observation, not an independent-zone availability result. Artifacts are
+in `measurements/results/gdsc01/`.
+
+### `sc01d`: ADR-0005 comparison (2026-11-08)
+
+The taint-aware hard-spread overlay with 60-second not-ready/unreachable
+tolerations produced a third Ready replica on worker2 at +126 s while worker3
+was NotReady. Sale-success RTO was 90 s at 30 s resolution. The 5,550-request
+run recorded 5,454 validated sales and 96 clean transport failures; all
+validated sales matched unique ledger rows, with zero lost responses,
+acknowledged mismatches or duplicates. All three predeclared acceptance
+criteria passed. The replacement stayed on worker2 after worker3 returned, so
+the overlay was rolled back and the baseline Deployment restored to 1/1/1.
+This is one local comparison, not an independent-zone result. Details and the
+pre-registered hypotheses are in [ADR-0005](../adr/ADR-0005-zone-loss-placement-and-eviction.md)
+and `docs/evidence/review/2026-11-08-sc01d-hypotheses.md`; raw artifacts are in
+`measurements/results/sc01d/`.
