@@ -1,0 +1,107 @@
+{
+  "apiVersion": "batch/v1",
+  "kind": "Job",
+  "metadata": {
+    "name": "loadgen-demo2",
+    "namespace": "tawira"
+  },
+  "spec": {
+    "backoffLimit": 0,
+    "template": {
+      "metadata": {
+        "labels": {
+          "app": "loadgen",
+          "sc04-run": "demo2"
+        }
+      },
+      "spec": {
+        "containers": [
+          {
+            "command": [
+              "node",
+              "/scripts/loadgen.mjs"
+            ],
+            "envFrom": [
+              {
+                "secretRef": {
+                  "name": "loadgen-env"
+                }
+              }
+            ],
+            "image": "tawira:chaos-local",
+            "imagePullPolicy": "Never",
+            "name": "loadgen",
+            "securityContext": {
+              "allowPrivilegeEscalation": false,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ]
+              }
+            },
+            "volumeMounts": [
+              {
+                "mountPath": "/scripts",
+                "name": "script"
+              },
+              {
+                "name": "tls-ca",
+                "mountPath": "/tls-ca",
+                "readOnly": true
+              }
+            ],
+            "env": [
+              {
+                "name": "RPS",
+                "value": "5"
+              },
+              {
+                "name": "DURATION_S",
+                "value": "390"
+              },
+              {
+                "name": "RUN_ID",
+                "value": "demo2"
+              },
+              {
+                "name": "TARGET_URL",
+                "value": "https://sc04-tls-proxy.tawira.svc.cluster.local"
+              },
+              {
+                "name": "NODE_EXTRA_CA_CERTS",
+                "value": "/tls-ca/ca.crt"
+              }
+            ]
+          }
+        ],
+        "restartPolicy": "Never",
+        "securityContext": {
+          "runAsGroup": 101,
+          "runAsNonRoot": true,
+          "runAsUser": 100,
+          "seccompProfile": {
+            "type": "RuntimeDefault"
+          }
+        },
+        "volumes": [
+          {
+            "configMap": {
+              "name": "loadgen-script"
+            },
+            "name": "script"
+          },
+          {
+            "name": "tls-ca",
+            "secret": {
+              "secretName": "sc04-tls-ca"
+            }
+          }
+        ],
+        "nodeSelector": {
+          "kubernetes.io/hostname": "atlas-resilience-worker2"
+        }
+      }
+    },
+    "ttlSecondsAfterFinished": 3600
+  }
+}

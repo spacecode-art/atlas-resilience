@@ -1,0 +1,14 @@
+{
+  "scenario": "SC-04",
+  "mode": "run",
+  "run": "demo2",
+  "context": "kind-atlas-resilience",
+  "loadgen_node": "atlas-resilience-worker2",
+  "rps": 5,
+  "control_s": 120,
+  "fault_s": 60,
+  "recovery_s": 180,
+  "proxy_image_id": "docker.io/library/import-2026-11-02@sha256:dcf35f75d5644e1489482f976806ad9aa50f14baea4ae749e656008c0fb9b518",
+  "source_commit": "c6950a8b89d5d361eb16b5700365537fc0903c52",
+  "started_at": "2026-11-09T11:11:21Z"
+}
