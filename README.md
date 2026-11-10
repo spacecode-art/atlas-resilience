@@ -459,7 +459,9 @@ service timings.
 
 ## Demo Video
 
-Not yet recorded. The shot list is in [`docs/demo/SHOT-LIST.md`](docs/demo/SHOT-LIST.md); the recording will show a live run and the committed evidence.
+[Watch the 4-minute SC-04 demo](https://drive.google.com/file/d/1SHNW-F4W-AL_ygm3cPUmxkAM6TDuw5Ri/view?usp=sharing)
+
+A live run of SC-04 (expired TLS certificate), run `demo2`, recorded on the local kind cluster. It shows the control phase, the fault, the certificate replacement and recovery, and the reconciliation: 1,950 sent, 1,609 validated sales, 1,609 database rows, with 0 missing and 0 duplicates. It also shows the `sc03d` replay result, where 12 sales were recorded but never acknowledged and all 12 were recovered. The recording is one local observation, not a general claim. The evidence is in `measurements/results/demo2/` and `measurements/results/sc03d/`. The shot list is in [`docs/demo/SHOT-LIST.md`](docs/demo/SHOT-LIST.md); the recording will show a live run and the committed evidence.
 
 ---
 
