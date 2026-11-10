@@ -1,0 +1,11 @@
+2026-11-08T09:46:49.747Z LOAD started run=gdsc02 rps=5 duration=1350s
+2026-11-08T09:47:04.942Z PHASE control (105s)
+2026-11-08T09:48:50.055Z CONTROL OK: validated sales, volume and latency targets met
+2026-11-08T09:48:50.073Z FAULT docker stop local-test-db
+2026-11-08T09:48:52.961Z DB_STOPPED
+2026-11-08T09:48:52.962Z PHASE db-unavailable (480s)
+2026-11-08T09:56:52.963Z RESTORE docker start local-test-db
+2026-11-08T09:56:55.667Z DB_READY
+2026-11-08T09:56:55.668Z PHASE recovery (600s)
+2026-11-08T10:06:55.672Z RECOVERY_OBSERVATION_COMPLETE
+2026-11-08T10:09:25.489Z DONE measurement and ledger captured; verify verdicts and alert history before reporting results

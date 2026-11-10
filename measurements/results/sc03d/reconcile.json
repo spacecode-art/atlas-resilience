@@ -1,0 +1,13 @@
+{
+  "run": "sc03d",
+  "sent": 1950,
+  "sales_ok": 1752,
+  "database_rows": 1764,
+  "distinct_database_tags": 1764,
+  "clean_success": 1752,
+  "clean_failure": 186,
+  "acknowledged_missing_or_mismatched": 0,
+  "lost_response": 12,
+  "duplicate_tags": 0,
+  "unmatched_database_tags": 0
+}

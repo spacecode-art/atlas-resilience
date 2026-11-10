@@ -1,0 +1,2 @@
+2026-11-09T10:15:00.272Z LOAD started run=rpo2load rps=5 duration=30s
+2026-11-09T10:15:33.936Z DONE measurement and ledger captured; verify verdicts and alert history before reporting results

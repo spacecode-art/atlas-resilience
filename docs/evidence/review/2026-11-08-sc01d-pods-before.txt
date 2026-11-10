@@ -1,0 +1,4 @@
+NAME                      READY   STATUS    RESTARTS   AGE    IP            NODE                       NOMINATED NODE   READINESS GATES
+tawira-6d9cdf7bf4-7t7hf   1/1     Running   0          94s    10.244.1.5    atlas-resilience-worker3   <none>           <none>
+tawira-6d9cdf7bf4-vl59q   1/1     Running   0          101s   10.244.2.13   atlas-resilience-worker2   <none>           <none>
+tawira-6d9cdf7bf4-ws2q9   1/1     Running   0          87s    10.244.3.7    atlas-resilience-worker    <none>           <none>

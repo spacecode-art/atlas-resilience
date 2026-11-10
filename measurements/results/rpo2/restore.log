@@ -1,0 +1,35 @@
+pg_restore: error: could not execute query: ERROR:  schema "public" already exists
+Command was: CREATE SCHEMA public;
+
+
+pg_restore: error: could not execute query: ERROR:  insert or update on table "branch_assignments" violates foreign key constraint "branch_assignments_user_id_fkey"
+DETAIL:  Key (user_id)=(4619f68c-7d44-4701-8ac8-6e48131b4e58) is not present in table "users".
+Command was: ALTER TABLE ONLY public.branch_assignments
+    ADD CONSTRAINT branch_assignments_user_id_fkey FOREIGN KEY (user_id) REFERENCES auth.users(id) ON DELETE CASCADE;
+
+
+pg_restore: error: could not execute query: ERROR:  insert or update on table "pos_sale_requests" violates foreign key constraint "pos_sale_requests_cashier_id_fkey"
+DETAIL:  Key (cashier_id)=(4619f68c-7d44-4701-8ac8-6e48131b4e58) is not present in table "users".
+Command was: ALTER TABLE ONLY public.pos_sale_requests
+    ADD CONSTRAINT pos_sale_requests_cashier_id_fkey FOREIGN KEY (cashier_id) REFERENCES auth.users(id) ON DELETE CASCADE;
+
+
+pg_restore: error: could not execute query: ERROR:  insert or update on table "profiles" violates foreign key constraint "profiles_id_fkey"
+DETAIL:  Key (id)=(4619f68c-7d44-4701-8ac8-6e48131b4e58) is not present in table "users".
+Command was: ALTER TABLE ONLY public.profiles
+    ADD CONSTRAINT profiles_id_fkey FOREIGN KEY (id) REFERENCES auth.users(id) ON DELETE CASCADE;
+
+
+pg_restore: error: could not execute query: ERROR:  insert or update on table "sales" violates foreign key constraint "sales_cashier_id_fkey"
+DETAIL:  Key (cashier_id)=(4619f68c-7d44-4701-8ac8-6e48131b4e58) is not present in table "users".
+Command was: ALTER TABLE ONLY public.sales
+    ADD CONSTRAINT sales_cashier_id_fkey FOREIGN KEY (cashier_id) REFERENCES auth.users(id) ON DELETE SET NULL;
+
+
+pg_restore: error: could not execute query: ERROR:  insert or update on table "user_roles" violates foreign key constraint "user_roles_user_id_fkey"
+DETAIL:  Key (user_id)=(4619f68c-7d44-4701-8ac8-6e48131b4e58) is not present in table "users".
+Command was: ALTER TABLE ONLY public.user_roles
+    ADD CONSTRAINT user_roles_user_id_fkey FOREIGN KEY (user_id) REFERENCES auth.users(id) ON DELETE CASCADE;
+
+
+pg_restore: warning: errors ignored on restore: 6
