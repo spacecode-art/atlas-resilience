@@ -136,7 +136,7 @@ await new Promise((done) => {
       results.push(r);
       r.ok = r.status === 200 && r.ok === true;
       const keepBody = idx === 0 || !r.ok;
-      console.log(JSON.stringify({ tag, requestId, ts: new Date().toISOString(), sent_ts: r.sent_ts, status: r.status, ok: r.ok, saleId: r.saleId, ms: r.ms, err: r.err, body: keepBody ? r.body : undefined }));
+      console.log(JSON.stringify({ tag, requestId, productId: pid, ts: new Date().toISOString(), sent_ts: r.sent_ts, status: r.status, ok: r.ok, saleId: r.saleId, ms: r.ms, err: r.err, body: keepBody ? r.body : undefined }));
     });
     inflight.add(p);
     p.finally(() => inflight.delete(p));
